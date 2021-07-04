@@ -2,7 +2,7 @@
 
 - 前台Demo：http://kelai.lianjieweilai.net/
 - 管理后台Demo：http://kelai.lianjieweilai.net/admin/login
-- 用户名：admin   密码：admin
+- 管理后台用户名：admin   密码：admin
 
 ## 技术栈
 
