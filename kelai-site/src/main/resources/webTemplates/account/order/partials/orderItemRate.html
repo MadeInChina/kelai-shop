@@ -1,0 +1,20 @@
+<blc:div class="new-rating"
+         th:data-product-id="${orderItem.getSku().getProduct().getId()}" th:data-item-id="${orderItem.id}">
+    <div class="rate-product" th:data-item-id="${orderItem.id}">
+        <label>&nbsp;<span>评分</span></label>
+        <input type="radio" class="star" th:name="${'rating-' + orderItem.id}" value="1"/>
+        <input type="radio" class="star" th:name="${'rating-' + orderItem.id}" value="2"/>
+        <input type="radio" class="star" th:name="${'rating-' + orderItem.id}" value="3"/>
+        <input type="radio" class="star" th:name="${'rating-' + orderItem.id}" value="4"/>
+        <input type="radio" class="star" th:name="${'rating-' + orderItem.id}" value="5"/>
+    </div>
+    <div th:class="${'rating-star-error-' + orderItem.id}" style="color: #E40037;display: none;"></div>
+    <div class="form-group label-floating" style="width: 100% !important;">
+        <label class="control-label">评论内容</label>
+        <span class="text-danger"></span>
+        <textarea th:data-item-id="${orderItem.id}" th:name="${'reviewText-' + orderItem.id}" class="form-control" rows="6">
+
+        </textarea>
+    </div>
+    <div th:class="${'rating-review-text-error-' + orderItem.id}" style="color: #E40037;display: none;"></div>
+</blc:div>

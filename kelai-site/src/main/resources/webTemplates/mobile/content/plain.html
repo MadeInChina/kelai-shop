@@ -1,0 +1,17 @@
+<th:block layout:decorate="~{mobile/layout/fullPageLayout}">
+    <head layout:fragment="custom-head">
+        <th:block th:include="mobile/seo/partials/seoMetaProperties" th:with="metaProperties=${#seo.getMetaProperties(BLC_PAGE)}" />
+    </head>
+
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <header>
+                    <h3 th:utext="${BLC_PAGE.pageFields[title]}"></h3>
+                </header>
+
+                <div th:utext="${BLC_PAGE.pageFields[body]}"></div>
+            </div>
+        </div>
+    </div>
+</th:block>

@@ -1,0 +1,10 @@
+<div class="related-products">
+    <h3 class="text-center">相关商品</h3>
+    <div class="related-products-item"  th:each="product : ${relatedProducts}" th:object="${product}"
+         th:include="mobile/catalog/partials/productListItem"
+         th:if="${product.isActive()}">
+    </div>
+    <div class="no-related-products" th:if="${relatedProducts.size() == 0 }">
+        <span>无相关商品</span>
+    </div>
+</div>

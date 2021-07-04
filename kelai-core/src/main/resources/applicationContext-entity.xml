@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- This file will contain bean overrides for extensions of Broadleaf entities -->
+    <!-- For example, if you have a custom class that extends CustomerImpl, you would note that here -->
+    <!--<bean id="org.broadleafcommerce.profile.core.domain.Customer"
+          class="YouZanPuZiCustomerImpl"
+          scope="prototype"/>-->
+    <bean id="org.broadleafcommerce.core.catalog.domain.Product"
+          class="cn.com.kelaikewang.core.catalog.domain.ZaoJiCMSProductImpl"
+          scope="prototype"/>
+    <!--<bean id="com.broadleafcommerce.customfield.domain.CustomField" class="com.broadleafcommerce.customfield.domain.CustomFieldImpl" scope="prototype"/>-->
+    <!--<bean id="blUpdateAccountValidator" class="UpdateAccountValidator"/>-->
+    <bean id="org.broadleafcommerce.profile.core.domain.Address"
+          class="cn.com.kelaikewang.core.profile.domain.ZaoJiCMSAddressImpl"
+          scope="prototype" />
+    <bean id="org.broadleafcommerce.core.order.domain.Order"
+          class="cn.com.kelaikewang.core.order.domain.ZaoJiCMSOrderImpl"
+          scope="prototype"/>
+    <bean id="cn.com.kelaikewang.core.logistics.domain.ShippingTemplate"
+          class="cn.com.kelaikewang.core.logistics.domain.ShippingTemplateImpl"
+          scope="prototype"/>
+    <bean id="cn.com.kelaikewang.core.logistics.domain.ShippingMethod"
+          class="cn.com.kelaikewang.core.logistics.domain.ShippingMethodImpl"
+          scope="prototype"/>
+    <bean id="cn.com.kelaikewang.core.logistics.domain.FreightPricingRule"
+          class="cn.com.kelaikewang.core.logistics.domain.ShippingPricingRuleImpl"
+          scope="prototype"/>
+    <bean id="cn.com.kelaikewang.core.logistics.domain.ShippingPricingRuleItem"
+          class="cn.com.kelaikewang.core.logistics.domain.ShippingPricingRuleItemImpl"
+          scope="prototype"/>
+    <bean id="cn.com.kelaikewang.core.logistics.domain.ShippingTemplateShippingMethod"
+          class="cn.com.kelaikewang.core.logistics.domain.ShippingPricingRuleImpl"
+          scope="prototype"/>
+    <bean id="cn.com.kelaikewang.core.store.domain.ZaoJiCMSStore"
+          class="cn.com.kelaikewang.core.store.domain.ZaoJiCMSStoreImpl"
+          scope="prototype"/>
+    <bean id="cn.com.kelaikewang.core.offer.domain.OfferCodeGroup"
+          class="cn.com.kelaikewang.core.marketing.domain.OfferCodeGroupImpl"
+          scope="prototype"/>
+    <bean id="cn.com.kelaikewang.uid.worker.domain.WorkerNode"
+          class="cn.com.kelaikewang.infrastructure.id.uid.worker.domain.WorkerNodeImpl"
+          scope="prototype"/>
+    <bean id="org.broadleafcommerce.core.payment.domain.OrderPayment"
+          class="cn.com.kelaikewang.core.payment.domain.ZaoJiCMSOrderPaymentImpl"
+          scope="prototype"/>
+
+    <bean id="cn.com.kelaikewang.core.marketing.domain.RecommendedProduct"
+          class="cn.com.kelaikewang.core.marketing.domain.RecommendedProductImpl"
+          scope="prototype"/>
+    <bean id="cn.com.kelaikewang.core.catalog.domain.ProductColorOptionValueMedia"
+          class="cn.com.kelaikewang.core.catalog.domain.ProductColorOptionValueMediaImpl"
+          scope="prototype"/>
+    <bean id="org.broadleafcommerce.profile.core.domain.Customer"
+          class="cn.com.kelaikewang.core.profile.domain.ZaoJiCMSCustomerImpl"
+          scope="prototype"/>
+
+    <bean id="cn.com.kelaikewang.core.article.domain.Article"
+          class="cn.com.kelaikewang.core.article.domain.ArticleImpl"
+          scope="prototype"/>
+    <bean id="cn.com.kelaikewang.core.article.domain.ArticleCategory"
+          class="cn.com.kelaikewang.core.article.domain.ArticleCategoryImpl"
+          scope="prototype"/>
+    <bean id="cn.com.kelaikewang.core.article.domain.ArticleComment"
+          class="cn.com.kelaikewang.core.article.domain.ArticleCommentImpl"
+          scope="prototype"/>
+    <bean id="cn.com.kelaikewang.core.article.domain.ArticleCommentFloor"
+          class="cn.com.kelaikewang.core.article.domain.ArticleFloorCommentImpl"
+          scope="prototype"/>
+    <bean id="org.broadleafcommerce.core.order.domain.OrderItem"
+          class="cn.com.kelaikewang.core.order.domain.ZaoJiCMSOrderItemImpl"
+          scope="prototype"/>
+
+    <bean id="cn.com.kelaikewang.core.order.domain.AfterSalesService"
+          class="cn.com.kelaikewang.core.order.domain.AfterSalesImpl"
+          scope="prototype"/>
+
+    <bean id="cn.com.kelaikewang.core.logistics.domain.ExpressCompany"
+          class="cn.com.kelaikewang.core.logistics.domain.ExpressCompanyImpl"
+          scope="prototype"/>
+
+   <!-- <bean id="org.broadleafcommerce.core.rating.domain.RatingSummary"
+          class="cn.com.kelaikewang.core.rating.domain.ZaoJiCMSRatingSummaryImpl"
+          scope="prototype"/>-->
+
+</beans>

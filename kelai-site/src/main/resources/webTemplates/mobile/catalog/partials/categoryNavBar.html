@@ -1,0 +1,15 @@
+<div class="mh-head Sticky">
+				<span class="mh-btns-right">
+					<a id="btn-filter" href="javascript:void(0)" style="color: #ffffff;">筛选</a>
+				</span>
+    <span class="mh-text" th:utext="${category.name}">Contacts</span>
+    <span class="mh-btns-left">
+					<a href="#menu" class="mburger mburger--spin" style="color: #ffffff;">
+						<b></b>
+						<b></b>
+						<b></b>
+					</a>
+				</span>
+</div>
+<th:block th:replace="mobile/layout/partials/searchBar" />
+<th:block th:replace="mobile/layout/partials/navMenu"></th:block>

@@ -1,0 +1,2 @@
+org.broadleafcommerce.common.module.BroadleafModuleRegistration=org.broadleafcommerce.vendor.wxpay.config.WxPayModuleRegistration
+org.broadleafcommerce.common.config.FrameworkCommonClasspathPropertySource=org.broadleafcommerce.vendor.wxpay.config.WxPayProperties

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="zh"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang="zh"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="zh"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="zh"> <!--<![endif]-->
+
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">[[${#props.get('siteTitle')}]]</title>
+    <th:block th:replace="layout/partials/head" />
+    <th:block layout:fragment="custom-head">
+    </th:block>
+</head>
+
+<body th:class="${'locale-' + session.blLocale.localeCode}">
+<!--<header th:replace="layout/partials/header"></header>-->
+
+<div id="content" class="width_setter group" role="main">
+
+    <nav th:replace="layout/partials/nav"></nav>
+
+    <div class="main account-page">
+        <div class="section">
+            <div class="container">
+
+                <ul th:replace="account/partials/accountMenu"></ul>
+
+                <div class="col-sm-9">
+                    <th:block layout:fragment="content" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <th:block th:replace="partials/store"></th:block>
+    <th:block th:replace="account/partials/qrcode"></th:block>
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=0ztLsTTubZFUCTY92bo75QfE"></script>
+<footer th:replace="layout/partials/footer"></footer>
+<script src="/static/pc/js/serviceCategory.js"></script>
+    <script src="/static/pc/js/store.js"></script>
+    <script src="/static/pc/js/orderOperations.js"></script>
+    <th:block layout:fragment="custom-script">
+    </th:block>
+</body>
+</html>

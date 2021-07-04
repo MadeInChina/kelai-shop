@@ -1,0 +1,14 @@
+<div th:with="isCheckoutContext=${true}">
+    <th:block th:if="${#checkoutForm.shouldShowShippingInfoStage()}">
+        <th:block th:replace="checkout/stages/shippingStage" />
+    </th:block>
+
+    <!-- <th:block th:replace="checkout/stages/paymentStage" />-->
+
+    <!--<th:block th:replace="checkout/stages/reviewStage" />-->
+</div>
+
+
+<th:block th:replace="cart/partials/cartItemSummary" />
+
+<th:block th:replace="checkout/stages/submitOrderStage" />

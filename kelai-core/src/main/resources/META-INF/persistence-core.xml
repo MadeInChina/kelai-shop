@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Reference Site Core
+  %%
+  Copyright (C) 2009 - 2016 Broadleaf Commerce
+  %%
+  Licensed under the Broadleaf Fair Use License Agreement, Version 1.0
+  (the "Fair Use License" located  at http://license.broadleafcommerce.org/fair_use_license-1.0.txt)
+  unless the restrictions on use therein are violated and require payment to Broadleaf in which case
+  the Broadleaf End User License Agreement (EULA), Version 1.1
+  (the "Commercial License" located at http://license.broadleafcommerce.org/commercial_license-1.1.txt)
+  shall apply.
+  
+  Alternatively, the Commercial License may be replaced with a mutually agreed upon license (the "Custom License")
+  between you and Broadleaf Commerce. You may not use this file except in compliance with the applicable license.
+  #L%
+  -->
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+    <persistence-unit name="blPU" transaction-type="RESOURCE_LOCAL">
+        <non-jta-data-source>jdbc/web</non-jta-data-source>
+
+        <mapping-file>config/bc/jpa/domain/InventoryNotification.orm.xml</mapping-file>
+        <mapping-file>config/bc/jpa/domain/ShippingPricingRuleItem.orm.xml</mapping-file>
+        <mapping-file>config/bc/jpa/domain/ZaoJiCMSProduct.orm.xml</mapping-file>
+        <mapping-file>config/bc/jpa/domain/ZaoJiCMSStore.orm.xml</mapping-file>
+        <mapping-file>config/bc/jpa/domain/ZaoJiCMSOrder.orm.xml</mapping-file>
+        <mapping-file>config/bc/jpa/domain/ZaoJiCMSCustomer.orm.xml</mapping-file>
+        <mapping-file>config/bc/jpa/domain/Article.orm.xml</mapping-file>
+        <!--<mapping-file>config/bc/jpa/domain/ZaoJiCMSRatingSummary.orm.xml</mapping-file>-->
+
+        <class>org.broadleafcommerce.common.payment.domain.PaymentUnifiedOrderImpl</class>
+        <class>cn.com.kelaikewang.core.profile.domain.ZaoJiCMSCustomerImpl</class>
+        <class>cn.com.kelaikewang.core.inventory.domain.InventoryNotificationImpl</class>
+        <class>cn.com.kelaikewang.core.profile.domain.ZaoJiCMSAddressImpl</class>
+        <class>cn.com.kelaikewang.core.administrativeRegion.domain.CityImpl</class>
+        <class>cn.com.kelaikewang.core.administrativeRegion.domain.RegionImpl</class>
+        <class>cn.com.kelaikewang.core.administrativeRegion.domain.StreetImpl</class>
+        <class>cn.com.kelaikewang.core.order.domain.ZaoJiCMSOrderImpl</class>
+        <class>cn.com.kelaikewang.core.logistics.domain.ShippingTemplateImpl</class>
+        <class>cn.com.kelaikewang.core.logistics.domain.ShippingMethodImpl</class>
+        <class>cn.com.kelaikewang.core.logistics.domain.ShippingPricingRuleImpl</class>
+        <class>cn.com.kelaikewang.core.catalog.domain.ZaoJiCMSProductImpl</class>
+        <class>cn.com.kelaikewang.core.logistics.domain.ShippingPricingRuleItemImpl</class>
+        <class>cn.com.kelaikewang.core.logistics.domain.ShippingPricingRuleImpl</class>
+        <class>cn.com.kelaikewang.core.store.domain.ZaoJiCMSStoreImpl</class>
+        <class>cn.com.kelaikewang.core.marketing.domain.OfferCodeGroupImpl</class>
+        <class>cn.com.kelaikewang.infrastructure.id.uid.worker.domain.WorkerNodeImpl</class>
+        <class>cn.com.kelaikewang.core.payment.domain.ZaoJiCMSOrderPaymentImpl</class>
+        <class>cn.com.kelaikewang.core.marketing.domain.RecommendedProductImpl</class>
+        <class>cn.com.kelaikewang.core.catalog.domain.ProductColorOptionValueMediaImpl</class>
+
+        <class>cn.com.kelaikewang.core.article.domain.ArticleCommentImpl</class>
+        <class>cn.com.kelaikewang.core.article.domain.ArticleImpl</class>
+        <class>cn.com.kelaikewang.core.article.domain.ArticleCategoryImpl</class>
+        <class>cn.com.kelaikewang.core.article.domain.ArticleFloorCommentImpl</class>
+
+        <class>cn.com.kelaikewang.core.order.domain.ZaoJiCMSOrderItemImpl</class>
+        <class>cn.com.kelaikewang.core.order.domain.AfterSalesImpl</class>
+        <class>cn.com.kelaikewang.core.logistics.domain.ExpressCompanyImpl</class>
+        <!--<class>cn.com.kelaikewang.core.rating.domain.ZaoJiCMSRatingSummaryImpl</class>-->
+        <!--<class>com.broadleafcommerce.customfield.domain.CustomFieldImpl</class>-->
+        <exclude-unlisted-classes/>
+
+    </persistence-unit>
+    
+    <persistence-unit name="blSecurePU" transaction-type="RESOURCE_LOCAL">
+        <non-jta-data-source>jdbc/webSecure</non-jta-data-source>
+        <exclude-unlisted-classes/>
+    </persistence-unit>
+
+    <persistence-unit name="blCMSStorage" transaction-type="RESOURCE_LOCAL">
+        <non-jta-data-source>jdbc/cmsStorage</non-jta-data-source>
+        <exclude-unlisted-classes/>
+    </persistence-unit>
+
+</persistence>

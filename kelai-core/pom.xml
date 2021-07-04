@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>cn.com.kelaikewang</groupId>
+        <artifactId>kelai</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>kelai-core</artifactId>
+    <packaging>jar</packaging>
+    
+    <name>KeLai Shop Core</name>
+    <description>Customizations And Extensions For KeLai Shop Services And Entities</description>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-framework</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-contentmanagement-module</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-framework-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-profile</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-menu</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-sample-payment-gateway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-commons</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.58</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-mp</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-integration-wechat</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-common</artifactId>
+            <version>6.1.5.2-GA</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-infrastructure</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+      <!--  <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <version>1.0.0</version>
+            <artifactId>nextshop-distribution-api</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-integration-redis</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-pay</artifactId>
+            <version>3.4.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>4.7.12.ALL</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+    <repositories>
+
+        <!--  <repository>
+              <id>public releases</id>
+              <name>public releases</name>
+              <url>http://nexus.broadleafcommerce.org/nexus/content/groups/community-releases/</url>
+          </repository>-->
+        <repository>
+            <id>maven-releases</id>
+            <name>maven-releases</name>
+            <url>http://116.63.95.86:8081/repository/maven-releases/</url>
+        </repository>
+    </repositories>
+</project>

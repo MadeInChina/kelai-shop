@@ -1,0 +1,23 @@
+<th:block layout:decorate="~{layout/accountLayout}" layout:fragment="content">
+    <div class="card manage-account-form-wrapper js-manageAccountFormWrapper">
+        <h3>账号安全信息</h3>
+        <hr />
+        <div class="col-sm-9 col-md-6">
+
+            <blc:form class="account-form" action="#" th:action="@{/account}"  method="POST">
+                <div class="form-group label-floating error-group">
+                    <span>手机号：</span>
+                    <span th:utext="${mobile}"></span>
+                    <a href="/account/security/mobile" style="padding-left: 5px;">修改手机号</a>
+                </div>
+                <div class="form-group label-floating error-group">
+                    <span>邮箱：</span>
+                    <span th:if="${email != null && email != ''}" th:text="${email}"></span>
+                    <span th:if="${email == null || email ==''}">您尚未绑定邮箱，现在就</span>
+                    <a style="padding-left: 5px;" th:if="${email == null || email ==''}" href="/account/security/bindEmail">绑定邮箱</a>
+                    <a  style="padding-left: 5px;" th:if="${email != null && email != ''}" href="/account/security/updateEmail">修改邮箱</a>
+                </div>
+            </blc:form>
+        </div>
+    </div>
+</th:block>

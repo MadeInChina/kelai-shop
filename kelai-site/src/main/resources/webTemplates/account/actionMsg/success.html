@@ -1,0 +1,10 @@
+<th:block layout:decorate="~{layout/accountLayout}" layout:fragment="content">
+    <div class="card manage-account-form-wrapper js-manageAccountFormWrapper">
+        <h3>提示</h3>
+        <hr />
+        <div class="col text-center">
+            <i class="material-icons" style="color: #388e3c; font-size: 60px;">done</i>
+            <h4 th:utext="${successMessage}"></h4>
+        </div>
+    </div>
+</th:block>

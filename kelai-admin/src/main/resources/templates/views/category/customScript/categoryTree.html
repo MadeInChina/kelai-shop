@@ -1,0 +1,71 @@
+<script>
+    var setting = {
+        view: {
+            addHoverDom: addHoverDom,
+            removeHoverDom: removeHoverDom,
+            selectedMulti: false
+        },
+        edit: {
+            enable: true,
+            editNameSelectAll: true,
+            showRemoveBtn: showRemoveBtn,
+            renameTitle: '编辑'
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            beforeEditName: beforeEditName
+        }
+    };
+
+    function beforeEditName(treeId, treeNode) {
+        window.location.href = '/admin/category/' + treeNode.id + '#tab1';
+        return false;
+    }
+
+    function showRemoveBtn(treeId, treeNode) {
+        return false;
+    }
+
+    function addHoverDom(treeId, treeNode) {
+        var sObj = $("#" + treeNode.tId + "_span");
+        if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+            + "' title='新增子分类' onfocus='this.blur();'></span>";
+        sObj.after(addStr);
+        var btn = $("#addBtn_"+treeNode.tId);
+        if (btn) btn.bind("click", function(){
+            var action = $('.add-main-entity').data('url');
+            BLCAdmin.showLinkAsModal(action);
+            $('#clickedCategoryId').val(treeNode.id);
+            return false;
+        });
+    };
+    function removeHoverDom(treeId, treeNode) {
+        $("#addBtn_"+treeNode.tId).unbind().remove();
+    };
+
+    $(document).ready(function(){
+        if (typeof zNodes != 'undefined') {
+            $.fn.zTree.init($("#categoryTreeList"), setting, zNodes);
+            $('button[data-url="/admin/category/add?entityType=org.broadleafcommerce.core.catalog.domain.CategoryImpl"]').bind('click',function () {
+                $('#clickedCategoryId').val('');
+            });
+        }
+        ajaxModalContentLoadCompleteIntercept('新增 商品分类',function () {
+            var clickedCategoryId = $('#clickedCategoryId').val();
+            if ( clickedCategoryId != ''){
+                for (var i=0;i<zNodes.length;i++){
+                    if (zNodes[i].id == clickedCategoryId) {
+                        $('input[name="fields[\'defaultParentCategory\'].value"]').val(zNodes[i].id);
+                        $('input[name="fields[\'defaultParentCategory\'].displayValue"]').val(zNodes[i].name);
+                        $(".display-value").val(zNodes[i].name);
+                    }
+                }
+            }
+        });
+    });
+</script>

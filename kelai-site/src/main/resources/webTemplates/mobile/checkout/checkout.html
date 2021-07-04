@@ -1,0 +1,65 @@
+<th:block layout:decorate="~{mobile/layout/checkoutPageLayout}" th:with="isCheckoutContext=${true}">
+    <head>
+        <title>结账</title>
+    </head>
+
+    <div id="checkout" class="checkout js-checkout row" layout:fragment="content" th:fragment="ajax">
+        <th:block th:if="${#lists.isEmpty(cart.orderItems)}">
+            <div class="col-md-12">
+                <div class="cart-warning">
+                    <h1>购物车为空</h1>
+                    <a th:href="@{/}" class="btn btn-primary btn-lg">继续购物</a>
+                </div>
+            </div>
+        </th:block>
+
+        <th:block th:if="${cartRequiresLock != null}">
+            <div class="col-md-12">
+                <div class="cart-warning">
+                    <h1 th:utext="#{csr_lockCartBeforeCheckout}"></h1>
+
+                    <a th:href="@{${'/csrtools/lock-cart/' + cart.id}}"
+                       th:unless="${customer.isAnonymous() or cart.id == null or cart.status.type == 'CSR_OWNED'}"
+                       th:text="#{csr_lockCart}"
+                       class="btn btn-primary btn-lg enterprise-csr-tools csr-action"
+                       id="csr-action-lock-cart"></a>
+                </div>
+            </div>
+        </th:block>
+
+        <th:block th:unless="${#lists.isEmpty(cart.orderItems) or cartRequiresLock != null}">
+            <div class="col-md-12">
+                <h1 >结账</h1>
+            </div>
+
+            <div class="col-md-8" th:if="${#paymentMethod.getPaymentProcessingError()}">
+                <div class="card checkout-card payment-processing-error" th:with="message=#{${#paymentMethod.getPaymentProcessingError()}}">
+                    <th:block th:replace="~{mobile/checkout/partials/checkoutAlert}"/>
+                </div>
+            </div>
+
+            <div class="col-md-8 js-checkoutStages">
+                <th:block th:replace="mobile/checkout/partials/checkoutStages" />
+            </div>
+
+            <div class="col-md-4" th:unless="${#lists.isEmpty(cart.orderItems)}">
+
+                <th:block th:replace="mobile/cart/partials/cartPricingSummary" />
+
+
+                <th:block th:replace="mobile/cart/partials/cartItemSummary" />
+
+
+                <th:block th:replace="mobile/checkout/partials/promoCodes" />
+
+
+                <th:block th:if="${#module.isPresent('Gift Cards and Customer Credit (AccountCredit)')}">
+                    <th:block th:replace="mobile/checkout/partials/accountCreditForm" />
+                </th:block>
+
+            </div>
+        </th:block>
+
+        <div id="blc-extra-data" class="is-hidden" th:utext="${blcextradata}" th:if="${!#strings.isEmpty(blcextradata)}"></div>
+    </div>
+</th:block>

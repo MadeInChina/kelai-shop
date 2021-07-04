@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>cn.com.kelaikewang</groupId>
+        <artifactId>kelai</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>kelai-admin</artifactId>
+    <packaging>jar</packaging>
+
+    <name>KeLai Admin</name>
+    <description>Web Module For Customized KeLai Admin</description>
+
+    <properties>
+        <debug.port>8001</debug.port>
+    </properties>
+
+    <build>
+        <finalName>kelai-admin</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-admin-module</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-contentmanagement-module</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-framework-web</artifactId>
+        </dependency>
+      <!--  <dependency>
+            <groupId>com.broadleafcommerce</groupId>
+            <artifactId>broadleaf-boot-starter-solr</artifactId>
+        </dependency>-->
+      <!--  <dependency>
+            <groupId>com.broadleafcommerce</groupId>
+            <artifactId>broadleaf-boot-starter-hsql-database</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>com.broadleafcommerce</groupId>
+            <artifactId>broadleaf-boot-starter-database</artifactId>
+            <version>2.0.3-GA</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-thymeleaf3-presentation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-paypal</artifactId>
+            <version>3.0.2-GA</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-wxpay</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-alipay</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-contentbuilder</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.broadleafcommerce</groupId>
+            <artifactId>broadleaf-custom-field</artifactId>
+            <version>1.1.1-GA</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--janino-->
+        <!--若用到了logback的if标签的condition表达式，就需要该坐标-->
+        <!--否则会抛出该错误：ERROR in ch.qos.logback.core.joran.conditional.IfAction - Could not find Janino library on the class path. Skipping conditional processing.-->
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.janino/commons-compiler -->
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>commons-compiler</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+
+        <!--<dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <version>1.0.0</version>
+            <artifactId>kelai-template-managerment</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-commons</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-integration-wechat</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>maven-releases</id>
+            <name>maven-releases</name>
+            <url>http://116.63.95.86:8081/repository/maven-releases/</url>
+        </repository>
+    </repositories>
+
+</project>

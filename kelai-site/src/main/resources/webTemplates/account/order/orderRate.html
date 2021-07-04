@@ -1,0 +1,115 @@
+<html layout:decorate="~{layout/accountLayout}">
+<th:block layout:fragment="custom-head">
+    <style type="text/css">
+        .apply-refund-form{
+            margin-bottom: 50px;
+        }
+        .order-total{
+            text-align: right;
+            font-weight: bold;
+        }
+        .radio .help-block{
+            padding-left: 15px;
+        }
+        .refund{
+            text-align: center;
+        }
+        .refund button{
+            margin-top: 20px;
+        }
+    </style>
+</th:block>
+<th:block layout:fragment="content">
+    <div class="card manage-account-form-wrapper js-manageAccountFormWrapper">
+        <h3>评价</h3>
+        <table style="width: 100%;" class="table">
+            <tr th:each="orderItem : ${order.orderItems}" >
+                <td style="width: 200px;text-align: center;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                    <a th:href="${orderItem.getSku().getProduct().getUrl()}">
+                        <img th:src="${orderItem.product.media['primary'].url}" style="padding-bottom: 10px;padding-top: 10px;width: 150px;">
+                    </a>
+                    <p>
+                        <a th:href="${orderItem.getSku().getProduct().getUrl()}" th:utext="${orderItem.getName()}"></a>
+                    </p>
+                    <p>
+                        <span style="padding-left: 10px;" blc:price="*{orderItem.salePrice}"></span>
+                    </p>
+                </td>
+                <td class="order-item-col" style="vertical-align: top;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                    <th:block th:include="account/order/partials/orderItemRate" />
+                </td>
+            </tr>
+        </table>
+        <div style="text-align: center;">
+            <button id="submit-rate" type="button" class="btn btn-danger">
+                提交
+            </button>
+        </div>
+    </div>
+</th:block>
+<th:block layout:fragment="custom-script">
+    <script>
+        $(function (){
+            //提交评论
+            $('#submit-rate').bind('click',function (){
+                var error = false;
+                var newRatings = $('.new-rating');
+                var rates = [];
+                for(var i=0;i<newRatings.length;i++){
+                    var orderItemId = $(newRatings[i]).data('item-id');
+                    var productId = $(newRatings[i]).data('product-id');
+                    var rate = $(newRatings[i]).find('input[name="rating-' + orderItemId + '"]:checked').val();
+                    var reviewText = $.trim($(newRatings[i]).find('textarea').val());
+                    if (!rate || rate === ''){
+                        $(newRatings[i]).find('.rating-star-error-' + orderItemId).show();
+                        $(newRatings[i]).find('.rating-star-error-' + orderItemId).text('忘记打分咯');
+                        error = true;
+                    }
+                    if (!reviewText || reviewText === ''){
+                        $(newRatings[i]).find('.rating-review-text-error-' + orderItemId).show();
+                        $(newRatings[i]).find('.rating-review-text-error-' + orderItemId).text('请填写评论内容');
+                        error = true;
+                    }
+                    rates.push({
+                        productId : productId,
+                        rating : rate,
+                        reviewText : reviewText
+                    });
+                }
+                if (!error){
+                    $.ajax({
+                        url : '/account/orders/orderRate?csrfToken=' + params.csrfToken,
+                        type : 'POST',
+                        data : JSON.stringify({
+                            orderId : '[[${order.id}]]',
+                            orderItemRates : rates
+                        }),
+                        contentType : 'application/json',
+                        success : function (res){
+                            if (res.status === 'SUCCESS'){
+                                toastr.success('评论提交成功');
+                            }else {
+                                toastr.error('评论提交失败');
+                            }
+                        },
+                        error:function (){
+                            toastr.error('评论提交失败');
+                        }
+                    })
+                }
+            });
+            //监听打分变化
+            $('.star-rating').bind('click',function (){
+                $('.rating-star-error-' + $(this).parent().parent().data('item-id')).hide();
+            });
+            //监听评论内容
+            $('textarea').bind('change',function (){
+               if($.trim($(this).val()) !== ''){
+                   $('.rating-review-text-error-' + $(this).data('item-id')).hide();
+               }
+            });
+        });
+
+    </script>
+</th:block>
+</html>

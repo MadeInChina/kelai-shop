@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--重写ProductController-->
+    <bean id="blProductController" class="cn.com.kelaikewang.controller.catalog.SiteProductController"/>
+    <bean id="blFulfillmentOptionService" class="cn.com.kelaikewang.core.order.service.ZaoJiCMSFulfillmentOptionServiceImpl"/>
+    <bean id="blOrderItemService" class="cn.com.kelaikewang.core.order.service.ZaoJiCMSOrderItemServiceImpl"/>
+    <bean id="blOrderItemDao" class="cn.com.kelaikewang.core.order.dao.ZaoJiCMSOrderItemDaoImpl"/>
+    <bean id="blPayPalCheckoutWebResponseService" class="cn.com.kelaikewang.vendor.paypal.service.gateway.ZaoJiCMSPayPalCheckoutWebResponseServiceImpl" />
+    <bean id="blPayPalPaymentService" class="cn.com.kelaikewang.vendor.paypal.service.ZaoJiCMSPayPalPaymentServiceImpl" />
+    <bean id="blCheckoutStageVariableExpression" class="cn.com.kelaikewang.expression.ZaoJiCMSCheckoutStageVariableExpression"/>
+    <bean id="blDefaultCurrentPaymentRequestService" class="cn.com.kelaikewang.core.order.service.ZaoJiCMSCurrentOrderPaymentRequestService"/>
+    <bean id="blCompleteOrderRollbackHandler" class="cn.com.kelaikewang.core.checkout.service.workflow.ZaoJiCMSCompleteOrderRollbackHandler"/>
+    <bean id="blCompleteOrderActivity" class="cn.com.kelaikewang.core.checkout.service.workflow.ZaoJiCMSCompleteOrderActivity" >
+        <constructor-arg ref="blCompleteOrderRollbackHandler"/>
+    </bean>
+    <bean id="blCheckoutService" class="cn.com.kelaikewang.core.checkout.service.ZaoJiCMSCheckoutServiceImpl"/>
+    <bean id="blOrderService" class="cn.com.kelaikewang.core.order.service.ZaoJiCMSOrderServiceImpl" />
+    <bean id="blRatingService" class="cn.com.kelaikewang.core.rating.service.ZaoJiCMSRatingServiceImpl" />
+    <bean id="blLoginService" class="cn.com.kelaikewang.core.profile.service.ZaoJiCMSLoginServiceImpl"/>
+
+    <bean id="blCustomerAddressValidator" class="cn.com.kelaikewang.controller.account.validator.ZaoJiCMSCustomerAddressValidator" />
+    <bean id="blShippingInfoFormValidator" class="cn.com.kelaikewang.controller.checkout.validator.ZaoJiCMSShippingInfoFormValidator" />
+    <bean id="blUpdateAccountValidator" class="cn.com.kelaikewang.controller.account.validator.UpdateAccountValidator" />
+
+    <bean id="blFixedPriceFulfillmentPricingProvider" class="cn.com.kelaikewang.core.logistics.service.ZaoJiCMSFixedPriceFulfillmentPricingProvider" />
+    <bean id="blBandedFulfillmentPricingProvider" class="cn.com.kelaikewang.core.logistics.service.ZaoJiCMSBandedFulfillmentPricingProvider" />
+    <bean id="blProductOptionValueProcessor" class="cn.com.kelaikewang.processor.ZaoJiCMSProductOptionValueProcessor"/>
+</beans>

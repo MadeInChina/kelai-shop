@@ -1,0 +1,9 @@
+package org.broadleafcommerce.payment.service.gateway;
+
+import org.broadleafcommerce.common.payment.service.AbstractPaymentGatewayTransactionConfirmationService;
+import org.broadleafcommerce.common.payment.service.PaymentGatewayTransactionConfirmationService;
+import org.springframework.stereotype.Service;
+
+@Service("blWxPayTransactionConfirmationService")
+public class WxPayTransactionConfirmationServiceImpl extends AbstractPaymentGatewayTransactionConfirmationService implements PaymentGatewayTransactionConfirmationService {
+}

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>org.broadleafcommerce</groupId>
+        <artifactId>broadleaf-boot-starter-parent</artifactId>
+        <version>6.1.5.2-GA</version>
+        <relativePath />
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>cn.com.kelaikewang</groupId>
+    <artifactId>kelai</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>KeLai Spring Boot project</name>
+
+    <repositories>
+        <repository>
+            <id>maven-releases</id>
+            <name>maven-releases</name>
+            <url>http://116.63.95.86:8081/repository/maven-releases/</url>
+        </repository>
+        <repository>
+            <id>localhost-maven-releases</id>
+            <name>localhost-maven-releases</name>
+            <url>http://127.0.0.1:8081/repository/maven-releases/</url>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <url>http://116.63.95.86:8081/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
+    <properties>
+        <debug.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=${debug.port}</debug.args>
+        <boot.jvm.memory>-Xmx1536M</boot.jvm.memory>
+        <boot.jvm.args>${boot.jvm.memory} ${debug.args}</boot.jvm.args>
+        <blc.version>6.1.5.2-GA</blc.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.uri>${project.baseUri}</project.uri>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <jvmArguments>${boot.jvm.args}</jvmArguments>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.zeroturnaround</groupId>
+                <artifactId>jrebel-maven-plugin</artifactId>
+                <version>1.1.7</version>
+                <executions>
+                    <execution>
+                        <id>generate-rebel-xml</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>jrebel</id>
+            <properties>
+                <boot.jvm.args>${boot.jvm.memory} ${debug.args} ${jrebel.agent.args}</boot.jvm.args>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cn.com.kelaikewang</groupId>
+                <artifactId>kelai-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>kelai-core</module>
+        <module>kelai-site</module>
+        <module>kelai-admin</module>
+        <module>kelai-api</module>
+        <module>kelai-commons</module>
+        <module>kelai-payment-gateway</module>
+        <module>kelai-infrastructure</module>
+        <module>kelai-integration</module>
+        <!--<module>kelai-contentbuilder</module>-->
+        <module>kelai-module-generator</module>
+    </modules>
+</project>

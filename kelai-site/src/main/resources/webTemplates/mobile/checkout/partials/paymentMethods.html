@@ -1,0 +1,58 @@
+<div id="read_only_payment_methods" th:fragment="read-only-payment-methods">
+    <div th:if="${#props.getAsBoolean('enableAlipay')}" class="js-readOnlyPaymentMethod" data-type="Alipay"
+         th:classappend="${#paymentMethod.cartContainsThirdPartyPayment()}? 'is-hidden'">
+
+        <th:block th:replace="~{mobile/checkout/paymentForm/alipayPaymentMethodForm :: read-only}" />
+    </div>
+
+    <div th:if="${#props.getAsBoolean('enableWxPay')}" class="js-readOnlyPaymentMethod" data-type="WxPay"
+         th:classappend="${not #paymentMethod.cartContainsThirdPartyPayment()}? 'is-hidden'">
+
+        <th:block th:replace="~{mobile/checkout/paymentForm/wxpayPaymentMethodForm :: read-only}" />
+    </div>
+ <!--   <div th:if="${#props.getAsBoolean('enablePayPal')}" class="js-readOnlyPaymentMethod" data-type="PayPal"
+         th:classappend="${not #paymentMethod.cartContainsThirdPartyPayment()}? 'is-hidden'">
+
+        <th:block th:replace="~{mobile/checkout/paymentForm/payPalPaymentMethodForm :: read-only}" />
+    </div>-->
+</div>
+
+<div id="payment_methods" th:fragment="payment-methods">
+    <div class="payment-method-selectors js-paymentMethodSelectors">
+        <div>
+            <ul class="payment_methods_ul">
+                <li th:if="${#props.getAsBoolean('enableAlipay')}" class="center-pill" data-value="Alipay">
+                    <!--<a href="#Alipay" data-toggle="pill">支付宝</a>-->
+                    <th:block th:replace="~{mobile/checkout/paymentForm/alipayPaymentMethodForm :: form}" />
+                </li>
+                <li th:if="${#props.getAsBoolean('enableWxPay')}" class="center-pill" data-value="WxPay">
+                    <!--<a href="#WxPay" data-toggle="pill">微信支付</a>-->
+                    <th:block th:replace="~{mobile/checkout/paymentForm/wxpayPaymentMethodForm :: form}" />
+                </li>
+               <!-- <li th:if="${#props.getAsBoolean('enablePayPal')}" class="center-pill" data-value="PayPal">
+                    &lt;!&ndash;<a href="#PayPal" data-toggle="pill" th:utext="#{checkout.paymentMethod.payPal}">PayPal</a>&ndash;&gt;
+                    <th:block th:replace="~{mobile/checkout/paymentForm/payPalPaymentMethodForm :: form}" />
+                </li>-->
+            </ul>
+        </div>
+        <div style="text-align: right;font-size: 20px;color: #E40037;">
+            &yen; <span th:text="${paymentRequest.transactionTotal}"></span>
+        </div>
+    </div>
+
+    <!--<div class="payment-method-content">
+        <div class="payment_info js-paymentInfoForm">
+            <div class="tab-content">
+                <div th:if="${#props.getAsBoolean('enableAlipay')}" id="Alipay" class="tab-pane active">
+                    <th:block th:replace="~{mobile/checkout/payment/alipayPaymentMethodForm :: form}" />
+                </div>
+                <div th:if="${#props.getAsBoolean('enableWxPay')}" id="WxPay" class="tab-pane">
+                    <th:block th:replace="~{mobile/checkout/payment/wxpayPaymentMethodForm :: form}" />
+                </div>
+                <div th:if="${#props.getAsBoolean('enablePayPal')}" id="PayPal" class="tab-pane">
+                    <th:block th:replace="~{mobile/checkout/payment/payPalPaymentMethodForm :: form}" />
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>

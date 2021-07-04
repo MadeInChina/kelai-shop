@@ -1,0 +1,76 @@
+
+<div class="main-content" role="main" style="overflow: auto;">
+    <div id="sectionKey" style="display: none;">/writeOff</div>
+    <div class="sticky-container">
+        <div class="content-area-title-bar entity-form-actions">
+            <h3>
+                订单详情
+            </h3>
+        </div>
+    </div>
+    <div style="padding: 20px 40px;">
+        <div class="fieldset-card field-group">
+            <div class="fieldset-card-content dashboard-actions" th:if="${order == null}" style="text-align: center;">
+                <p style="margin: 20px;color:#3e3947;">
+                <h5>订单不存在</h5>
+                </p>
+            </div>
+            <div class="fieldset-card-content dashboard-actions" th:unless="${order == null}" style="text-align: center;">
+                <div class="order-detail-wrap">
+                    <div class="left">
+                        <h5>提货人信息</h5>
+                        <hr>
+                        <div><span>提货人：</span><span th:text="${order.fullName}">庞先生</span></div>
+                        <div><span>手机：</span><a th:href="${'tel:' + order.mobile}" th:text="${order.mobile}">86-8888888</a></div>
+                        <div>
+                            <span>订单编号：</span><span th:text="${order.orderNumber}">599564709372011499</span>
+                        </div>
+                        <div>
+                            <span>下单日期：</span>
+                            <span th:text="${order.submitDate}"></span>
+                        </div>
+                        <div th:if="${order.writeOffDate}">
+                            <span>核销日期：</span>
+                            <span  th:text="${order.writeOffDate}"></span>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <h5>订单明细</h5>
+                        <hr>
+                        <table style="width: 100%;box-shadow: none;">
+                            <tr th:each="orderItem : ${order.orderItems}">
+                                <td style="width: 100px;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                                    <a href="javascript:void(0)" >
+                                        <img th:src="${'/admin' + orderItem.product.media['primary'].url}" style="padding-bottom: 10px;padding-top: 10px;width: 90px;">
+                                    </a>
+                                </td>
+                                <td class="order-item-col" style="vertical-align: top;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                                    <div style="padding-left: 10px;">
+                                        <a  href="javascript:void(0)" th:utext="${orderItem.getName()}"></a>
+                                    </div>
+
+                                    <span class="order-item-attr" th:each="attr: ${orderItem.getOrderItemAttributes()}">
+                                        <small th:utext="${attr.value.name}"></small>：<small th:utext="${attr.value.value}"></small>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </span>
+                                </td>
+                                <td class="order-item-col" style="vertical-align: top;width: 100px;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                                    <div style="padding-left: 10px;" blc:price="*{orderItem.salePrice}"></div>
+                                    <div style="padding-left: 10px;" th:utext="${'x' + orderItem.getQuantity()}">
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr style="padding-top: 0;padding-bottom: 0;margin: 0;">
+
+                        <div>
+                            <h5> 合计：<span th:text="${order.total}"></span></h5>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

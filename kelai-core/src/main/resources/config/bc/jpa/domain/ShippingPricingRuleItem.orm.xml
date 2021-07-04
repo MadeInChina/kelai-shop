@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+                 version="2.0">
+
+    <named-query name="BC_READ_RULE_ITEMS_BY_RULE_ID">
+        <query>
+            SELECT item FROM cn.com.kelaikewang.core.logistics.domain.ShippingPricingRuleItem item
+            where item.shippingPricingRule.id = :ruleId
+        </query>
+    </named-query>
+    <named-query name="BC_READ_RULE_ITEMS_BY_RULE_ID_AND_RULE_ITEM_ID_NOT_EQ">
+        <query>
+            SELECT item FROM cn.com.kelaikewang.core.logistics.domain.ShippingPricingRuleItem item
+            where item.shippingPricingRule.id = :ruleId and item.id &lt;&gt; :ruleItemId
+        </query>
+    </named-query>
+</entity-mappings>

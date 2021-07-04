@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>到货通知</title>
+</head>
+<body>
+<div>您好：</div>
+<p style="text-indent:2em;">
+    <a th:href="${siteDomain + product.url}" target="_blank" th:utext="${'【' + product.name + '】'}"></a><span style="padding-left: 5px;">已到货，要赶快哦，手慢无。</span>
+</p>
+<div style="text-align: right;" th:text="${siteName}">
+</div>
+<div style="text-align: right;" th:text="${dateTime}">
+
+</div>
+</body>
+</html>

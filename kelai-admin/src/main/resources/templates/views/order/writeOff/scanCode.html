@@ -1,0 +1,29 @@
+
+<div class="main-content" role="main" style="overflow: auto;">
+    <div id="sectionKey" style="display: none;">/writeOff</div>
+    <div class="sticky-container">
+        <div class="content-area-title-bar entity-form-actions">
+            <h3>
+                扫码核销
+            </h3>
+        </div>
+    </div>
+    <div style="padding: 20px 40px;">
+        <div class="fieldset-card field-group">
+            <div class="fieldset-card-content dashboard-actions">
+                <div class="field-group" id="field-defaultSku--weight--weight">
+                    <label>
+                        <span>核销码</span>
+                    </label>
+                    <div style="padding-top: 10px;">
+                        <form id="scanCodeForm" action="/admin/order/pcWriteOff/detail">
+                            <input type="text" id="writeOffCode" name="writeOffCode"  autofocus>
+                            <p style="color: #cccccc;">请使用条码枪扫描二维码或者条形码</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>分类</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <script type="text/javascript">
+        (function (win){
+            var doc = win.document;
+            var html = doc.documentElement;
+            // defaut 1080px
+            var baseWidth = 1080;
+            var grids = baseWidth/100,
+                resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    var clientWidth = html.clientWidth || 375; // default to 375 if can't get device-width
+                    html.style.fontSize = clientWidth / grids + 'px';
+                };
+            win.addEventListener(resizeEvt, recalc, false);
+            recalc();
+        })(window);
+    </script>
+
+    <link rel="stylesheet" href="/css/listCategory.css">
+</head>
+<body>
+
+<div class="main-container">
+
+    <div class="nav">
+        <div class="nav-wrap">
+            <ul class="nav-list">
+                <a href="javascript:void(0)" th:each="menuItem : ${menuItems}" >
+                    <li th:data-menu-id="${menuItem.id}" class="nav-item" th:utext="${menuItem.label}" th:classappend="${menuItemStat.index == 0 ? 'cur' : ''}">工商注册</li>
+                </a>
+            </ul>
+        </div>
+    </div>
+
+    <div class="subcat">
+        <div class="subcat-wrap" th:each="mapItem : ${submenuMap}" th:data-menu-id="${mapItem.key}" style="display: none;">
+
+            <div class="subcat-list" th:each="submenuItem : ${mapItem.value}" >
+                <!-- 内容 -->
+
+                <h3 class="subcat-bigtitle" th:utext="${submenuItem.label}">公司注册</h3>
+
+                <a th:each="subsubmenuItem : ${submenuItem.submenu}" th:href="${subsubmenuItem.url}" class="subcat-item">
+                    <h4 class="subcat-title" th:utext="${subsubmenuItem.label}">1元注册公司，2999元代理记账</h4>
+                    <p class="subcat-intro">轻松开启创业梦想</p>
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script src="/js/libs/jquery-3.1.1.min.js"></script>
+<script th:inline="javascript">
+    function showMenu(menuId){
+        $('.subcat-wrap').each(function () {
+            if($(this).data('menu-id') == menuId){
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    }
+    $('.nav-item').click(function () {
+        $('.nav-item').removeClass('cur');
+        var that = $(this);
+        that.addClass('cur');
+        var menuId = that.data('menu-id');
+        showMenu(menuId);
+    });
+    var menuId = [[${#request.getParameter("menuId") == null ? '' : '' + #request.getParameter("menuId")}]];
+    if (menuId == ''){
+        menuId = $('.nav-item').first().data('menu-id');
+    }
+    showMenu(menuId);
+    $('.nav-item').each(function () {
+        if($(this).data('menu-id') == menuId){
+            $(this).addClass('cur');
+        }else {
+            $(this).removeClass('cur');
+        }
+    });
+
+</script>
+<script>
+    (function (win){
+        var doc = win.document;
+        var html = doc.documentElement;
+        var resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
+            recalContainer = function() {
+                var clientHeight = html.clientHeight;
+                doc.querySelector('.main-container').style.height = clientHeight + 'px';
+            };
+        win.addEventListener(resizeEvt, recalContainer, false);
+        recalContainer();
+    })(window);
+
+</script>
+<script>
+    (function () {
+        var pathname = location.pathname;
+        var navs = document.querySelectorAll('.mod-nav-item');
+        for (var i = 0, l = navs.length; i < l; i++) {
+            var navid=navs[i].getAttribute('id');
+            var curNode=navs[i];
+            if(navid=="navb"){
+                curNode.className += ' cur';
+                break;
+            }
+        }
+    }());
+</script>
+</body>
+</html>
+

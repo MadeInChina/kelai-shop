@@ -1,0 +1,53 @@
+body{
+    background-color: #f4f7fc !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Segoe UI", "Helvetica Neue", "PingFang SC", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei", 微软雅黑, sans-serif;
+}
+a{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Segoe UI", "Helvetica Neue", "PingFang SC", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei", 微软雅黑, sans-serif;
+}
+ul.ztree {
+    /*margin-top: 10px;*/
+    /*border: 1px solid #617775;
+    background: #f0f6e4;*/
+    /*width:220px;
+    height:360px;*/
+    overflow-y:scroll;
+    overflow-x:auto;
+}
+.ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+
+.app-content .content .site-bar{
+    background-color: #0072c6 !important;
+    border: none !important;
+}
+#sandbox-ribbon{
+    display: none !important;
+}
+.button.primary{
+    color: #fff !important;
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+.button.primary:hover{
+    color: #fff !important;
+    background-color: #218838 !important;
+    border-color: #1e7e34 !important;
+}
+body.login .account-actions ul li a {
+    color: #585956;
+}
+.listgrid-body-wrapper tbody tr td a:not(.workflow-icon), tbody tr td a:not(.workflow-icon) {
+    color: #00468C;
+    text-decoration: underline;
+}
+.app-content .content .section-content.sandboxed{
+    padding-top: 50px !important;
+}
+
+.head-logo{
+    float: left;
+    line-height: 50px;
+}
+.pull-right{
+    float: right !important;
+}

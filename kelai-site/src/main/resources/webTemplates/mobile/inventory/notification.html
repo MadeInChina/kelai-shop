@@ -1,0 +1,51 @@
+<div id="account" layout:decorate="~{mobile/layout/fullPageLayout}" layout:fragment="content">
+    <head>
+        <title>到货通知</title>
+    </head>
+
+    <div class="section">
+        <div class="row row-centered">
+            <div id="login" class="login col-sm-5 col-centered">
+                <div class="text-center">
+                    <h3 class="card-title">到货通知</h3>
+                    <div th:each="media : ${product.media}">
+                        <img style="width: 200px;" th:if="${media.key == 'primary'}" th:src="${media.value.url}">
+                    </div>
+                    <div>
+                    <h4 th:utext="${product.name}"></h4>
+                    </div>
+                    <div style="text-align: center;color: #b94a48;">
+                        <span th:if="${product.defaultSku.salePrice != null}" class="price-new"  blc:price="${product.defaultSku.salePrice}">￥10.99</span>
+                        <span class="price-new" th:unless="${product.defaultSku.salePrice != null}" blc:price="${product.defaultSku.retailPrice}"></span>
+                    </div>
+                </div>
+
+                <blc:form method="post">
+                    <div class="alert alert-danger" th:if="${errorMsg != null}" th:utext="${errorMsg}"></div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="material-icons">mail</i></span>
+                        <div class="label-floating form-group">
+                            <label for="emailAddress" class="control-label"><span>邮箱</span></label>
+                            <input id="emailAddress" th:if="${customer.emailAddress == null || customer.emailAddress ==''}" type="email" th:value="${email}" name="emailAddress" class="form-control"/>
+                            <input id="emailAddress" th:if="${customer.emailAddress != null && customer.emailAddress !=''}" type="email" readonly="readonly" th:value="${customer.emailAddress}" name="emailAddress" class="form-control"/>
+                        </div>
+                        <a th:if="${customer.emailAddress == null || customer.emailAddress == ''}" href="javascript:void(0)" id="sendMailCode" style="cursor: pointer;z-index: 99999; position: absolute;top:30px;right: 10px;color: #1a1a1a;">发送验证码</a>
+                        <a th:if="${customer.emailAddress != null && customer.emailAddress != ''}" target="_blank" href="/account/security/updateEmail" style="cursor: pointer;z-index: 99999; position: absolute;top:30px;right: 10px;color: #1a1a1a;">修改邮箱</a>
+                    </div>
+                    <div class="input-group" th:if="${customer.emailAddress == null || customer.emailAddress == ''}">
+                        <span class="input-group-addon"><i class="material-icons">spellcheck</i></span>
+                        <div class="label-floating form-group">
+                            <label for="verificationCode" class="control-label"><span>验证码</span></label>
+                            <input id="verificationCode" type="text" name="verificationCode" class="form-control"/>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block" type="submit">提交</button>
+
+                </blc:form>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

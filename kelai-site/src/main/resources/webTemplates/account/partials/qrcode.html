@@ -1,0 +1,27 @@
+<div class="modal fade" id="qrcodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">提货码</h4>
+            </div>
+            <div class="modal-body" id="storeModalBody" style="overflow-y: auto;">
+                <!--<div style="display: none;" id="loading">
+                    <img src="/img/loading.gif"> 加载中，请稍后...
+                </div>-->
+                <div style="text-align: center;" id="qrcodeContainer">
+                    <div>
+                        <img id="qrcode" style="width: 400px;">
+                    </div>
+
+                    <div style="padding-top: 20px;">
+                        <img id="barcode" style="width: 400px;">
+                    </div>
+                </div>
+                <div style="text-align: center;font-size: 20px;padding-top: 20px;">
+                    <b id="writeOffCode"></b>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>订单详情</title>
+    <!-- Bootstrap core CSS -->
+    <blc:bundle name="writeOff.css"
+                mapping-prefix="/static/libs/"
+                files="bootstrap/4.5/css/bootstrap.min.css,toastr/toastr.css"></blc:bundle>
+    <style type="text/css">
+
+        .info-title{
+            height: 40px;
+        }
+        .write-off-btn-container{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        .write-off-btn-container button{
+            border-radius: 0;
+        }
+        .order-total{
+            padding: 10px;
+        }
+        .order-item-bottom-border{
+            border-bottom: 1px solid #dddddd;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <table style="width: 100%;margin-bottom: 0;" class="table">
+        <tr>
+            <td class="info-title">
+                <span><b>提货人信息</b></span>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;">
+                <div><span>提货人：</span><span th:text="${order.fullName}">庞先生</span></div>
+                <div><span>手机：</span><a th:href="${'tel:' + order.mobile}" th:text="${order.mobile}">86-8888888</a></div>
+                <div>
+                    <span>订单编号：</span><span th:text="${order.orderNumber}">599564709372011499</span>
+                </div>
+                <div>
+                    <span>下单日期：</span>
+                    <span th:text="${order.submitDate}"></span>
+                </div>
+                <div>
+                    <span>核销日期：</span>
+                    <span th:text="${order.writeOffDate}"></span>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="card" style="margin-top: 20px;border: none;">
+
+        <table style="width: 100%;" class="table">
+            <tr>
+                <td colspan="3">
+                    <b>订单明细</b>
+                </td>
+            </tr>
+            <tr th:each="orderItem : ${order.orderItems}">
+                <td style="width: 90px;">
+                    <a href="javascript:void(0)">
+                        <img th:src="${'/admin' + orderItem.product.media['primary'].url}" style="padding-bottom: 10px;padding-top: 10px;width: 90px;">
+                    </a>
+                </td>
+                <td class="order-item-col" style="vertical-align: top;width: 225px;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                    <div style="padding-left: 10px;">
+                        <a href="javascript:void(0)" th:utext="${orderItem.getName()}"></a>
+                    </div>
+                    <span class="order-item-attr" th:each="attr: ${orderItem.getOrderItemAttributes()}">
+                        <small th:utext="${attr.value.name}"></small>：<small th:utext="${attr.value.value}"></small>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                </td>
+                <td class="order-item-col" style="vertical-align: top;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                    <div style="padding-left: 10px;" blc:price="*{orderItem.salePrice}"></div>
+                    <div style="padding-left: 10px;" th:utext="${'x' + orderItem.getQuantity()}">
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <hr style="padding-top: 0;padding-bottom: 0;margin: 0;">
+        <div>
+            <div class="order-total">
+                合计：<span th:text="${order.total}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<blc:bundle name="writeOff.js"
+            mapping-prefix="/static/libs/"
+            files="jquery-3.5.1.min.js,toastr/toastr.js"></blc:bundle>
+</body>
+</html>

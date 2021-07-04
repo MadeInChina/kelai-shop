@@ -1,0 +1,56 @@
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="author" content="ZaoJiCMS" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+<link rel="stylesheet" href="/static/libs/google-font/google-font.css">
+<link rel="stylesheet" href="/static/libs/font-awesome-4.7/css/font-awesome.min.css">
+
+<blc:bundle name="libs.css"
+            mapping-prefix="/static/libs/"
+            files="bootstrap/3.4.1/css/bootstrap.min.css,
+                   toastr/toastr.css,
+                   jquery-rating/jquery.rating.css,
+                   pretty-checkbox/pretty-checkbox.min.css" />
+<!-- CSS Files -->
+<blc:bundle name="style.css"
+            mapping-prefix="/static/pc/css/"
+            files="bootstrap-grid-flexbox.css,
+                   material-kit-blue.css,
+                   layout/header-blue.css,
+                   layout/footer.css,
+                   cart/mini-cart-item-list.css,
+                   cart/mini-cart.css,
+                   checkout/checkout.css,
+                   catalog/productListItem.css,
+                   catalog/product.css,
+                   catalog/featuredProduct.css,
+                   catalog/categorySearch.css,
+                   catalog/productSortOptions.css,
+                   catalog/productPagingOption.css,
+                   account/account.css,
+                   account/loginAndRegister.css,
+                   account/wishlist.css,
+                   error/error.css,
+                   style-blue.css" />
+
+<!-- Sandboxing CSS -->
+<th:block th:if="${#brc.sandboxMode}">
+    <blc:bundle name="sandbox.css"
+                mapping-prefix="/static/pc/css/"
+                files="jquery-ui-1.10.2.custom.css,
+                       font-awesome.min.css,
+                       deepLink.css,
+                       sandbox-client.css" />
+</th:block>
+
+<!-- CSR Mode CSS -->
+<th:block th:if="${#brc.csrMode}">
+    <blc:bundle name="csr.css"
+                mapping-prefix="/static/pc/css/"
+                files="csr-client.css" />
+    <th:block th:if="${#module.isPresent('OMS')}">
+        <blc:bundle name="oms-csr.css"
+                    mapping-prefix="/static/pc/css/"
+                    files="omsClient.css" />
+    </th:block>
+</th:block>

@@ -1,0 +1,13 @@
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle top-bar-padding" data-toggle="dropdown">
+        <i class="material-icons">account_circle</i>[[${customer.firstName}]]
+    </a>
+    <ul class="dropdown-menu account-actions">
+        <li>
+            <a class="top-bar-padding" th:href="@{/account}">个人中心</a>
+        </li>
+        <li>
+            <a class="top-bar-padding" th:href="@{/logout}">退出</a>
+        </li>
+    </ul>
+</li>

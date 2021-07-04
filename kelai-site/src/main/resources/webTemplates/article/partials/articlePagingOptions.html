@@ -1,0 +1,17 @@
+<th:block th:if="${articlePageOfItems != null and articlePageOfItems.getPageCount() > 1 and articlePageOfItems.recordCount > 0}">
+    <div class="pager" th:unless="${#lists.isEmpty(articlePageOfItems.items)}">
+        <ul class="pagination pagination-primary">
+            <li class="inactive pagination-arrow">
+                <a th:if="${articlePageOfItems.pageIndex > 1}" blc:paginationpagelink="${articlePageOfItems.pageIndex - 1}"><span>&lt;</span></a>
+                <a th:unless="${articlePageOfItems.pageIndex > 1}" class="disabled" href="javascript:void(0);"><span>&lt;</span></a>
+            </li>
+            <li th:each="num : ${#numbers.sequence(1, articlePageOfItems.getPageCount())}" th:class="${articlePageOfItems.pageIndex == num}? 'active' : 'inactive'">
+                <a blc:paginationpagelink="${num}"><span th:utext="${num}"></span></a>
+            </li>
+            <li class="inactive pagination-arrow">
+                <a th:if="${articlePageOfItems.pageIndex < articlePageOfItems.getPageCount()}" blc:paginationpagelink="${articlePageOfItems.pageIndex + 1}"><span>&gt;</span></a>
+                <a th:unless="${articlePageOfItems.pageIndex < articlePageOfItems.getPageCount()}" class="disabled" href="javascript:void(0);"><span>&gt;</span></a>
+            </li>
+        </ul>
+    </div>
+</th:block>

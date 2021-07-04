@@ -1,0 +1,71 @@
+<header class="site-bar">
+
+    <li th:replace="layout/partials/additionalHeaderMenu" ></li>
+
+    <!--<div class="alert-box">-->
+        <!--<div class="dropdown">-->
+            <!--<div class="dropdown-toggle" id="notifications" data-toggle="dropdown" aria-expanded="true">-->
+                <!--<i class="fa fa-bell"></i>-->
+            <!--</div>-->
+            <!--<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="notifications">-->
+                <!--<li class="notification new">Your change to Hot Sauce Name was approved <div class="time-ago">2 hours ago</div> </li>-->
+                <!--<li class="notification new alt">A change was assigned to you to approve <div class="time-ago">10 hours ago</div> </li>-->
+                <!--<li class="notification new">A comment was left on your change to Hot Sauce Name <div class="time-ago">Yesterday</div> </li>-->
+                <!--<li class="notification">The deployment named Winter Closeout Changes deployed without errors <div class="time-ago">A week ago</div> </li>-->
+                <!--<li class="notification">All your changes were grouped into the Winter Closeout Changes deployment <div class="time-ago">Two weeks ago</div> </li>-->
+                <!--<li class="see-all"><a href="">See All Updates</a></li>-->
+            <!--</ul>-->
+        <!--</div> &lt;!&ndash; /account-info &ndash;&gt;-->
+    <!--</div>-->
+    <div class="head-logo"><a href="/admin"><img src="/admin/img/admin/logo.png"></a> </div>
+    <div class="account-info dropdown">
+        <blc_admin:admin_user resultVar="adminUser" ></blc_admin:admin_user>
+        <div class="dropdown-toggle" id="accountdrop" data-toggle="dropdown" aria-expanded="true">
+            <span th:text="'Welcome ' + ${adminUser.name} + '!'"></span>
+            <span class="caret"></span>
+        </div>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="accountdrop">
+            <li><a th:href="@{/changePassword}" class="change-password">修改密码</a></li>
+            <li><a th:href="@{/adminLogout.htm}" th:utext="#{header.logout}">Logout</a></li>
+        </ul>
+    </div>
+    
+    <div class="language-selector account-info dropdown" style="display: none;">
+        <div class="dropdown-toggle" id="accountdrop" data-toggle="dropdown" aria-expanded="true">
+            <span th:text="${session.blLocale.friendlyName}"></span>
+        </div>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="accountdrop">
+            <li th:each="locale : ${@blLocaleService.findAllLocales()}">
+                <a href="javascript:;" 
+                th:attr="onclick=${'BLC.addUrlParam(document.location.search, ''blLocaleCode'', ''' + locale.localeCode + ''')'}"
+                th:text="#{${locale.friendlyName}}"></a>
+            </li>
+        </ul>
+    </div>
+
+    <th:block th:if="${customRibbon == null or #strings.equals(customRibbon, '')}">
+        <div th:replace="layout/partials/sandboxRibbon"></div>
+    </th:block>
+    <th:block th:unless="${customRibbon == null or #strings.equals(customRibbon, '')}">
+        <div th:replace="${customRibbon}"></div>
+    </th:block>
+</header>
+<div id="lightbox" style="display: none;">
+
+    <div id="expire-message" class="modal in sm">
+        <div id="expire-header" class="modal-header">
+            <h3 id="expire-header-message" th:text="#{header.session.expire}"></h3>
+        </div>
+        <div id="expire-content" class="modal-body">
+            <div id="expire-text-container">
+                <div id="expire-text"></div>
+                <br />
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a type="button" id="stay-logged-in" class="button primary" th:text="#{header.stay.logged.in}"></a>
+            <a type="button" id="session-logout" class="button secondary" th:href="@{/adminLogout.htm}" th:text="#{header.logout}"></a>
+        </div>
+    </div>
+    <div  class="modal-backdrop"></div>
+</div>

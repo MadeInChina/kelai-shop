@@ -1,0 +1,182 @@
+
+.product-row-container {
+    border: 0px solid black;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    align-content: flex-start;
+    flex-shrink: 0;
+}
+
+.product-row {
+    border: 0px solid black;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    flex-shrink: 0;
+    margin-left: 12.8px;
+    margin-right: 10.6667px;
+}
+
+.product-row-left-col-container {
+    border: 0px solid black;
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    align-content: flex-start;
+    flex-shrink: 0;
+    width: 181.333px;
+    margin-top: 5.33333px;
+    margin-bottom: 5.33333px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    margin-right: 5.33333px;
+}
+
+.product-row-col {
+    border: 1.06667px solid rgb(237, 237, 237);
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    align-content: flex-start;
+    flex-shrink: 0;
+    cursor: pointer;
+    width: 181.333px;
+}
+
+.product-row-col-img-container {
+    border: 0px solid black;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    align-content: flex-start;
+    flex-shrink: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    padding: 16px;
+}
+
+.product-row-col-img-wrap {
+    border: 0px solid black;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    align-content: flex-start;
+    flex-shrink: 0;
+    width: 147.2px;
+    height: 147.2px;
+    background-color: rgb(255, 255, 255);
+}
+
+.product-row-col-img-tran-bg {
+    border: 0px solid black;
+    position: absolute;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    align-content: flex-start;
+    flex-shrink: 0;
+    width: 147.2px;
+    height: 147.2px;
+    background-color: rgba(0, 0, 0, 0.03);
+    top: 16px;
+    left: 16px;
+}
+
+.product-row-name-wrap {
+    border: 0px solid black;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    align-content: flex-start;
+    flex-shrink: 0;
+    padding: 10.6667px 10.6667px 0px;
+}
+
+.product-row-name {
+    white-space: pre-wrap;
+    border: 0px solid black;
+    position: relative;
+    box-sizing: border-box;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    align-content: flex-start;
+    flex-shrink: 0;
+    font-size: 14.9333px;
+    text-align: left;
+    line-height: 19.2px;
+    height: 38.4px;
+    margin-top: 2.13333px;
+    margin-bottom: 2.13333px;
+    color: rgb(62, 62, 62);
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.product-row-price-wrap {
+    border: 0px solid black;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    flex-direction: row;
+    align-content: flex-start;
+    flex-shrink: 0;
+    width: 181.333px;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 32px;
+}
+
+.product-row-price {
+    white-space: pre-wrap;
+    border: 0px solid black;
+    position: relative;
+    box-sizing: border-box;
+    display: block;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    align-content: flex-start;
+    flex-shrink: 0;
+    font-size: 17.0667px;
+    text-align: left;
+    font-weight: 600;
+    color: rgb(255, 0, 0);
+    line-height: 29.8667px;
+    margin-left: 10.6667px;
+}
+
+.product-row-right-col-container {
+    border: 0px solid black;
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    align-content: flex-start;
+    flex-shrink: 0;
+    width: 181.333px;
+    margin-top: 5.33333px;
+    margin-bottom: 5.33333px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    margin-left: 5.33333px;
+}

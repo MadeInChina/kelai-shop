@@ -1,0 +1,80 @@
+<html layout:decorate="~{layout/cmsLayout}">
+<th:block layout:fragment="custom-head">
+    <title th:text="${articleCategory.name}">ZaoJiCMS</title>
+    <meta name="keywords" th:content="${articleCategory.metaKeywords}" />
+    <meta th:content="${articleCategory.metaDescription}" data-n-head="true" data-hid="description" name="description" />
+    <style type="text/css">
+        .line-bottom-light::after{
+            background: none !important;
+        }
+    </style>
+</th:block>
+<th:block  layout:fragment="content">
+    <div class="preloader bg-soft flex-column justify-content-center align-items-center">
+        <img class="loader-element" src="/static/libs/rocket/assets/img/brand/dark.svg" height="50" alt="Rocket logo" />
+    </div>
+    <!-- Hero -->
+    <section class="section-header bg-primary text-white pb-7 pb-lg-11">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 text-center">
+                    <h1 class="display-2 mb-4" th:text="${articleCategory.name}">The Rocket Blog</h1>
+                    <p class="lead" th:text="${articleCategory.description}">We help you get better at SEO and marketing: detailed tutorials, case studies and opinion pieces from marketing practitioners and industry experts alike</p>
+                </div>
+            </div>
+        </div>
+        <div class="pattern bottom"></div>
+    </section>
+    <section class="section section-lg line-bottom-light">
+        <div class="container mt-n7 mt-sm-n9 mt-lg-n12 z-2">
+            <div class="row">
+                <th:block th:each="article,articleStat : ${page.items}">
+
+                <div class="col-lg-12 mb-5" th:if="${articleStat.index == 0}">
+                    <div class="card bg-white border-light shadow-soft flex-lg-row no-gutters p-4">
+                        <a th:href="${'/article/' + article.id}" class="col-12 col-lg-6"><img th:src="${article.thumbnail}" th:alt="${article.title}" class="card-img-top" /></a>
+                        <div class="card-body py-4 p-lg-5">
+                            <a th:href="${'/article/' + article.id}" class="mb-3 d-block">
+                                <h2 th:text="${article.title}">Designing a dashboard that increases business value</h2>
+                            </a>
+                            <p class="mb-3" th:text="${article.summary}">Today we are overwhelmed by content, and inspiration can strike anywhere. The point is to collect it and share it in a structured way to inspire your team, client, and users. In this article, I will show you how to design
+                                a dashboard.</p>
+                            <div class="d-flex align-items-center">
+                                <!--<img class="avatar avatar-sm rounded-circle" src="assets/img/team/profile-picture-1.jpg" alt="" />-->
+                                <h6 class="text-muted small ml-2 mb-0" th:text="${article.author}">Richard Thomas</h6>
+                                <h6 class="text-muted small font-weight-normal mb-0 ml-auto"><time datetime="2019-04-25" th:text="${article.created}">21 February, 2019</time></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-5" th:if="${articleStat.index != 0}">
+                    <div class="card bg-white border-light shadow-soft p-4 rounded">
+                        <a th:href="${'/article/' + article.id}"><img th:src="${article.thumbnail}" class="card-img-top fmxh-300" th:alt="${article.title}" /></a>
+                        <div class="card-body p-0 pt-4">
+                            <a th:href="${'/article/' + article.id}" class="h3" th:text="${article.title}">Google launches Cloud AI Platform Pipelines</a>
+                            <div class="d-flex align-items-center my-4">
+                                <!--<img class="avatar avatar-sm rounded-circle" src="assets/img/team/profile-picture-2.jpg" alt="" />-->
+                                <h6 class="text-muted small ml-2 mb-0" th:text="${article.author}">James Curran</h6>
+                                <h6 class="text-muted small font-weight-normal mb-0 ml-auto" th:text="${article.created}">James Curran</h6>
+                            </div>
+                            <p class="mb-0" th:text="${article.summary}">Richard Thomas was born in 1990, and at only 29 years old, his trajectory is good. When he is asked how he describes himself, he responds, &quot;designer but in a broad sense&quot;. His projects?</p>
+                        </div>
+                    </div>
+                </div>
+
+                </th:block>
+                <div class="d-flex justify-content-center w-100">
+                    <nav aria-label="Page navigation example">
+                        <blc:pagination></blc:pagination>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+<th:block layout:fragment="custom-script">
+    <script>
+        $('footer').find('.pattern-soft').removeClass('pattern-soft');
+    </script>
+</th:block>
+</html>

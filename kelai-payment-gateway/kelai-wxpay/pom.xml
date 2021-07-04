@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>kelai-payment-gateway</artifactId>
+        <groupId>cn.com.kelaikewang</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>kelai-wxpay</artifactId>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.uri>${user.dir}</project.uri>
+    </properties>
+
+    <repositories>
+       <!-- <repository>
+            <id>public releases</id>
+            <name>public releases</name>
+            <url>http://nexus.broadleafcommerce.org/nexus/content/repositories/releases</url>
+        </repository>-->
+        <!--<repository>
+            <id>public snapshots</id>
+            <name>public snapshots</name>
+            <url>http://www.broadleafcommerce.org/nexus/content/repositories/snapshots/</url>
+        </repository>-->
+        <repository>
+            <id>maven-releases</id>
+            <name>maven-releases</name>
+            <url>http://116.63.95.86:8081/repository/maven-releases/</url>
+        </repository>
+    </repositories>
+    <build>
+        <plugins>
+          <!--  <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <licenseName>blc_dual</licenseName>
+                </configuration>
+            </plugin>-->
+        </plugins>
+    </build>
+    <distributionManagement>
+     <!--   <snapshotRepository>
+            <id>snapshots</id>
+            <url>http://nexus.broadleafcommerce.org/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>-->
+        <!--<repository>
+            <id>releases</id>
+            <url>http://nexus.broadleafcommerce.org/nexus/content/repositories/releases</url>
+        </repository>-->
+    </distributionManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-third-party-integration-config</artifactId>
+            <version>default</version>
+            <scope>compile</scope>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-common</artifactId>
+            <version>${blc.version}</version>
+            <scope>compile</scope>
+            <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpclient</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+
+       <!-- <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>1.21</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-pay</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-payment-unifiedorder</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-commons</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-payment-commons</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.broadleafcommerce</groupId>
+            <artifactId>broadleaf-framework</artifactId>
+            <version>6.1.5.2-GA</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-integration-wechat</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.kelaikewang</groupId>
+            <artifactId>kelai-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
+
+</project>

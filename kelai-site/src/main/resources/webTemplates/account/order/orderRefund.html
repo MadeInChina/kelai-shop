@@ -1,0 +1,217 @@
+<html layout:decorate="~{layout/accountLayout}">
+<th:block layout:fragment="custom-head">
+    <style type="text/css">
+        .apply-refund-form{
+            margin-bottom: 50px;
+        }
+        .order-total{
+            text-align: right;
+            font-weight: bold;
+        }
+        .radio .help-block{
+            padding-left: 15px;
+        }
+        .refund{
+            text-align: center;
+        }
+        .refund button{
+            margin-top: 20px;
+        }
+        .req{
+            color: #FF2626;
+            padding-left: 5px;
+        }
+    </style>
+    <link th:href="${#sf.url('/libs/uppy/uppy.min.css')}" rel="stylesheet" type="text/css">
+</th:block>
+<th:block layout:fragment="content">
+    <div class="card manage-account-form-wrapper js-manageAccountFormWrapper">
+        <h3>申请退款<small style="padding-left: 20px;">订单合计：<span th:text="${order.total}"></span></small></h3>
+        <table style="width: 100%;" class="table">
+            <tr th:each="orderItem : ${order.orderItems}" >
+                <td style="width: 80px;">
+                    <a th:href="${orderItem.getSku().getProduct().getUrl()}">
+                        <img th:src="${orderItem.product.media['primary'].url}" style="padding-bottom: 10px;padding-top: 10px;">
+                    </a>
+                </td>
+                <td class="order-item-col" style="vertical-align: top;width: 300px;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                    <div style="padding-left: 10px;">
+                        <a th:href="${orderItem.getSku().getProduct().getUrl()}" th:utext="${orderItem.getName()}"></a>
+                    </div>
+                    <span class="order-item-attr" th:each="attr: ${orderItem.getOrderItemAttributes()}">
+                        <small th:utext="${attr.value.name}"></small>：<small th:utext="${attr.value.value}"></small>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                </td>
+                <td class="order-item-col" style="width: 100px;vertical-align: top;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                    <span style="padding-left: 10px;" blc:price="*{orderItem.salePrice}"></span>
+                </td>
+                <td class="order-item-col" style="vertical-align: top;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'" th:utext="${'x &nbsp;&nbsp;' + orderItem.getQuantity()}">
+
+                </td>
+            </tr>
+        </table>
+        <hr>
+
+        <div class="apply-refund-form form-horizontal row" th:if="${order.status?.type == 'PAID' || order.status?.type == 'SHIPPED' || order.status?.type == 'RECEIVED'}">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 control-label">退款类别<span class="req">*</span></label>
+                    <div class="col-sm-10">
+                        <select class="form-control" v-model="afterSales.type">
+                            <option value="">选择退款类别</option>
+                            <option value="REFUND">退款（无需退货）</option>
+                            <option value="RETURN_REFUND">退货退款</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 control-label">退款原因<span class="req">*</span></label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="5" v-model="afterSales.reason"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 control-label">退款金额<span class="req">*</span></label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="afterSales.applyRefundAmount" />
+                        <p class="help-block" th:text="${'最多退款&yen;' + order.total}"></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 control-label">上传证据</label>
+                    <div class="col-sm-10 drag-drop-area">
+
+                    </div>
+                </div>
+                <div class="refund">
+                    <button id="submitRefundApply" class="btn btn-danger" v-on:click="submitRefundApply()">退款</button>
+                </div>
+            </div>
+        </div>
+        <div class="apply-refund-form" style="color: #FF2626;" th:if="${order.status?.type != 'PAID' && order.status?.type != 'SHIPPED' && order.status?.type != 'RECEIVED'}">
+            订单状态为：<span th:text="${order.status?.friendlyType}"></span>，不支持该操作
+        </div>
+    </div>
+</th:block>
+<th:block layout:fragment="custom-script">
+    <script th:src="${#sf.url('/libs/vue/vue.min.js')}"></script>
+    <script th:src="${#sf.url('/libs/uppy/uppy.min.js')}"></script>
+    <script th:src="${#sf.url('/libs/uppy/zh_CN.min.js')}"></script>
+    <script th:inline="javascript">
+        Uppy.locales.zh_CN.strings.browseFiles = '浏览';
+        var vue = new Vue({
+            el : '.apply-refund-form',
+            data :{
+                afterSales : {
+                    type : '',
+                    reason : '',
+                    applyRefundAmount : '[[${order.total.amount}]]',
+                    evidence : [],
+                    orderId : '[[${order.id}]]'
+                }
+            },
+            methods : {
+                submitRefundApply : function () {
+                    var _this = this;
+                    if (this.afterSales.type === '' || this.afterSales.type == null){
+                        toastr.error('请选择退款类别');
+                        return;
+                    }
+                    if ($.trim(this.afterSales.reason) === ''){
+                        toastr.error('请填写退款理由');
+                        return;
+                    }
+                    var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+                    if (!reg.test(this.afterSales.applyRefundAmount) || 0 === parseFloat(this.afterSales.applyRefundAmount)){
+                        toastr.error('请输入大于0的退款金额');
+                        return;
+                    }
+                    var btn = $('#submitRefundApply');
+                    btn.attr('disabled','disabled');
+                    btn.text('正在提交...');
+                    $.ajax({
+                       url : '/account/orders/orderRefund?csrfToken=' + params.csrfToken,
+                       type : 'POST',
+                       data :  JSON.stringify(_this.afterSales),
+                        contentType : 'application/json',
+                        dataType : 'json',
+                        success : function (res) {
+                            if (res.status === 'SUCCESS'){
+                                toastr.success(res.message);
+                                btn.text('提交成功');
+                            }else {
+                                toastr.error(res.message);
+                                btn.removeAttr('disabled');
+                                btn.text('退款');
+                            }
+
+                        },
+                        error:function () {
+                            toastr.error('提交退款申请失败');
+                            btn.removeAttr('disabled');
+                            btn.text('退款');
+                        },
+                        complete : function () {
+
+                        }
+                    });
+                }
+            },
+            mounted : function () {
+                [#th:block th:if="${order.status?.type == 'PAID' || order.status?.type == 'SHIPPED' || order.status?.type == 'RECEIVED'}"]
+                var _this = this;
+                var uppy = Uppy.Core()
+                    .use(Uppy.Dashboard, {
+                        inline: true,
+                        target: '.drag-drop-area',
+                        locale: Uppy.locales.zh_CN,
+                    })
+                    .use(Uppy.XHRUpload, {
+                        id: 'XHRUpload',
+                        endpoint: '/account/upload',
+                        method: 'post',
+                        formData: true,
+                        fieldName: 'files[]',
+                        metaFields: null,
+                        bundle: true,
+
+                        getResponseData(responseText, response) {
+                            //debugger
+                            return  JSON.parse(responseText);
+                        },
+                        getResponseError(responseText, xhr) {
+                            //debugger
+                        },
+                        timeout: 30 * 1000, // default 30s
+                        limit: 0, // Limit the amount of uploads going on at the same time.
+                        responseType: '', // only '','text','arraybuffer','blob','document'
+                    });
+
+                uppy.on('upload-success', (file, response) => {
+                    console.log(response);
+                    if (response.body.status === 'SUCCESS'){
+                        _this.afterSales.evidence.push(response.body.data);
+                    }else {
+                        toastr.error('上传失败');
+                    }
+                });
+                uppy.on('file-removed', (file, reason) => {
+                    console.log('Removed file', file);
+                });
+                uppy.on('upload', (data) => {
+                    // data object consists of `id` with upload ID and `fileIDs` array
+                    // with file IDs in current upload
+                    // data: { id, fileIDs }
+                    console.log(data);
+                });
+                uppy.on('upload-error', (file, error, response) => {
+                    console.log('error with file:', file.id)
+                    console.log('error message:', error)
+                });
+                uppy.setMeta({csrfToken : params.csrfToken});
+                [/th:block]
+            }
+        })
+    </script>
+</th:block>
+</html>

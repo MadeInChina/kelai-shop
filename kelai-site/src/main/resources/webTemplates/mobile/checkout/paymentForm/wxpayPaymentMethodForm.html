@@ -1,0 +1,50 @@
+<div id="ready_only_wxpay_payment_method" class="read-only-wxpay-payment-method-container" th:fragment="read-only">
+    <div class="row">
+        <img src="/img/payment/WePayLogo.png" style="width: 200px;padding: 20px;"/>
+    </div>
+</div>
+
+<div id="wxpay_payment_method" class="wxpay-payment-method-container"  th:fragment="form">
+    <div class="row">
+        <div class="col-md-9" style="width: 80%;float: left;">
+            <div class="row">
+                <div class="col-md-12 text-center-mobile">
+                    <img src="/img/payment/WePayLogo.png" style="width: 150px;"/>
+                </div>
+                <div class="col-md-12" style="padding: 10px;">使用微信进行付款</div>
+            </div>
+        </div>
+        <div class="col-md-3" style="width: 20%;float: left;">
+            <div class="pretty p-icon p-smooth">
+                <input type="radio" name="check-payment" class="check-payment" id="checkWxPay" value="WxPay"/>
+                <div class="state p-success">
+                    <i class="icon fa fa-check"></i>
+                    <label></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="wxpayModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><img src="/img/payment/WePayLogo.png" style="width: 100px;padding-bottom: 10px;"/></h4>
+                </div>
+                <div class="modal-body" style="text-align: center;">
+                    <img id="wxpayQrcodeImg" style="width: 100%;">
+                    <br>
+                    <img src="/img/payment/wxpay-scan.png" style="width: 260px;">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

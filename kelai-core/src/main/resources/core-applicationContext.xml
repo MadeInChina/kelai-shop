@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="blCustomerAddressService" class="cn.com.kelaikewang.core.profile.service.ZaoJiCMSCustomerAddressServiceImpl"/>
+    <bean id="blOrderToPaymentRequestDTOService" class="cn.com.kelaikewang.core.order.service.ZaoJiCMSOrderToPaymentRequestDTOServiceImpl"/>
+
+    <bean class="cn.com.kelaikewang.core.logistics.service.type.ShippingPricingType"/>
+    <bean class="cn.com.kelaikewang.core.logistics.service.type.ShippingTemplateStatus"/>
+    <bean id="blEncryptionModule" class="cn.com.kelaikewang.infrastructure.encryption.ZaoJiCMSPassthroughEncryptionModule"/>
+    <bean id="blPaymentGatewayCheckoutService"
+          class="cn.com.kelaikewang.core.payment.service.ZaoJiCMSPaymentGatewayCheckoutService"/>
+    <bean id="blCustomerDao" class="cn.com.kelaikewang.core.profile.dao.ZaoJiCMSCustomerDaoImpl"/>
+    <bean id="blCustomerService" class="cn.com.kelaikewang.core.profile.service.ZaoJiCMSCustomerServiceImpl"/>
+    <bean id="blRatingSummaryDao" class="cn.com.kelaikewang.core.rating.dao.ZaoJiCMSRatingSummaryDaoImpl" />
+    <bean id="blReviewDetailDao" class="cn.com.kelaikewang.core.rating.dao.ZaoJiCMSReviewDetailDaoImpl" />
+  <!--  <bean id="blSecurityFilter" class="org.broadleafcommerce.common.security.handler.SecurityFilter" >
+        <property name="excludedRequestPatterns">
+             <list>
+                 <value>/wxpay/**</value>
+                 <value>/alipay/**</value>
+             </list>
+         </property>
+    </bean>-->
+    <bean id="blOrderDao" class="cn.com.kelaikewang.core.order.dao.ZaoJiCMSOrderDaoImpl" />
+</beans>

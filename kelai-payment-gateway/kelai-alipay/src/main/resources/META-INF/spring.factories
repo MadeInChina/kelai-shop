@@ -1,0 +1,2 @@
+org.broadleafcommerce.common.module.BroadleafModuleRegistration=org.broadleafcommerce.vendor.alipay.config.AlipayModuleRegistration
+org.broadleafcommerce.common.config.FrameworkCommonClasspathPropertySource=org.broadleafcommerce.vendor.alipay.config.AlipayProperties

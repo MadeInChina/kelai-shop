@@ -1,0 +1,125 @@
+.select-region-modal{
+    -moz-box-shadow: 5px 5px 5px #888888;
+    box-shadow: 5px 5px 5px #888888;
+    position: absolute;
+    width: 100%;
+    z-index: 99999999;
+    top:0;
+    left:0;
+    border: solid 1px #cccccc;
+    display: none;
+    background-color: #ffffff;
+}
+.select-region-modal-header{
+    width: 100%;
+    height:40px;
+    background-color: #f5f5f5;
+}
+.select-region-modal-title {
+    line-height: 40px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+.select-region-modal-close{
+    float: right;
+    padding: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.select-region-modal-content{
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    overflow-y: auto;
+    height: 330px;
+    position: relative;
+}
+.select-region-modal-content input[type=checkbox]{
+    -webkit-appearance: checkbox !important;
+}
+.select-region-modal-row{
+    width: 100%;
+}
+.select-region-modal-row-left-cell{
+    width: 80px;
+    float: left;
+}
+.select-region-modal-row-right-cell{
+    float: left;
+    width: 614px;
+}
+.province{
+    width: 32%;
+    display: inline-block;
+    position: relative;
+    height: 30px;
+}
+.trigger{
+    display: inline-block;
+    cursor: pointer;
+    border: 6px solid #fff;
+    border-top-color: #dd2727;
+    width: 0;
+    height: 0;
+    position: relative;
+    margin-left: 5px;
+}
+.trigger-show{
+    border-top-color: #fff;
+    border-bottom-color: #dd2727;
+    top: -5px;
+}
+.province-city-panel{
+    padding: 5px;
+    display: none;
+    position: absolute;
+    width: 204px;
+    z-index: 999999999;
+    top: 23px;
+    left: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.province-city-panel label{
+    display: inline-block;
+    padding-right: 5px;
+    font-size: 12px;
+}
+.province-city-panel label>span{
+    font-weight: lighter;
+}
+.close-wrap{
+    clear: both;
+    text-align: right;
+    font-size: 12px;
+    cursor: pointer;
+}
+.province-check{
+    padding-left: 5px;
+    padding-right: 5px;
+    display: inline-block;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+    border-bottom: none;
+    background-color: #ffffff;
+}
+.province-check-show {
+    border-top: 1px solid #f7e4a5;
+    border-left: 1px solid #f7e4a5;
+    border-right: 1px solid #f7e4a5;
+    border-bottom: none;
+    background-color: #FFFEC6;
+}
+.province-city-panel-show{
+    border-top: none;
+    border-left: 1px solid #f7e4a5;
+    border-right: 1px solid #f7e4a5;
+    border-bottom: 1px solid #f7e4a5;
+    background-color: #FFFEC6;
+}
+#selectRegionsBtn{
+    color: dodgerblue;
+}

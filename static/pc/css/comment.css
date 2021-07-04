@@ -1,0 +1,1538 @@
+.clearfix:after {
+    clear: both;
+    height: 0;
+    overflow: hidden;
+    display: block;
+    content: "";
+    visibility: hidden
+}
+
+a {
+    text-decoration: none
+}
+
+.wrapper {
+    /*width: 1016px;*/
+    margin: 0 auto;
+    zoom: 1;
+    font-family: \\5B8B\4F53, serif;
+    font-size: 12px;
+    background: #fff;
+    color: #2b2b2b
+}
+
+.top-banner {
+    margin-top: 20px;
+    height: 65px
+}
+
+.orig-post {
+    text-align: left;
+    padding: 10px 0;
+    position: relative
+}
+
+.orig-post h1 {
+    color: #1f3a87;
+    display: inline;
+    font-weight: 700;
+    font-size: 25px;
+    height: 40px;
+    line-height: 42px
+}
+
+.orig-post h1 a {
+    color: #1e50a2;
+    font-weight: 700
+}
+
+.orig-post h1 a:hover {
+    color: #ba2626;
+    text-decoration: none
+}
+
+.orig-post .look-orig {
+    color: #ba2636
+}
+
+.orig-post .look-orig:hover {
+    text-decoration: none
+}
+
+.main-bg {
+    border: 1px solid #c4d6ec;
+    padding: 0 1px;
+   /* background: url(//static.ws.126.net/life/2015/3/4/201503041849478a9c5.png) repeat-y*/
+}
+
+.icons {
+    background: url(//static.ws.126.net/tie/images/refactor/tie_sprite_1.2.png) no-repeat 0 0
+}
+
+.main-bdy {
+    /*width: 727px;
+    float: left*/
+}
+
+.fix-btns .feedback {
+    position: fixed;
+    left: 50%;
+    bottom: 182px;
+    cursor: pointer;
+    background-color: #fcfcfc;
+    border: 1px solid #cfcfcf;
+    margin-left: 482px;
+    margin-left: 510px;
+    width: 64px;
+    height: 64px
+}
+
+.fix-btns .feedback a {
+    display: block;
+    font-size: 14px;
+    color: #999;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20px;
+    font-family: Microsoft YaHei;
+    padding: 12px 0;
+    cursor: pointer;
+    text-decoration: none
+}
+
+.fix-btns .feedback a:hover {
+    color: #7d7d7d
+}
+
+.fix-btns .back-top {
+    position: fixed;
+    left: 50%;
+    bottom: 115px;
+    background-color: #fcfcfc;
+    border: 1px solid #cfcfcf;
+    margin-left: 482px;
+    margin-left: 510px;
+    width: 64px;
+    height: 64px;
+    background-image: url(//static.ws.126.net/tie/images/return-top.png);
+    background-position: 12px 20px;
+    background-repeat: no-repeat;
+    cursor: pointer
+}
+
+.fix-btns .back-top:hover {
+    background-position: 12px -40px
+}
+
+.copyright {
+    padding: 5px 0 10px;
+    line-height: 1.8em;
+    color: #4d4d4d;
+    text-align: center
+}
+
+.copyright em {
+    color: red
+}
+
+.low-ie {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 9999;
+    background-color: #fff;
+    text-align: center;
+    font-size: 16px;
+    font-family: Microsoft YaHei;
+    margin-top: 100px;
+    line-height: 1.5em
+}
+
+.low-ie .advc {
+    font-size: 12px;
+    color: #666
+}
+
+.low-ie .advc a {
+    color: #72a7e7
+}
+
+.side-user {
+    margin: 8px 7px 0 8px;
+    padding: 0 13px 13px 15px;
+    background-color: #f1f7fc;
+    color: #636363;
+    text-align: left;
+    font-size: 12px
+}
+
+.side-user.z-unlogin>.status-logined {
+    display: none
+}
+
+.side-user.z-logined>.status-logined,
+.side-user.z-unlogin>.status-unlogin {
+    display: block
+}
+
+.side-user.z-logined>.status-unlogin {
+    display: none
+}
+
+.aboutme-header {
+    height: 32px;
+    line-height: 32px;
+    font-size: 12px
+}
+
+.aboutme-header .logon-out {
+    float: right;
+    color: #1e50a2
+}
+
+.aboutme-info {
+    margin: 7px 0;
+    position: relative
+}
+
+.aboutme-info .info-img {
+    float: left;
+    display: inline-block;
+    zoom: 1
+}
+
+.aboutme-info .info-img img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%
+}
+
+.aboutme-info .info-name {
+    margin-left: 9px;
+    margin-top: 3px;
+    display: inline-block;
+    zoom: 1;
+    width: 160px
+}
+
+.status-unlogin .lgn-title {
+    line-height: 35px;
+    border-bottom: 1px solid #c4d6ec
+}
+
+.status-unlogin .lgn-panel {
+    padding: 10px 10px 0
+}
+
+.status-unlogin .lgn-panel .login-btn {
+    cursor: pointer
+}
+
+.status-unlogin .lgn-panel .us-btn {
+    display: block;
+    text-decoration: none
+}
+
+.status-unlogin .lgn-panel .us-btn:hover .circle {
+    background-color: #80b6e4
+}
+
+.status-unlogin .lgn-panel .us-btn:hover .txt {
+    color: #666
+}
+
+.status-unlogin .lgn-panel .lft {
+    border-right: 1px dashed #c4d6ec;
+    padding-right: 30px
+}
+
+.status-unlogin .lgn-panel .circle {
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #5791c9
+}
+
+.status-unlogin .lgn-panel .i-usr {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 10px 0 0 10px;
+    background-position: -30px 0
+}
+
+.status-unlogin .lgn-panel .i-reg {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin: 12px 0 0 12px;
+    background-position: 0 0
+}
+
+.status-unlogin .lgn-panel .txt {
+    color: #222;
+    display: inline-block;
+    height: 44px;
+    vertical-align: top;
+    line-height: 44px
+}
+
+.side-user ul {
+    overflow: hidden;
+    margin-left: 8px
+}
+
+.side-user ul li {
+    position: relative;
+    float: left;
+    font-size: 12px;
+    line-height: 26px;
+    text-align: center
+}
+
+.side-user ul li.first,
+.side-user ul li.last {
+    width: 75px
+}
+
+.side-user ul li.center {
+    width: 100px
+}
+
+.side-user ul li em {
+    position: absolute;
+    height: 33px;
+    width: 1px;
+    background-color: #b0b0b0;
+    right: 0;
+    top: 2px
+}
+
+.side-user ul li .num {
+    font-family: Arial;
+    color: #333;
+    font-size: 18px;
+    line-height: 26px
+}
+
+.side-user ul li .num:hover {
+    color: #1e50a2
+}
+
+.side-user ul li p {
+    color: #999;
+    line-height: 12px
+}
+
+.side-user .feed-count {
+    width: 237px;
+    height: 28px;
+    display: block;
+    text-align: center;
+    line-height: 28px;
+    margin-left: 13px;
+    margin-top: 14px;
+    color: #333;
+    text-decoration: none;
+    background: url(//static.ws.126.net/tie/images/tie_sprite_v1.1.png) no-repeat 0 0;
+    background-position: 0 -229px
+}
+
+.side-user .feed-count:hover {
+    background-position: 0 -259px
+}
+
+.side-user .feed-count .count-num {
+    color: #db1011;
+    font-style: normal
+}
+
+.side-user .feed-count .count-num.z-visible {
+    visibility: visible
+}
+
+.side-user .feed-count .count-num.z-hide {
+    visibility: hidden
+}
+
+.icon-level {
+        background: url(//static.ws.126.net/tie/images/level_icon.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    width: 51px;
+    height: 22px;
+    margin-top: 4px;
+    margin-left: 4px
+}
+
+.icon-level-0,
+.icon-level-1 {
+    background-position: 0 -29px
+}
+
+.icon-level-2,
+.icon-level-3 {
+    background-position: 0 -84px
+}
+
+.icon-level-4,
+.icon-level-5 {
+    background-position: 0 -111px
+}
+
+.icon-level-6,
+.icon-level-7 {
+    background-position: 0 -137px
+}
+
+.icon-level-8,
+.icon-level-9 {
+    background-position: 0 -165px
+}
+
+.icon-level-10,
+.icon-level-11 {
+    background-position: 0 -234px
+}
+
+.icon-level-12 {
+    background-position: 0 -263px
+}
+
+.icon-level-13 {
+    background-position: 0 -288px
+}
+
+.icon-level-14 {
+    background-position: 0 -312px
+}
+
+.icon-level-15 {
+    background-position: 0 -365px
+}
+
+.icon-level-16 {
+    background-position: 0 -392px
+}
+
+.tie-rank {
+    border: 1px solid #c4d6ec;
+    background: #f1f7fc;
+    margin-top: 8px
+}
+
+.tie-rank .title-bar {
+    height: 23px;
+    line-height: 23px;
+    color: #585858;
+    padding-left: 11px;
+    background: url(//static.ws.126.net/tie/images/tie_aboutme_bgs.png) left -64px repeat-x;
+    border-bottom: 1px solid #c4d6ec;
+    font-weight: 700
+}
+
+.tie-rank .title-bar span {
+    font-weight: 700
+}
+
+.tie-rank .title-bar .rank-refresh {
+    float: right;
+    padding-right: 11px;
+    font-weight: 400;
+    color: #585858
+}
+
+.tie-rank .title-bar .rank-refresh:hover {
+    color: #ba2626
+}
+
+.tie-rank .rank-list ul {
+    padding: 0 10px
+}
+
+.tie-rank .rank-list ul.z-on {
+    display: block
+}
+
+.tie-rank .rank-list ul.z-off {
+    display: none
+}
+
+.tie-rank .rank-list ul li {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    line-height: 17px;
+    position: relative;
+    border-bottom: 1px dotted #afafb0
+}
+
+.tie-rank .rank-list ul li:last-child {
+    border-bottom: none
+}
+
+.tie-rank .rank-list ul li .portrait {
+    display: block
+}
+
+.tie-rank .rank-list ul li img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px
+}
+
+.tie-rank .rank-list ul li p {
+    line-height: 26px;
+    color: #585858;
+    margin-left: 24px
+}
+
+.tie-rank .rank-list ul li p .num {
+    color: #1e50a2;
+    padding-left: 8px
+}
+
+.tie-rank .rank-list ul li p .num:hover {
+    color: #ba2636
+}
+
+.tie-rank .rank-list ul li p em {
+    width: 1px;
+    display: inline-block;
+    height: 12px;
+    background-color: #6e6f6f;
+    vertical-align: middle;
+    margin: 0 10px
+}
+
+.tie-rank .rank-list ul li .icon-follow {
+    width: 45px;
+    height: 22px;
+    background-position: 0 -42px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 18px;
+    cursor: pointer
+}
+
+.tie-rank .rank-list ul li .icon-follow:hover {
+    background-position: 0 -67px
+}
+
+.tie-rank .rank-list ul li .icon-follow.z-done {
+    background-position: 0 -117px
+}
+
+.tie-rank .rank-list ul li .icon-follow.z-done:hover {
+    background-position: 0 -92px
+}
+
+.tie-rank .rank-list .lft {
+    float: left
+}
+
+.tie-rank .rank-list .rgt {
+    float: right
+}
+
+.tie-rank .title-tab-bar {
+    width: 100%;
+    overflow: hidden
+}
+
+.tie-rank .title-tab-bar .tab-ul {
+    margin-top: -1px;
+    width: 120%;
+    height: 25px;
+    line-height: 23px;
+    color: #585858;
+    background: url(//static.ws.126.net/tie/images/bg_x_1.0.png) repeat-x 0 -65px
+}
+
+.tie-rank .title-tab-bar .tab-ul li {
+    width: 149px;
+    margin-left: -1px;
+    height: 25px;
+    border: 1px solid #c4d7e8;
+    border-width: 0 1px;
+    float: left;
+    text-align: center;
+    cursor: pointer
+}
+
+.tie-rank .title-tab-bar .tab-ul li span {
+    line-height: 25px
+}
+
+.tie-rank .title-tab-bar .tab-ul li.z-on {
+    background: url(//static.ws.126.net/tie/images/bg_x_1.0.png) repeat-x 0 -40px
+}
+
+.tie-rank .title-tab-bar .tab-ul li.z-on span {
+    font-weight: 700
+}
+
+.tie-rank .list-hot>ul {
+    display: none
+}
+
+.tie-rank .list-hot>ul.z-on {
+    display: block
+}
+
+.tie-rank .list-hot .num {
+    font-family: Verdana;
+    font-size: 13px;
+    color: #ba2636;
+    width: 52px;
+    height: 32px;
+    line-height: 24px;
+    text-align: center;
+    margin-right: 10px;
+    background: url(//static.ws.126.net/tie/images/num.png) 0 0 no-repeat
+}
+
+.tie-rank .list-hot .title {
+    width: 214px;
+    text-align: left;
+    height: 34px;
+    color: #585858
+}
+
+.tie-rank .list-hot .title:hover {
+    color: #ba2636
+}
+
+.tie-rank .related-news li a {
+    display: inline-block;
+    margin-left: 18px;
+    width: 210px
+}
+
+.tie-rank .related-news li a:visited {
+    color: #585858
+}
+
+.tie-rank .related-news li .num {
+    margin-left: 24px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    color: #585858;
+    font-family: Verdana;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    vertical-align: top;
+    background: url(//static.ws.126.net/tie/images/num.png) 0 0 no-repeat
+}
+
+.tie-rank .related-news li .num:visited {
+    color: #898989
+}
+
+.icon {
+    display: inline-block;
+    padding: 0;
+    font-weight: 700;
+    border: 0;
+    cursor: pointer;
+    background: url(//static.ws.126.net/tie/images/sprites_3.2.png) no-repeat 0 0
+}
+
+.tie-icon {
+    background: url(//static.ws.126.net/tie/images/tie_sprite_v1.1.png) no-repeat 0 0
+}
+
+.icon2 {
+    background: url(//static.ws.126.net/tie/test/newtie/sprite1.png) no-repeat 0 0
+}
+
+.list-head {
+    height: 36px;
+    line-height: 38px;
+    background: #e5eef8;
+    border-top: 1px solid #c4d6ec;
+    padding: 0 0 0 19px
+}
+
+.list-head .title {
+    float: left
+}
+
+.list-head .title strong {
+    font-size: 18px;
+    font-weight: 400;
+    font-family: \\9ED1\4F53
+}
+
+.list-head .title .tie-count em {
+    color: #ba2636;
+    font-weight: 700;
+    font-style: normal
+}
+
+.list-empty,
+.list-loading {
+    padding: 46px 0;
+    text-align: center;
+    font-size: 14px
+}
+
+.list-foot {
+    padding-bottom: 12px
+}
+
+.list-foot .page-bar {
+    float: right;
+    overflow: hidden;
+    margin-top: 10px;
+    padding-right: 20px
+}
+
+.checking {
+    color: #666;
+    padding-bottom: 12px;
+    font-size: 14px
+}
+
+.tie-cnt {
+    font-size: 14px;
+    white-space: normal;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden
+}
+
+.tie-cnt p {
+    line-height: 25px;
+    word-wrap: break-word
+}
+
+.tie-cnt p img {
+    width: 25px;
+    height: 25px;
+    vertical-align: top
+}
+
+.tie-cnt .tie-picture {
+    position: relative;
+    overflow: hidden;
+    padding-top: 15px;
+    display: inline-block
+}
+
+.tie-cnt .tie-picture .tie-picture-img {
+    vertical-align: top;
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center
+}
+
+.tie-cnt .xImg-long {
+    width: 185px;
+    height: 70px
+}
+
+.tie-cnt .xImg-short {
+    width: 185px
+}
+
+.tie-cnt .yImg-long {
+    height: 185px;
+    width: 70px;
+    -o-object-position: left top;
+    object-position: left top
+}
+
+.tie-cnt .yImg-short {
+    height: 185px
+}
+
+.tie-cnt .img-base {
+    height: 125px;
+    width: 125px;
+    -o-object-fit: cover;
+    object-fit: cover
+}
+
+.tie-cnt .tie-picture-btn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 24px;
+    background: rgba(0, 0, 0, .65);
+    font-size: 12px;
+    color: hsla(0, 0%, 100%, .65);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+.tie-cnt .tie-picture-btn .btn-icon {
+    width: 13px;
+    height: 12px;
+    background: url(http://cms-bucket.ws.126.net/2020/0221/30f7edb3p00q61mrv0001c0000d000cc.png) no-repeat;
+    background-size: 100%;
+    display: block
+}
+
+.tie-cnt .long-img-btn {
+    width: 40px;
+    height: 24px;
+    line-height: 24px;
+    right: 4px;
+    left: auto;
+    bottom: 4px;
+    border-radius: 3px
+}
+
+.tie-cnt .long-img-btn .btn-icon,
+.tie-cnt .no-btn {
+    display: none
+}
+
+.has-flr .tie-cnt {
+    padding: 4px 3px
+}
+
+.has-flr .floor .tie-cnt {
+    padding: 4px 3px 0;
+    width: 100%;
+}
+
+.floor {
+    padding: 3px;
+    background: #ffe;
+    border: 1px solid #999;
+    margin-bottom: 5px;
+    word-wrap: break-word
+}
+
+.floor .tie-author {
+    padding-top: 5px
+}
+
+.floor .tie-author .author-info {
+    padding-left: 5px
+}
+
+.floor .tie-operation {
+    visibility: hidden;
+    padding: 2px 3px 2px 0
+}
+
+.floor .tie-operation.z-fcs {
+    visibility: visible
+}
+
+.floor .tie-operation .reply-box .arrow {
+    top: 23px
+}
+
+.floor .self:hover .tie-operation {
+    visibility: visible
+}
+
+.flat-flrs .floor {
+    border-top: none
+}
+
+.expand-flr {
+    padding: 0 0 7px 7px;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer
+}
+
+.expand-flr .expand-txt,
+.expand-flr:hover {
+    color: #ba2636
+}
+
+.lft {
+    float: left
+}
+
+.rgt {
+    float: right
+}
+
+.main-bdy a {
+    text-decoration: none
+}
+
+.one-tie-reply {
+    clear: both;
+    padding-top: 1px
+}
+
+.side-bar {
+    width: 315px;
+    padding-bottom: 20px;
+    float: right;
+    font-size: 14px;
+    overflow: hidden
+}
+
+.inner {
+    font-size: 12px;
+    padding: 10px 7px 0 8px;
+    text-align: left
+}
+
+a {
+    color: #404040
+}
+
+a:hover {
+    color: #f33
+}
+
+.tie-rcmd>div {
+    margin: 18px 20px;
+    border: 1px solid #dcdddd;
+    text-align: left;
+    background: #fff
+}
+
+.tie-rcmd h3 {
+    font-family: \\9ED1\4F53;
+    font-size: 18px;
+    color: #fff;
+    border-bottom: 1px solid #dcdddd;
+    background: #1e50a2;
+    height: 33px;
+    line-height: 36px;
+    overflow: hidden;
+    text-indent: .7em
+}
+
+.tie-rcmd .trunk {
+    border: none;
+    padding: 16px 20px 18px 19px
+}
+
+.tie-rcmd .trunk .rgt-col {
+    width: 100%;
+}
+
+.trunk {
+    padding: 16px 20px 18px 19px;
+    border-bottom: 1px dotted #afafb0;
+    color: #000;
+    zoom: 1
+}
+
+.trunk:hover .inform {
+    visibility: visible
+}
+
+.trunk .rgt-col {
+    float: left;
+    width: 608px
+}
+
+.trunk .tie-bdy {
+    padding: 12px 0
+}
+
+.tie-author {
+    color: #1e50a2;
+    height: 18px;
+    line-height: 18px;
+    vertical-align: middle
+}
+
+.tie-author .author-info {
+    float: left
+}
+
+.tie-author .floor-num,
+.tie-author .post-time {
+    float: right;
+    color: #666;
+    white-space: nowrap
+}
+
+.tie-author .floor-num {
+    padding-right: 7px
+}
+
+.tie-author a {
+    text-decoration: none;
+    color: #1e50a2
+}
+
+.tie-author .nickname:hover {
+    color: #ba2636;
+    text-decoration: underline
+}
+
+.tie-author .ip,
+.tie-author .nick-from {
+    color: #666
+}
+
+.tie-author .red-name {
+    color: #ba2636
+}
+
+.tie-author .red-name:hover {
+    text-decoration: underline
+}
+
+.tie-author .inform {
+    padding-right: 10px;
+    visibility: hidden
+}
+
+.tie-author .inform.z-active {
+    visibility: visible
+}
+
+.tie-author .inform .icon {
+    background-image: url(//static.ws.126.net/tie/images/report_v1.1.png);
+    background-position: 0 -107px;
+    width: 16px;
+    height: 13px;
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: text-bottom
+}
+
+.tie-author .inform .txt {
+    color: #888
+}
+
+.tie-author .inform .txt.z-done {
+    cursor: default
+}
+
+.tie-operation .essay-from {
+    float: left
+}
+
+.tie-operation .essay-from span {
+    display: inline-block;
+    width: 330px;
+    line-height: 16px;
+    color: #666;
+    height: 16px;
+    overflow: hidden
+}
+
+.tie-operation .essay-from span a {
+    color: #1e50a2
+}
+
+.tie-operation .essay-from span a:visited {
+    color: #666
+}
+
+.tie-operation ul {
+    color: #1e50a2;
+    float: left;
+    height: 16px;
+    line-height: 16px;
+    zoom: 1
+}
+
+.tie-operation ul li {
+    float: left;
+    margin-left: 1.2em;
+    cursor: pointer;
+    list-style: none;
+}
+
+.tie-operation ul li em {
+    font-style: normal;
+    color: #ba2636
+}
+
+.tie-operation ul .reply-box {
+    position: relative
+}
+
+.tie-operation ul .reply-box .arrow {
+    position: absolute;
+    left: 7px;
+    top: 24px;
+    width: 14px;
+    height: 10px;
+    background: url(//static.ws.126.net/tie/images/sprites_2.8.png) no-repeat -86px -151px;
+    z-index: 90
+}
+
+.tie-operation ul .fav-box {
+    position: relative
+}
+
+.tie-operation ul .fav-box .do-tip {
+    position: absolute;
+    top: -38px;
+    left: -38px;
+    border: 1px solid #f6d6d6;
+    background: #ffeded;
+    color: #888;
+    z-index: 99;
+    padding: 6px 0;
+    width: 92px;
+    text-align: center
+}
+
+.tie-operation ul .fav-box .do-tip.z-faved {
+    left: -24px
+}
+
+.tie-operation ul .fav-box .do-tip .arrow {
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    z-index: 1;
+    margin-left: -7px;
+    display: block;
+    background: url(//static.ws.126.net/tie/images/sprites_2.7.png) no-repeat -103px -16px;
+    width: 13px;
+    height: 8px;
+    overflow: hidden
+}
+
+.tie-operation ul .share-box {
+    position: relative
+}
+
+.tie-operation ul .share-box .share-win {
+    position: absolute;
+    top: 24px;
+    left: -4px;
+    width: 90px;
+    border: 1px solid #c4d6ec;
+    background: #f8fcff;
+    z-index: 999;
+    padding: 6px 0;
+    text-align: left
+}
+
+.tie-operation ul .share-box .share-win .arrow {
+    width: 12px;
+    height: 8px;
+    background-position: -89px -152px;
+    position: absolute;
+    left: 8px;
+    top: -7px;
+    overflow: hidden
+}
+
+.tie-operation ul .share-box .share-win a {
+    display: block;
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+    color: #000;
+    padding-left: 8px;
+    position: relative;
+    text-decoration: none;
+    overflow: hidden
+}
+
+.tie-operation ul .share-box .share-win a:hover {
+    color: #000;
+    background: #e8f1fe
+}
+
+.tie-operation ul .share-box .share-win a img {
+    vertical-align: middle
+}
+
+.tie-operation ul span:hover {
+    color: #ba2626;
+    text-decoration: underline
+}
+
+.tie-operation ul .reply-btn.z-fcs {
+    font-weight: 700
+}
+
+.tie-operation ul .digg:hover,
+.tie-operation ul .digg em {
+    color: #080
+}
+
+.tie-operation ul .digg.z-done,
+.tie-operation ul .support.z-done {
+    text-decoration: none;
+    color: #666;
+    cursor: text
+}
+
+.tie-operation ul .down-hot.z-done {
+    color: #666
+}
+
+.tie-operation ul .down-hot.z-done:hover {
+    text-decoration: none;
+    color: #666;
+    cursor: text
+}
+
+.tie-input {
+    position: relative;
+    background: #f1f7fc;
+    margin: 0 5px;
+    box-sizing: border-box;
+    margin-top: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #c4d6ec
+}
+
+.tie-input .arrow {
+    position: absolute;
+    left: auto;
+    top: -7px;
+    width: 14px;
+    height: 10px;
+    background: url(//static.ws.126.net/tie/images/sprites_2.8.png) no-repeat -86px -151px
+}
+
+.tie-input textarea {
+    height: 84px;
+    width: 99.7%;
+    padding: 0 1px;
+    overflow: auto;
+    font-size: 14px;
+    line-height: 2em;
+    background: #fff 50% 50%;
+    resize: none;
+    border: none;
+    border-bottom: 1px solid #c4d6ec;
+    outline: none;
+}
+
+.tie-input .row {
+    height: 46px
+}
+
+.tie-input .login {
+    cursor: pointer;
+    line-height: 46px;
+}
+
+.tie-input .login span {
+    padding-left: 8px;
+    color: #999
+}
+
+.tie-input .login strong {
+    color: #1f3a87
+}
+
+.tie-input .user-info {
+    color: #1e50a2;
+    line-height: 46px;
+    margin-left: 10px
+}
+
+.tie-input .user-info>img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    vertical-align: middle
+}
+
+.tie-input .user-info strong {
+    font-weight: bolder;
+    font-family: \\5B8B\4F53, serif;
+    font-size: 12px
+}
+
+.tie-input .user-info em {
+    font-style: normal
+}
+
+.tie-input .user-info a {
+    color: #1e50a2
+}
+
+.tie-input .user-info a:hover {
+    color: #ba2636;
+    text-decoration: underline
+}
+
+.tie-input .submit {
+    display: inline-block;
+    width: 80px;
+    height: 26px;
+    margin: 10px 15px 10px 0;
+    background: url(//static.ws.126.net/tie/images/sprites_2.7.png);
+    background-position: 0 -172px;
+    text-align: center;
+    line-height: 26px;
+    cursor: pointer
+}
+
+.tie-input .submit:hover {
+    background-position: 0 -198px
+}
+
+.portrait {
+    float: left
+}
+
+.portrait.z-anoy:hover .follow-btn {
+    visibility: visible
+}
+
+.portrait a {
+    display: block
+}
+
+.portrait .link-to-i {
+    padding-right: 8px;
+    height: 40px;
+    padding-bottom: 4px
+}
+
+.portrait .link-to-i.z-anoy {
+    cursor: default
+}
+
+.portrait img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%
+}
+
+.portrait .follow-btn {
+    width: 45px;
+    height: 22px;
+    background-position: 0 -42px;
+    visibility: hidden
+}
+
+.portrait .follow-btn:hover {
+    background-position: 0 -67px
+}
+
+.portrait .follow-btn.followed {
+    background-position: 0 -117px
+}
+
+.portrait .follow-btn.followed:hover {
+    background-position: 0 -92px
+}
+
+.post-tip div {
+    float: right;
+    line-height: 16px
+}
+
+.post-tip em {
+    background-position: -101px -134px;
+    height: 16px;
+    width: 16px;
+    vertical-align: text-bottom
+}
+
+.post-tip span {
+    color: #666
+}
+
+.post-tip a {
+    color: #1e50a2
+}
+
+.tie-head {
+    margin: 0 20px 0 19px;
+    padding: 0 1px;
+    padding-bottom: 7px;
+    clear: both
+}
+
+.tie-head .quick-post,
+.tie-head .to-square {
+    float: left;
+    padding-top: 12px;
+    text-align: center
+}
+
+.tie-head .i-post {
+    width: 81px;
+    height: 25px;
+    line-height: 25px;
+    color: #fff;
+    background-position: 0 -65px
+}
+
+.tie-head .i-post:hover {
+    background-position: 0 -91px
+}
+
+.tie-head .i-square {
+    margin-left: 7px;
+    width: 110px;
+    height: 26px;
+    line-height: 26px;
+    font-weight: 400;
+    color: #000;
+    background-position: 0 -466px;
+    text-decoration: none;
+    margin-top: -1px
+}
+
+.tie-head .i-square:hover {
+    background-position: 0 -496px
+}
+
+.tie-head .i-link-arrow {
+    margin-right: 3px;
+    background-position: -86px -132px;
+    padding: 0 5px;
+    vertical-align: text-bottom;
+    height: 16px
+}
+
+.tie-head .page-bar {
+    padding-top: 14px;
+    float: right
+}
+
+.m-page {
+    height: 20px;
+    overflow: hidden
+}
+
+.m-page li {
+    line-height: 12px;
+    margin-left: 7px;
+    float: left;
+    white-space: nowrap;
+    list-style: none;
+}
+
+.m-page li span {
+    padding: 0 .4em;
+    height: 18px;
+    line-height: 18px;
+    display: block;
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #ccc
+}
+
+.m-page li span.last,
+.m-page li span.next {
+    padding: 0 1em;
+    cursor: not-allowed
+}
+
+.m-page li span.last.z-enable,
+.m-page li span.next.z-enable {
+    color: #1f3a87;
+    cursor: pointer
+}
+
+.m-page li span.last.z-enable:hover,
+.m-page li span.next.z-enable:hover {
+    color: #fff;
+    background-color: #1f3a87
+}
+
+.m-page li .page-num {
+    color: #1f3a87;
+    cursor: pointer
+}
+
+.m-page li .page-num.z-current {
+    color: #fff;
+    background: #1f3a87;
+    text-decoration: none;
+    font-weight: 700;
+    line-height: 16px;
+    cursor: text
+}
+
+.m-page li .page-num:hover {
+    color: #fff;
+    background-color: #1f3a87
+}
+
+.m-page li .fold {
+    border: none;
+    color: #1f3a87;
+    font-weight: 700;
+    line-height: 12px;
+    background-color: transparent
+}
+
+.tie-hot .list-head .title {
+    float: left
+}
+
+.tie-hot .list-head .rule {
+    float: right;
+    padding-right: 20px
+}
+
+.tie-hot .list-head .rule a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #1e50a2
+}
+
+.tie-hot .list-head .rule a:hover {
+    color: #ba2636;
+    text-decoration: underline
+}
+
+.tie-hot .list-empty .tips a {
+    font-size: 12px;
+    color: #1e50a2
+}
+
+.tie-hot .list-empty .tips a:hover {
+    color: #ba2626;
+    text-decoration: underline
+}
+
+.tie-foot {
+    padding: 16px 0 30px
+}
+
+.tie-foot>.post-tips {
+    margin: 8px 25px 0;
+    height: 30px;
+    background: #f1f7fc;
+    color: #666;
+    line-height: 32px;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center
+}
+
+.tie-foot>.tie-input {
+    margin: 20px 25px 10px;
+}
+
+.tie-foot>.tie-input textarea {
+    height: 131px
+}
+
+.tie-foot>.declaration {
+    color: #888;
+    margin-left: 25px;
+    font-size: 12px;
+    line-height: 12px
+}

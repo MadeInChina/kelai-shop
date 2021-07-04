@@ -1,0 +1,28 @@
+<div id="ready_only_alipay_payment_method" class="read-only-alipay-payment-method-container" th:fragment="read-only">
+    <div class="row">
+        <img src="/img/payment/alipay.png" style="width: 200px;padding: 20px;"/>
+    </div>
+</div>
+
+<div id="alipay_payment_method" class="alipay-payment-method-container"  th:fragment="form">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-12 text-center-mobile">
+                    <img src="/img/payment/alipay.png" style="width: 200px;"/>
+                </div>
+                <div class="col-md-12" style="padding: 10px;">使用支付宝进行付款</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="pretty p-icon p-smooth">
+                <input type="radio" name="check-payment" class="check-payment" id="checkAlipay" value="Alipay" />
+                <div class="state p-success">
+                    <i class="icon fa fa-check"></i>
+                    <label></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a th:href="${'/alipay/unifiedOrder?orderId=' + paymentRequest.orderId}" class="js-alipayPaymentMethodAction is-hidden"></a>
+</div>

@@ -1,0 +1,21 @@
+<blc:menu resultVar="categoryMenuItems" menuName="Category Nav"></blc:menu>
+<div class="service-category-panel hidden" th:id="${serviceCategoryId + '-panel'}">
+        <ul>
+            <li th:each="menuItem : ${categoryMenuItems}" class="service-category-tab-container">
+                <div class="service-category-tab">
+                    <a href="#"><i class="material-icons left-panel-menu-icon">card_travel</i>[[${menuItem.label}]]</a><i class="material-icons chevron-right">chevron_right</i>
+                </div>
+                <div class="service-category-tab-content hidden">
+                    <th:block th:each="submenuItem : ${menuItem.submenu}">
+                    <h5 th:utext="${submenuItem.label}">公司注册</h5>
+                    <ul>
+                        <li th:each="subsubmenuItem : ${submenuItem.submenu}">
+                            <a th:href="${subsubmenuItem.url}" th:utext="${subsubmenuItem.label}">有限责任公司注册</a>
+                        </li>
+                    </ul>
+                    </th:block>
+
+                </div>
+            </li>
+        </ul>
+</div>

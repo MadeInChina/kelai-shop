@@ -1,0 +1,96 @@
+<script type="text/javascript" th:inline="javascript">
+    $('#sendOut').bind('click',function () {
+        var expressCompanyId = $('input[name="expressCompanyId"]:checked').val();
+        var trackingNumber = $('#trackingNumber').val();
+        var orderId = [[${entity.getPMap().get('id').value}]];
+        if (expressCompanyId === '' || !expressCompanyId){
+            alert('请选择快递公司');
+            return;
+        }
+        if (trackingNumber === ''){
+            alert('请填写快递单号');
+            return;
+        }
+        var btn = $(this);
+        btn.attr('disabled','disabled');
+        btn.text('正在发货...');
+        $.ajax({
+            url : '/admin/order/send-out?expressCompanyId=' + expressCompanyId + '&trackingNumber=' + trackingNumber + '&orderId=' + orderId + '&csrfToken=' + $('input[name="csrfToken"]')[0].value + '&stateVersionToken=' + $('input[name="stateVersionToken"]')[0].value,
+            type : 'POST',
+            success : function (res) {
+                if (res.status === 'SUCCESS'){
+                    $('#showDeliveryModalBtn').remove();
+                    alert('发货成功');
+                    $('#deliveryModal').modal('hide');
+                }else {
+                    alert(res.message);
+                }
+            },
+            error:function () {
+                alert('发货失败');
+            },
+            complete : function () {
+                btn.removeAttr('disabled');
+                btn.text('确定');
+            }
+        })
+    });
+</script>
+<script th:inline="javascript" th:if="${afterSales != null}">
+    ajaxModalContentLoadCompleteIntercept('查看 退款申请',function () {
+        $('#disagree').bind('click',disagree);
+        $('#agree').bind('click',agree);
+    });
+    function agree() {
+        if(confirm('确定要执行退款操作吗')) {
+            $.ajax({
+                url: '/admin/order/agreeRefund',
+                type: 'POST',
+                contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                data: {
+                    id: '[[${afterSales.id}]]',
+                    reply: $('#reply').val(),
+                    csrfToken : $('input[name="csrfToken"]')[0].value,
+                    stateVersionToken : $('input[name="stateVersionToken"]')[0].value
+                },
+                success: function (res) {
+                    if (res.status === 'SUCCESS') {
+                        alert(res.message);
+                        $('.modal').show('hide');
+                    } else {
+                        alert(res.message);
+                    }
+                },
+                error: function () {
+                    alert('操作失败');
+                }
+            });
+        }
+    }
+    function disagree() {
+        if (confirm('确定执行拒绝退款操作吗？')) {
+            $.ajax({
+                url: '/admin/order/disagreeRefund',
+                type: 'POST',
+                contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                data: {
+                    id: '[[${afterSales.id}]]',
+                    reply: $('#reply').val(),
+                    csrfToken : $('input[name="csrfToken"]')[0].value,
+                    stateVersionToken : $('input[name="stateVersionToken"]')[0].value
+                },
+                success: function (res) {
+                    if (res.status === 'SUCCESS') {
+                        $('.modal').show('hide');
+                        alert('操作成功');
+                    } else {
+                        alert('操作失败');
+                    }
+                },
+                error: function () {
+                    alert('操作失败');
+                }
+            });
+        }
+    }
+</script>

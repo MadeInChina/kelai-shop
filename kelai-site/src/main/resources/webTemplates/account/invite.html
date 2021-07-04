@@ -1,0 +1,21 @@
+<th:block layout:decorate="~{layout/accountLayout}" layout:fragment="content">
+
+        <div class="card manage-account-form-wrapper js-manageAccountFormWrapper">
+            <h3>   邀请好友一起赚钱</h3>
+            <hr />
+            <p>
+                <b>邀请方式</b><br>
+                方式1：保存二维码，利用二维码制作海报，把含有二维码的海报转发给好友，好友通过二维码注册成功并消费，您获得分润。
+            </p>
+            <div class="row">
+                <div class="col-sm-9 col-md-6">
+                    <img src="/account/inviteQRCode" style="width: 100%;">
+                </div>
+            </div>
+            <p style="clear: both;">
+                方式2：复制以下链接发送给好友，好友通过该链接注册成功并消费，您获得分润。
+            </p>
+            <div th:text="${inviteUrl}" ></div>
+        </div>
+
+</th:block>

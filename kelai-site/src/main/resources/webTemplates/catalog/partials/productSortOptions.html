@@ -1,0 +1,38 @@
+
+<div id="sort" class="sort">
+        <span class="card-title" th:inline="text" >
+            <h4 class="title">排序</h4>
+        </span>
+    <div class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span th:switch="${#strings.replace(param.sort, ' ', 'Z')}">
+                    <span th:case="priceZasc">价格：由低至高</span>
+                    <span th:case="priceZdesc">价格：由高至低</span>
+                    <span th:case="nameZasc">字典序：A 至 Z</span>
+                    <span th:case="nameZdesc" >字典倒序: Z to A</span>
+                    <span th:case="*" th:utext="${#httpServletRequest.getRequestURI() == '/search'} ? #{productSortOptions.bestMatch} : '默认'"></span>
+                </span>
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+
+            <li><a th:href="${@queryUriUtils.getQueryUri('')}"
+                   th:unless="${param.sort == null}"
+                   th:utext="${#httpServletRequest.getRequestURI() == '/search'} ? #{productSortOptions.bestMatch} : #{productSortOptions.default}"></a></li>
+            <li><a th:href="${@queryUriUtils.getQueryUri('price asc')}"
+                   th:unless="${#strings.replace(param.sort, ' ', 'Z') == 'priceZasc'}"
+            >价格：由低至高</a></li>
+            <li><a th:href="${@queryUriUtils.getQueryUri('price desc')}"
+                   th:unless="${#strings.replace(param.sort, ' ', 'Z') == 'priceZdesc'}"
+            >价格：由高至低</a></li>
+            <li><a th:href="${@queryUriUtils.getQueryUri('name asc')}"
+                   th:unless="${#strings.replace(param.sort, ' ', 'Z') == 'nameZasc'}"
+            >字典序：A 至 Z</a></li>
+            <li><a th:href="${@queryUriUtils.getQueryUri('name desc')}"
+                   th:unless="${#strings.replace(param.sort, ' ', 'Z') == 'nameZdesc'}"
+            >字典倒序: Z to A</a></li>
+        </ul>
+    </div>
+</div>
+
+

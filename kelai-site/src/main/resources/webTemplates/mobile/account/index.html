@@ -1,0 +1,66 @@
+<th:block layout:decorate="~{mobile/layout/accountLayout}" layout:fragment="content">
+    <style type="text/css">
+        .list-group-item{
+            margin-bottom: 5px;
+            border-left: none;
+            border-right: none;
+            border-radius: unset !important;
+        }
+        .list-group-item a{
+            color: #1a1a1a !important;
+            display: block;
+        }
+        .account-menu-item-chevron-right{
+            float: right;
+        }
+    </style>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a href="/account">
+                <i class="material-icons">person</i>个人信息
+                <i class="material-icons account-menu-item-chevron-right">chevron_right</i>
+            </a>
+
+        </li>
+        <li class="list-group-item">
+            <a href="/account/orders">
+            <i class="material-icons">list</i>历史订单
+                <i class="material-icons account-menu-item-chevron-right">chevron_right</i>
+            </a>
+
+        </li>
+        <li class="list-group-item">
+            <a href="/account/addresses">
+                <i class="material-icons">edit_location</i>收货地址
+                <i class="material-icons account-menu-item-chevron-right">chevron_right</i>
+            </a>
+
+        </li>
+        <li class="list-group-item" th:if="${#props.getAsBoolean('enableDistribution')}">
+            <a th:href="@{/account/invite}">
+                <i class="material-icons">device_hub</i>邀请好友赚钱
+                <i class="material-icons account-menu-item-chevron-right">chevron_right</i>
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="/account/security">
+                <i class="material-icons">security</i>安全设置
+                <i class="material-icons account-menu-item-chevron-right">chevron_right</i>
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="/account/password">
+            <i class="material-icons">lock</i>修改密码
+                <i class="material-icons account-menu-item-chevron-right">chevron_right</i>
+            </a>
+
+        </li>
+        <li class="list-group-item">
+            <a href="/logout">
+                <i class="material-icons">power_settings_new</i>退出
+                <i class="material-icons account-menu-item-chevron-right">chevron_right</i>
+            </a>
+
+        </li>
+    </ul>
+</th:block>

@@ -1,0 +1,81 @@
+
+<comment th:remove="all">
+    <!-- This component represents a tabbed entity form with collections -->
+    <!-- Additional parameters that can be specified include: -->
+    <!--    additionalClasses - any additional CSS classes to apply to the form -->
+    <!--    additionalTabClasses - any additional CSS classes to apply to the tabs -->
+    <!--    showSingleTab - boolean value determining whether or not to show tabs if there is only one -->
+    <!--    hideTranslations - boolean value determining whether or not to hide the translation icon -->
+    <!--    hideActions - boolean value determining whether or not to hide the entity form actions -->
+</comment>
+
+<th:block>
+    <style type="text/css">
+        .evidence li{
+            list-style: none;
+            float: left;
+            width: 150px;
+            padding-right: 20px;
+        }
+    </style>
+    <div class="content-yield" th:if="${afterSales != null}">
+        <div class="row">
+            <div class="tabs-content" >
+                <table class="table table-hover">
+                    <tr>
+                        <td style="width: 100px;">退款金额</td>
+                        <td th:text="${afterSales.applyRefundAmount}"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 100px;">退款理由</td>
+                        <td th:text="${afterSales.reason}"></td>
+                    </tr>
+                    <tr th:if="${customer.firstName != null && customer.lastName != null}">
+                        <td style="width: 100px;">退款申请人</td>
+                        <td th:text="${customer.firstName + customer.lastName}"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 100px;">联系方式</td>
+                        <td th:text="${customer.username}"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 100px;">退款申请状态</td>
+                        <td th:text="${afterSales.auditStatus?.friendlyType}"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 100px;">退款状态</td>
+                        <td th:if="${afterSales.refundStatus != null}" th:text="${afterSales.refundStatus?.friendlyType}"></td>
+                        <td th:if="${afterSales.refundStatus == null}">-</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 100px;">申请日期</td>
+                        <td th:text="${afterSales.createTime}"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 100px;">证据</td>
+                        <td>
+                            <ul class="evidence">
+                                <li th:each="item : ${afterSales.evidence}">
+                                    <a target="_blank" th:href="${'/admin' + item}" data-lightbox="roadtrip">
+                                        <img style="width: 100px;" th:src="${'/admin' + item}">
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 100px;">回复</td>
+                        <td>
+                            <textarea rows="5" id="reply"></textarea>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+            <div class="entity-form-actions">
+                    <button th:if="${afterSales.auditStatus.type == 'AUDITING'}" id="disagree" onclick="disagree()" type="button" class="button default">拒绝退款</button>
+                    <button th:if="${afterSales.auditStatus.type == 'AUDITING' || afterSales.auditStatus.type == 'DISAGREE'}" id="agree" onclick="agree()" type="button" class="button primary">同意退款</button>
+
+                </div>
+        </div>
+    </div>
+</th:block>

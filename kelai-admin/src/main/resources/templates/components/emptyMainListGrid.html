@@ -1,0 +1,7 @@
+<h4 class="empty-main-list-grid">
+    未找到 <span th:inline="text">[[#{#{${entityFriendlyName}}}]]</span> 相关记录
+</h4>
+<h4 class="empty-main-list-grid" th:unless="${hideEmptyMainListGridAddPrompt}">
+    请使用上面的 "新增 <span th:inline="text">[[#{${entityFriendlyName}}]]</span>" 按钮
+    以创建新的 <span th:inline="text" style="text-transform: lowercase;">[[#{${entityFriendlyName}}]]</span>.
+</h4>

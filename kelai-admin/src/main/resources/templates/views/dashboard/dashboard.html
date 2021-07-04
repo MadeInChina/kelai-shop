@@ -1,0 +1,277 @@
+<div class="main-content" role="main" style="overflow: auto;">
+    <!--<div th:replace="layout/partials/stickyHeader" />-->
+
+    <!--<div th:replace="layout/partials/headerFlash" />-->
+
+
+    <div id="sectionKey" style="display: none;">/dashboard</div>
+    <div class="sticky-container">
+        <div class="content-area-title-bar entity-form-actions">
+            <h3>
+                控制面板
+            </h3>
+            <div style="float: right; ">
+                <a href="/admin/order" target="_blank" style="height: 80px;width: 150px;color: #555;">
+                    <span style="font-size: 35px;"><i class="fas fa-clipboard-list"></i></span>
+                    <span style="color: #dc3545;font-weight:bold;position: absolute;top: 25px;left: 35px;display: block; line-height: normal;" th:text="${countOfUnprocessedOrder}">100</span>
+                    <span style="position: absolute;top: 40px;left: 35px;display: block;line-height: normal;">未处理订单</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div style="padding: 20px 40px;">
+        <div class="fieldset-card field-group">
+        <div class="fieldset-card-content dashboard-actions">
+            <b>常用操作</b>
+            <ul>
+                <li>
+                    <a target="_blank" href="/admin/nio-contentbuilder/contentbuilder.html?id=200">
+                        <i class="fas fa-desktop"></i>
+                        <span>PC端首页装修</span>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="/admin/nio-contentbuilder/contentbuilder.html?id=300">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>手机端首页装修</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a target="_blank" href="/admin/product:product">
+                        <i class="fas fa-box"></i>
+                        <span>商品管理</span>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="/admin/menu">
+                        <i class="fas fa-bars"></i>
+                        <span>菜单管理</span>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="/admin/structured-content/500#tab1">
+                        <i class="far fa-question-circle"></i>
+                        <span>常见问题</span>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="/admin/structured-content/400#tab1">
+                        <i class="fas fa-user-shield"></i>
+                        <span>服务保障</span>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="/admin/system-properties-management/-1#tab1">
+                        <i class="fas fa-door-open"></i>
+                        <span>启用门店功能</span>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="/admin/store">
+                        <i class="fas fa-store"></i>
+                        <span>门店管理</span>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="/admin/shipping-template">
+                        <i class="fas fa-shipping-fast"></i>
+                        <span>物流配送</span>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="/admin/pages/1#tab1">
+                        <i class="fas fa-users"></i>
+                        <span>关于我们</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+        <div class="fieldset-card field-group">
+            <div class="fieldset-card-content dashboard-actions">
+                <b>销售统计</b>
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-clipboard-list"></i></span>
+
+                            <div class="info-box-content">
+                                <a href="/admin/order">
+                                <span class="info-box-text" style="color: #dd2727; font-weight: bold;">未处理订单</span>
+                                <span class="info-box-number" th:text="${countOfUnprocessedOrder}" style="color: #dd2727;font-weight: bold;">10</span>
+                                </a>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-calendar-day"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">今日成交</span>
+                                <span class="info-box-number" th:text="${#numbers.formatDecimal(@statisticalUtils.getItem(orderTransactionAmount,'todayAmount').value,1,2)}">41,410</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+
+                    <!-- fix for small devices only -->
+                    <div class="clearfix hidden-md-up"></div>
+
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-calendar-week"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text" >本周成交</span>
+                                <span class="info-box-number" th:text="${#numbers.formatDecimal(@statisticalUtils.getItem(orderTransactionAmount,'currentWeekAmount').value,1,2)}">760</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-warning elevation-1"><i class="far fa-calendar-alt"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text" >本月成交</span>
+                                <span class="info-box-number" th:text="${#numbers.formatDecimal(@statisticalUtils.getItem(orderTransactionAmount,'currentMonthAmount').value,1,2)}">2,000</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- /.col -->
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-danger elevation-1"><i class="far fa-calendar-plus"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text" >本季度成交</span>
+                                <span class="info-box-number" th:text="${#numbers.formatDecimal(@statisticalUtils.getItem(orderTransactionAmount,'currentQuarterAmount').value,1,2)}">2,000</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- /.col -->
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-info elevation-1"><i class="far fa-calendar-check"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text" >本年成交</span>
+                                <span class="info-box-number" th:text="${#numbers.formatDecimal(@statisticalUtils.getItem(orderTransactionAmount,'currentYearAmount').value,1,2)}">2,000</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- /.col -->
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-dollar-sign"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text" >总成交额</span>
+                                <span class="info-box-number" th:text="${#numbers.formatDecimal(@statisticalUtils.getItem(orderTransactionAmount,'totalAmount').value,1,2)}">2,000</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <div id="orderChartContainer" style="width: 100%;">
+                    <div style="width: 50%;float: left;">
+                        <canvas id="orderChartCanvas"></canvas>
+                    </div>
+                    <div style="width: 50%;float: left;padding-left: 20px;">
+                        <canvas id="top10SaleProductChartCanvas"></canvas>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="fieldset-card field-group">
+            <div class="fieldset-card-content dashboard-actions">
+                <b>用户统计</b>
+                <div id="userChartContainer" style="width: 100%;">
+                    <div style="width: 50%;float: left;">
+                        <canvas id="userChartCanvas"></canvas>
+                    </div>
+                    <div style="width: 50%;float: left;padding-left: 20px;">
+                        <div class="info-box mb-3 bg-warning">
+                            <span class="info-box-icon"><i class="fas fa-calendar-day"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">今日注册量</span>
+                                <span class="info-box-number" th:text="${@statisticalUtils.getItem(countOfCustomerReg,'todayCount').value}">5,200</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <div class="info-box mb-3 bg-success">
+                            <span class="info-box-icon"><i class="fas fa-calendar-week"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">本周注册量</span>
+                                <span class="info-box-number"  th:text="${@statisticalUtils.getItem(countOfCustomerReg,'currentWeekCount').value}">92,050</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <div class="info-box mb-3 bg-danger">
+                            <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">本月注册量</span>
+                                <span class="info-box-number"  th:text="${@statisticalUtils.getItem(countOfCustomerReg,'currentMonthCount').value}">114,381</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <div class="info-box mb-3 bg-info">
+                            <span class="info-box-icon"><i class="far fa-calendar-plus"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">本季度注册量</span>
+                                <span class="info-box-number"  th:text="${@statisticalUtils.getItem(countOfCustomerReg,'currentQuarterCount').value}">163,921</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <div class="info-box mb-3 bg-success">
+                            <span class="info-box-icon"><i class="far fa-calendar-check"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">本年度注册量</span>
+                                <span class="info-box-number"  th:text="${@statisticalUtils.getItem(countOfCustomerReg,'currentYearCount').value}">163,921</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <div class="info-box mb-3 bg-danger">
+                            <span class="info-box-icon"><i class="fas fa-users"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">总注册用户量</span>
+                                <span class="info-box-number" th:text="${@statisticalUtils.getItem(countOfCustomerReg,'count').value}">163,921</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

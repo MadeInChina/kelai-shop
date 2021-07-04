@@ -1,0 +1,2 @@
+org.broadleafcommerce.common.module.BroadleafModuleRegistration=cn.com.kelaikewang.integration.redis.config.RedisModuleRegistration
+org.broadleafcommerce.common.config.FrameworkCommonClasspathPropertySource=cn.com.kelaikewang.integration.redis.config.RedisProperties

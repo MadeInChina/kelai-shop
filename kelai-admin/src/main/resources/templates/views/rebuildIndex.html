@@ -1,0 +1,38 @@
+<div class="main-content" role="main" style="overflow: auto;">
+    <!--<div th:replace="layout/partials/stickyHeader" />-->
+
+    <!--<div th:replace="layout/partials/headerFlash" />-->
+
+
+    <div id="sectionKey" style="display: none;">/indexer</div>
+    <div class="sticky-container">
+        <div class="content-area-title-bar entity-form-actions">
+            <h3>
+                搜索索引
+            </h3>
+        </div>
+    </div>
+    <div style="padding: 20px 40px;">
+
+        <blc:form style="padding-bottom: 20px" method="POST">
+
+            <div class="fieldset-card field-group">
+                <div class="fieldset-card-content">
+                    <div class="field-group" th:if="${rebuildIndexStatus == 'SUCCESS'}" style="color: #28a745;">
+                        重建索引成功
+                    </div>
+                    <div class="field-group" th:if="${rebuildIndexStatus == 'FAILED'}" style="color: #dd2727;">
+                        重建索引失败
+                    </div>
+                    <div class="field-group" style="width: auto;padding-left:20px;">
+                        <button type="submit" class="button primary large">重建索引</button>
+                    </div>
+                </div>
+            </div>
+
+        </blc:form>
+
+    </div>
+
+
+</div>

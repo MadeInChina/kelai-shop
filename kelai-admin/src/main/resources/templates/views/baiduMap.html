@@ -1,0 +1,75 @@
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=0ztLsTTubZFUCTY92bo75QfE"></script>
+<div id="baiduMap" style="border-radius: 5px; display:none;position: absolute; left:50%;top:50%;transform: translate(-50%, -50%);width:730px; background-color: #f9f9f9;border: #cccccc solid 2px;">
+    <div style="border-bottom: 1px solid #cccccc;height: 40px;">
+        <label style="float: left;padding: 10px;">经纬度查询</label>
+        <span style="float: right;padding: 10px;margin-right: 10px;cursor: pointer;" onclick="hideBaiduMap()">×</span>
+    </div>
+
+    <div style="padding: 10px;clear: both;background-color: #ffffff;">
+        <label>详细地址</label>
+        <input id="address" type="text" value="" style="margin-right:50px;" readonly="readonly"/>
+        <label>经纬度</label>
+        <input id="coordinate" type="text" readonly="readonly"/>
+        <input type="button" value="查询" class="button secondary" onclick="searchByStationName();" style="margin-top: 10px;"/> <button onclick="searchByStationNameAndSetLngLat()" class="primary button" style="margin-top: 10px;">确定</button>
+        <div id="baiduMapContainer" style=" margin-top:10px; width:710px; height:590px;  border:1px solid gray; overflow:hidden;"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    var map = new BMap.Map("baiduMapContainer");
+    var localSearch = new BMap.LocalSearch(map);
+    map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+    map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+    map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+    map.addControl(new BMap.OverviewMapControl()); //添加默认缩略地图控件
+    map.addControl(new BMap.OverviewMapControl({ isOpen: true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT }));   //右下角，打开
+
+    localSearch.enableAutoViewport(); //允许自动调节窗体大小
+
+    function searchByStationName() {
+        map.clearOverlays();//清空原来的标注
+        var keyword = document.getElementById("address").value;
+        localSearch.setSearchCompleteCallback(function (searchResult) {
+            var poi = searchResult.getPoi(0);
+            document.getElementById("coordinate").value = '经度：' + poi.point.lng + "，纬度：" + poi.point.lat;
+            map.centerAndZoom(poi.point, 13);
+            var marker = new BMap.Marker(new BMap.Point(poi.point.lng, poi.point.lat));  // 创建标注，为要查询的地方对应的经纬度
+            map.addOverlay(marker);
+        });
+        localSearch.search(keyword);
+    }
+    function searchByStationNameAndSetLngLat() {
+        map.clearOverlays();//清空原来的标注
+        var keyword = document.getElementById("address").value;
+        localSearch.setSearchCompleteCallback(function (searchResult) {
+            var poi = searchResult.getPoi(0);
+            //document.getElementById("coordinate").value = '经度：' + poi.point.lng + "，纬度：" + poi.point.lat;
+            $('input[name="fields[\'latitude\'].value"]').val(poi.point.lat);
+            $('input[name="fields[\'longitude\'].value"]').val(poi.point.lng);
+            map.centerAndZoom(poi.point, 13);
+            var marker = new BMap.Marker(new BMap.Point(poi.point.lng, poi.point.lat));  // 创建标注，为要查询的地方对应的经纬度
+            map.addOverlay(marker);
+            $('#baiduMap').hide();
+        });
+        localSearch.search(keyword);
+    }
+    function showBaiduMap() {
+        if ($('#province-select').val() == '' || $('#city-select').val() == '' || $('#region-select').val() == '') {
+            alert('请选择省份、城市及区县');
+            return;
+        }
+        var address = $('input[name="fields[\'detailedAddress\'].value"]').val();
+        if (address == ''){
+            alert('请填写详细地址');
+            return;
+        }
+        $('#address').val(address);
+        map.centerAndZoom($('#city-select').find("option:selected").text(), 12);
+
+        $('#baiduMap').show().css({
+            'z-index' : $($('.modal')[0]).css('z-index') + 1
+        });
+    }
+    function hideBaiduMap() {
+        $('#baiduMap').hide();
+    }
+</script>

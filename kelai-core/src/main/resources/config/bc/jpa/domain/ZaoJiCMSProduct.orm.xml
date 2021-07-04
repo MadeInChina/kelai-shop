@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+                 version="2.0">
+
+    <named-query name="BC_READ_ALL_PRODUCT_BUNDLE_PRODUCT_ID">
+        <query>
+            SELECT productBundle.id FROM org.broadleafcommerce.core.catalog.domain.ProductBundle productBundle
+        </query>
+    </named-query>
+   <!-- <named-query name="BC_READ_ALL_PRODUCT_BUNDLE_PRODUCT_ID">
+        <query>
+            SELECT productBundle.id FROM org.broadleafcommerce.core.catalog.domain.ProductBundle productBundle
+        </query>
+    </named-query>-->
+    <named-query name="BC_READ_TOP_SALE_PRODUCT">
+        <query>
+            SELECT item.product.id AS productId,SUM(item.quantity) as quantity,sku.name as productName FROM org.broadleafcommerce.core.order.domain.DiscreteOrderItem item
+            INNER JOIN org.broadleafcommerce.core.catalog.domain.Sku sku ON sku.id = item.sku.id
+            WHERE  item.order.status = 'PAID' OR item.order.status = 'SHIPPED' OR item.order.status = 'RECEIVED' OR item.order.status = 'REFUND_PROCESSING'  OR item.order.status = 'REFUND_REJECTED'  OR item.order.status = 'REFUNDED'
+            GROUP BY item.product.id
+            ORDER BY quantity DESC
+        </query>
+    </named-query>
+    <named-query name="BC_READ_ALL_RECOMMENDED_PRODUCT">
+        <query>
+            SELECT rp.product  FROM cn.com.kelaikewang.core.marketing.domain.RecommendedProduct rp
+            ORDER BY rp.position ASC
+        </query>
+    </named-query>
+</entity-mappings>

@@ -1,0 +1,153 @@
+<div th:class="${inModal != null and inModal? 'col12' : tab.isMultiColumn != null and tab.isMultiColumn? 'col8' : tab.wantsFullScreen? 'col12' : 'col10'}">
+    <div class="row">
+
+        <th:block th:each="group, groupStat : ${tab.fieldGroups}" th:if="${group.column} == 0 or ${group.column} == null">
+            <th:block th:if="${group.customTemplate == null}">
+                <div th:replace="components/partials/entityFormGroups"></div>
+            </th:block>
+            <th:block th:unless="${group.customTemplate == null}">
+                <div th:replace="${group.customTemplate}"></div>
+            </th:block>
+        </th:block>
+
+        <th:block th:if="${dynamicFormTemplateOverride == null}">
+            <th:block th:if="${tabStat.first}" th:each="dynamicForm : *{dynamicForms}">
+                <div th:include="components/dynamicForm" th:with="dynamicPropertyName=${dynamicForm.key}"></div>
+            </th:block>
+        </th:block>
+
+        <th:block th:unless="${dynamicFormTemplateOverride == null}">
+            <div th:replace="${dynamicFormTemplateOverride}"></div>
+        </th:block>
+
+        <th:block th:each="listGrid : ${tab.listGrids}"
+                  th:if="${listGrid.selectType} != 'selectize'">
+            <div class="fieldset-card field-group listgrid-container entityform-listgrid"
+                 th:id="${listGrid.subCollectionFieldName}">
+                <div class="fieldgroup-listgrid-wrapper-header titlebar" th:classappend="${#lists.isEmpty(listGrid.records)} ? 'hidden-body'">
+                    <div class="titlebar-title">
+                        <span th:unless="${#strings.isEmpty(listGrid.friendlyName)}" class="listgrid-friendly-name" th:utext="#{${listGrid.friendlyName}}"></span>
+                        <th:block th:unless="${listGrid.manualFetch}">
+                            <span class="listgrid-total-records" th:if="${listGrid.totalRecords} == 1" th:text="'(' + ${listGrid.totalRecords} + #{listgrid.header.record} + ')'"></span>
+                            <span class="listgrid-total-records" th:unless="${listGrid.totalRecords} == 1" th:text="'(' + ${listGrid.totalRecords} + #{listgrid.header.records} + ')'"></span>
+                        </th:block>
+                        <th:block th:if="${listGrid.manualFetch}">
+                            <span class="listgrid-total-records" th:text="#{listgrid.manualFetch}"></span>
+                        </th:block>
+                    </div>
+                    <th:block th:include="components/listGridToolbar" th:with="listGrid=${listGrid}"></th:block>
+                </div>
+                <div class="fieldgroup-listgrid-wrapper fieldset-card-content" th:classappend="${#lists.isEmpty(listGrid.records)} ? 'hidden'">
+                    <th:block th:unless="${listGrid.listGridType} == 'asset_grid'" th:include="components/listGrid" th:with="listGrid=${listGrid}, inModal=${inModal != null and inModal}"></th:block>
+                    <th:block th:if="${listGrid.listGridType} == 'asset_grid'" th:include="components/mediaListGrid" th:with="listGrid=${listGrid}, inModal=${inModal != null and inModal}"></th:block>
+                </div>
+            </div>
+        </th:block>
+
+        <th:block th:each="listGrid : ${tab.listGrids}"
+                  th:if="${listGrid.selectType} == 'selectize'">
+            <div class="fieldset-card field-group listgrid-container entityform-listgrid"
+                 th:id="${listGrid.subCollectionFieldName}">
+                <a class="titlebar" href="#">
+                    <div class="titlebar-title">
+                        <span th:unless="${#strings.isEmpty(listGrid.friendlyName)}" th:utext="#{${listGrid.friendlyName}}"></span>
+                    </div>
+                    <div class="collapser">
+                        <span th:unless="${#lists.isEmpty(listGrid.records)}" class="expanded" href="#" th:inline="text">([[#{form.hide}]])</span>
+                        <span th:if="${#lists.isEmpty(listGrid.records)}" class="collapsed" href="#" th:inline="text">([[#{form.show}]])</span>
+                    </div>
+                </a>
+                <div class="fieldset-card-content" th:classappend="${#lists.isEmpty(listGrid.records) ? 'content-collapsed' : ''}">
+                    <th:block th:include="components/selectizeLabelBar" th:with="listGrid=${listGrid}"></th:block>
+                    <th:block th:include="components/selectizeCollection" th:with="listGrid=${listGrid}"></th:block>
+                </div>
+            </div>
+        </th:block>
+    </div>
+
+    <th:block th:if="${logisticTrackingInfo != null}">
+        <div class="row">
+            <div class="fieldset-card field-group">
+                <a class="titlebar" href="#">
+                    <div class="titlebar-title">
+                        <span>包裹信息</span>
+                    </div>
+                    <div class="collapser">
+                        <span class="expanded" href="#">(隐藏)</span>
+                    </div>
+                </a>
+                <div class="fieldset-card-content">
+                    <div th:if="${order.expressCompany != null}" style="padding-bottom: 10px;">
+                        <span th:text="${'快递公司：' + order.expressCompany?.name}"></span>
+                    </div>
+                    <div style="padding-bottom: 10px;">
+                        <span th:text="${'快递单号：' + order.logisticsTrackingNumber}"></span>
+                    </div>
+                    <div style="padding-bottom: 10px;">
+                        <span th:text="${'发货时间：' + order.deliveryTime}"></span>
+                    </div>
+                    <th:block th:if="${logisticTrackingInfo.Traces != null && logisticTrackingInfo.Traces.size() > 0}">
+
+                    <div th:each="item : ${logisticTrackingInfo.Traces}" style="padding-bottom: 10px;">
+                        <span th:text="${item.AcceptTime}" style="padding-right: 20px;"></span>
+                        <span th:text="${item.AcceptStation}" style="padding-right: 20px;"></span>
+                        <span th:text="${item.Remark}" style="color: #28a745;"></span>
+                    </div>
+                    </th:block>
+                    <th:block th:if="${logisticTrackingInfo.Traces == null || logisticTrackingInfo.Traces.size() == 0}">
+                        <span>暂无物流信息</span>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:if="${entity.getPMap().get('status').value == 'PAID'}">
+    <div style="text-align: center;">
+        <button id="showDeliveryModalBtn" style="width: 150px;height: 40px;" data-toggle="modal" data-target="#deliveryModal" type="button" class="button default">
+            发货
+        </button>
+    </div>
+    <!-- Modal -->
+    <div style="display: none;" class="modal fade" id="deliveryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="height: 40px;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">发货</h4>
+                </div>
+                <div class="modal-body">
+                    <div style="padding: 10px;">
+                        <div class="form-group">
+                            <label for="expressCompany">快递公司</label>
+                            <div class="radio" th:each="item : ${expressCompanies}">
+                                <label>
+                                    <input type="radio" name="expressCompanyId" th:id="${'expressCompanyId' + itemStat.index}" th:value="${item.id}">
+                                    [[${item.name}]]
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="trackingNumber">快递单号</label>
+                            <input type="text" class="form-control" id="trackingNumber" placeholder="请填写运单号">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="sendOut"  style="width: 100px;height: 30px;" type="button" class="button primary">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </th:block>
+
+</div>
+<div th:if="${tab.isMultiColumn != null and tab.isMultiColumn}" th:class="${inModal != null and inModal? 'col12' : 'col4'}">
+    <th:block th:each="group : ${tab.fieldGroups}" th:if="${group.column} != 0 and ${group.column} != null">
+        <th:block th:if="${group.customTemplate == null}" th:include="components/partials/entityFormGroups"></th:block>
+        <th:block th:unless="${group.customTemplate == null}">
+            <div th:replace="${group.customTemplate}"></div>
+        </th:block>
+    </th:block>
+</div>
+

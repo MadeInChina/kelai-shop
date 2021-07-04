@@ -1,0 +1,64 @@
+<th:block th:if="${treeListGrid}">
+    <th:block th:include="components/treeListGrid" th:object="${treeListGrid}"></th:block>
+    <th:block th:include="components/listGridModalActions"
+              th:each="column, iterStat : ${treeListGrid.treeListGridColumns}"
+              th:if="${iterStat.index == 0}"
+              th:with="listGrid=${column.listGrid}"></th:block>
+</th:block>
+<th:block th:unless="${treeListGrid}">
+    <th:block th:if="${isAssetGrid != null and isAssetGrid}">
+        <th:block th:include="views/assetGridWithUploadForm"></th:block>
+    </th:block>
+    <th:block th:unless="${isAssetGrid != null and isAssetGrid}">
+        <div style="display: none;" class="fieldset-card field-group listgrid-container single-listgrid"
+             th:classappend="${additionalClasses != null} ? ${additionalClasses}"
+             th:id="${listGrid.subCollectionFieldName}">
+            <div class="fieldgroup-listgrid-wrapper-header titlebar" style="display: block;">
+                <div class="titlebar-title">
+                    <span th:unless="${#strings.isEmpty(listGrid.friendlyName)}" th:classappend="${listGrid.hideFriendlyName} ? hidden : ''" class="listgrid-friendly-name" th:text="#{${listGrid.friendlyName}}"></span>
+                    <span class="listgrid-total-records" th:if="${listGrid.totalRecords} == 1" th:text="'(' + ${listGrid.totalRecords} + #{listgrid.header.record} + ')'"></span>
+                    <span class="listgrid-total-records" th:unless="${listGrid.totalRecords} == 1" th:text="'(' + ${listGrid.totalRecords} + #{listgrid.header.records} + ')'"></span>
+                </div>
+                <th:block th:include="components/listGridToolbar" th:with="listGrid=${listGrid}"></th:block>
+            </div>
+            <div class="fieldgroup-listgrid-wrapper fieldset-card-content" th:classappend="${#lists.isEmpty(listGrid.records)} ? 'hidden'">
+                <th:block th:include="components/listGrid" th:object="${listGrid}"></th:block>
+            </div>
+        </div>
+        <div>
+            <input type="text" id="categoryKey" name="categoryKey" style="width: 300px;" placeholder="请输入关键字进行筛选">
+        </div>
+        <ul id="simpleSelectCategoryTree" class="ztree"></ul>
+        <script type="text/javascript" th:inline="javascript">
+            var simpleSelectCategoryZNodes = [
+                [#th:block th:each="record : ${listGrid.records}"]
+            { id:[[${record.id}]], pId:[[${record.fields[1].value == null ? 0 : record.fields[1].value}]], name:[[${record.fields[0].value}]], open:true},
+            [/th:block]
+            ];
+            var simpleSelectCategoryZTreeSetting = {
+                view: {
+                    selectedMulti: false
+                },
+                edit: {
+                    enable: false
+                },
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+                    onClick: simpleSelectCategoryZTreeOnClick
+                }
+            };
+            function simpleSelectCategoryZTreeOnClick(event, treeId, treeNode) {
+                $('tr[data-rowid="' + treeNode.id + '"]').click();
+            }
+            $(document).ready(function() {
+                $.fn.zTree.init($("#simpleSelectCategoryTree"), simpleSelectCategoryZTreeSetting, simpleSelectCategoryZNodes);
+                fuzzySearch('simpleSelectCategoryTree','#categoryKey',null,true); //初始化模糊搜索方法
+            });
+        </script>
+        <th:block th:include="components/listGridModalActions" th:object="${listGrid}"></th:block>
+    </th:block>
+</th:block>

@@ -1,0 +1,177 @@
+<th:block layout:decorate="~{mobile/layout/accountLayout}" layout:fragment="content">
+    <style type="text/css">
+        .card-header{
+            padding-left: 10px;
+        }
+        .order-item{
+            width: 100%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .order-item-bottom-border{
+            border-bottom: solid 1px #ececec;
+        }
+        .order-item-name{
+            width: 70%;
+            float: left;
+        }
+        .order-item-name a{
+            color: #3e3947;
+        }
+        .order-item-price{
+            width: 30%;
+            float: right;
+            text-align: right;
+        }
+        .order-item-attr{
+            color: #9e9e9e;
+        }
+        .card-footer{
+            font-weight: bold;
+            text-align: right;
+            padding-top: 0 !important;
+        }
+        .card-body{
+            padding-bottom: 0 !important;
+        }
+        .paid{
+            float: right;
+            padding-right: 10px;
+            color: rgb(255, 80, 0);;
+        }
+        .order-date{
+            float: left;
+        }
+        .clear{
+            clear: both;
+        }
+        .order-status-list{
+            padding-left: 10px;
+            overflow-x: auto;
+            white-space:nowrap;
+            width: auto;
+        }
+        .order-status-list li{
+            list-style: none;
+            /*float: left;*/
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            display: inline-block;
+        }
+        .order-status-list li:hover{
+            border-bottom: 2px solid #FF2626;
+        }
+        .order-status-list li a{
+            color: #1a1a1a;
+        }
+        .order-status-list li a:hover{
+            color: #FF2626;
+        }
+        .order-status-list li.active{
+            border-bottom: 2px solid #FF2626;
+        }
+        .order-status-list li.active a{
+            color: #FF2626 !important;
+        }
+        .order-nav{
+            overflow-x: auto;
+            width: auto;
+            margin-top: -30px;
+        }
+        .order-operation{
+            padding-bottom: 10px;
+        }
+        .order-operation a{
+            margin-left: 10px;
+            border: solid 1px #ccc;
+            border-radius: 15px;
+            padding: 5px 10px;
+        }
+    </style>
+    <div class="order-nav">
+        <ul class="order-status-list">
+            <li th:classappend="${(#request.getParameter('status') == '' || #request.getParameter('status') == null) ? 'active' : ''}">
+                <a href="/account/orders">所有</a>
+            </li>
+            <li th:classappend="${#request.getParameter('status') == 'SUBMITTED' ? 'active' : ''}">
+                <a href="/account/orders?status=SUBMITTED">待付款</a>
+            </li>
+            <li th:classappend="${#request.getParameter('status') == 'PAID' ? 'active' : ''}">
+                <a href="/account/orders?status=PAID">待发货</a>
+            </li>
+            <li th:classappend="${#request.getParameter('status') == 'SHIPPED' ? 'active' : ''}">
+                <a href="/account/orders?status=SHIPPED">待收货</a>
+            </li>
+            <li th:classappend="${#request.getParameter('status') == 'RECEIVED' ? 'active' : ''}">
+                <a href="/account/orders?status=RECEIVED">待评价</a>
+            </li>
+            <li th:classappend="${#request.getParameter('status') == 'AFTER_SALES_SERVICE' ? 'active'  : ''}">
+                <a href="/account/orders?status=AFTER_SALES_SERVICE">售后/退款</a>
+            </li>
+        </ul>
+    </div>
+    <div id="order-history" class="container" th:unless="${#lists.isEmpty(orders)}">
+
+        <th:block th:each="order : ${orders}" >
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">订单号：<span th:utext="${order.orderNumber}"></span></h4>
+                    <p class="category">
+                        <span class="order-date" th:utext="${'下单日期：' + #dates.format(order.submitDate, 'yyyy-MM-dd HH:mm')}"></span>
+                        <span class="paid" th:text="${order.status?.friendlyType}">已支付</span>
+                    <div class="clear"></div>
+                    </p>
+                    <div th:if="${order.pickedUpInStore}">
+                        <a href="#" onclick="storeLocation()">查看门店</a>
+                        <a href="#" TH:onclick="|showQrcode('${order.getId()}')|" style="padding-left: 20px;">提货码</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="order-item" th:each="orderItem : ${order.orderItems}" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                        <div class="order-item-name">
+                            <div style="width: 100%;">
+                                <a th:href="${orderItem.getSku().getProduct().getUrl()}" style="width: 30%;float: left;">
+                                    <img th:src="${orderItem.product.media['primary'].url}">
+                                </a>
+                                <a style="float: left;width:70%;padding-left: 10px;" th:href="${orderItem.getSku().getProduct().getUrl()}" th:utext="${orderItem.getName()}"></a>
+                            </div>
+                            <span class="order-item-attr" th:each="attr: ${orderItem.getOrderItemAttributes()}">
+                                            <small th:utext="${attr.value.name}"></small>：<small th:utext="${attr.value.value}"></small>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </span>
+                        </div>
+                        <div class="order-item-price">
+                            <span blc:price="*{orderItem.salePrice}"></span>
+                            <br>
+                            <span th:utext="${'x&nbsp;&nbsp;' + orderItem.getQuantity()}"></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div style="padding: 10px;">
+                    <hr style="padding-bottom: 10px;margin: 0;">
+                    <div style="text-align: right;padding-bottom: 10px;">
+                        <span>总额：</span><span blc:price="*{order.total}"></span>
+                    </div>
+                    <div style="text-align: right;" class="order-operation">
+                        <a th:href="${'/account/orders/orderDetails?orderId=' + order.id}">订单详情</a>
+                        <a th:if="${order.status?.type == 'SUBMITTED'}" style="border-color: #FF2626;color: #FF2626;" target="_blank" th:href="${'/checkout/payment?orderId=' + order.id}">去支付</a>
+
+                        <a th:if="${order.status?.type == 'SHIPPED'}" th:id="${'js-order-confirm-receipt-' + order.id}" target="_blank" th:onclick="|Order.confirmReceipt('${order.id}')|">确认收货</a>
+
+                        <a th:if="${order.status?.type == 'PAID' || order.status?.type == 'RECEIVED' || order.status?.type == 'SHIPPED'}" th:href="${'/account/orders/orderRefund?orderId=' + order.id}">退款</a>
+                        <a th:if="${order.status?.type == 'REFUND_PROCESSING' || order.status?.type == 'REFUND_REJECTED' || order.status?.type == 'REFUNDED'}" th:href="${'/account/orders/orderRefundDetails?orderId=' + order.id}">退款</a>
+                        <a th:if="${order.confirmReceiptTime != null && (order.submittedRate == null || order.submittedRate == false) }" th:href="${'/account/orders/orderRate/' + order.id}">评价</a>
+                        <a th:if="${order.confirmReceiptTime != null && (order.submittedRate != null && order.submittedRate == true) }" th:href="${'/account/orders/updateOrderRate/' + order.id}">评价</a>
+                        <a th:if="${order.logisticsTrackingNumber != null && order.logisticsTrackingNumber != ''}" th:href="${'/account/orders/orderDetails?orderId=' + order.id}">查看物流</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </th:block>
+        <blc:pagination></blc:pagination>
+    </div>
+    <p class="text-center" th:if="${#lists.isEmpty(orders)}">没有订单记录</p>
+</th:block>

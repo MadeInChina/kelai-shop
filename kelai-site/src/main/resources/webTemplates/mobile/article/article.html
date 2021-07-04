@@ -1,0 +1,104 @@
+<html layout:decorate="~{mobile/layout/cmsLayout}">
+<th:block layout:fragment="custom-head">
+    <title th:text="${article.title}">ZaoJiCMS</title>
+    <meta name="keywords" th:content="${article.metaKeywords}" />
+    <meta th:content="${article.metaDescription}" data-n-head="true" data-hid="description" name="description" />
+</th:block>
+<th:block  layout:fragment="content">
+    <div class="preloader bg-soft flex-column justify-content-center align-items-center">
+        <img class="loader-element" src="/static/libs/rocket/assets/img/brand/dark.svg" height="50" alt="Rocket logo" />
+    </div>
+    <article>
+        <!-- Hero -->
+        <section class="section-header pb-7 pb-lg-10 bg-primary text-white">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-10 text-center">
+                        <h1 class="display-3 mb-4 px-lg-5" th:text="${article.title}">90% of content gets no traffic from Google. How to improve your organic search traffic</h1>
+                        <div class="post-meta">
+                            <span class="font-weight-bold mr-3" th:text="${article.author}">James Curran</span>
+                            <span class="post-date mr-3" th:text="${article.created}">January 31, 2020</span>
+                            <span class="font-weight-bold" th:text="${'阅读量：' + article.viewCount}">7 min read</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pattern bottom"></div>
+        </section>
+        <div class="section section-sm bg-white pt-5 text-black">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-8" th:utext="${article.htmlContent}">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <div class="section section-md bg-white text-black pt-0 line-bottom-light">
+        <div class="container">
+
+        </div>
+    </div>
+    <section class="section section-lg pb-5 bg-soft">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-gray text-center mb-4 mb-lg-5">
+                    <h5 class="mb-3 mb-lg-4 text-black">相关商品</h5>
+                    <p class="lead text-gray mb-4">
+                    <div class="related-products-item"  th:each="product : ${relatedProducts}" th:object="${product}"
+                         th:if="${product.isActive()}">
+                    <th:block xmlns:blc="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+                        <div style="background: none;" class="card card-product card-plain no-shadow product-list-item js-productContainer"
+                             th:data-id="*{id}" data-colored-shadow="false">
+                            <div th:if="*{featuredProduct}" class="new-badge">
+                                New!
+                            </div>
+                            <a th:href="@{*{url}}">
+                                <div class="js-image image card-image">
+                                    <img th:if="*{media['primary']}" blc:src="@{*{media['primary'].url} + '?browse'}" alt="Sauce Image"/>
+                                    <div class="js-outOfStock out-of-stock-overlay is-hidden"></div>
+                                </div>
+                            </a>
+                                <div class="card-content product-card" style="padding-top: 10px;">
+                                <h5 class="card-title product-title">
+                                    <a th:href="@{*{url}}" th:utext="*{name}"></a>
+                                </h5>
+                                <th:block th:with="promoMessages=${#promotion_messages.getProductPromotionMessages(product, 'BROWSE')}">
+                                    <div class="promotion-message" th:unless="${#lists.isEmpty(promoMessages)}">
+                                        <span th:text="${promoMessages[0].message}"></span>
+                                    </div>
+                                </th:block>
+                                <!--Wishlist / Favorite -->
+                                <div class="text-center" th:classappend="*{'product-actions js-productActions' + id}">
+                                    <div class="product-price-container">
+                                        <div class="price"
+                                             th:if="${#object instanceof T(org.broadleafcommerce.core.catalog.domain.ProductBundle)}">
+                                            <span blc:price="*{salePrice}" th:if="*{onSale}" th:classappend="*{onSale}? 'price-new'" ></span>
+                                            <span blc:price="*{retailPrice}" th:classappend="*{onSale}? 'price-old'" ></span>
+                                        </div>
+                                        <div class="score" th:if="${#brc.sandbox} and *{defaultSku.score} != null">
+                                            <div th:utext="*{'Score = ' + #numbers.formatDecimal(defaultSku.score, 1, 3)}"></div>
+                                        </div>
+                                        <div class="price"
+                                             th:unless="${#object instanceof T(org.broadleafcommerce.core.catalog.domain.ProductBundle)}">
+                                            <span blc:price="*{salePrice}" th:if="*{onSale}" th:classappend="*{onSale}? ' price-new'" ></span>
+                                            <span blc:price="*{retailPrice}" th:classappend="*{onSale}? 'price-old'" ></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+
+                </div>
+                    <div class="no-related-products" th:if="${relatedProducts.size() == 0 }">
+                        <span>无相关商品</span>
+                    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+</html>

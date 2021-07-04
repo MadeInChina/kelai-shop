@@ -1,0 +1,24 @@
+<th:block layout:decorate="~{mobile/layout/checkoutPageLayout}" th:with="isCheckoutContext=${true}">
+    <head>
+        <title>结账</title>
+    </head>
+
+    <div id="checkout" class="checkout js-checkout row" layout:fragment="content" th:fragment="ajax">
+        <th:block th:if="${order.status.type == 'SUBMITTED'}">
+            <div class="col-md-12">
+                <h1 >支付</h1>
+            </div>
+            <div class="col-md-12 js-checkoutStages">
+                <th:block th:replace="mobile/checkout/stages/paymentStage" />
+            </div>
+        </th:block>
+        <th:block th:if="${order.status.type != 'SUBMITTED' }">
+            <div class="col-md-12">
+                <div class="alert alert-danger" role="alert">
+                    该订单状态不允许支付
+                </div>
+            </div>
+        </th:block>
+        <div id="blc-extra-data" class="is-hidden" th:utext="${blcextradata}" th:if="${!#strings.isEmpty(blcextradata)}"></div>
+    </div>
+</th:block>

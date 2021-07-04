@@ -1,0 +1,75 @@
+
+<div class="main-content" role="main" style="overflow: auto;">
+    <div id="sectionKey" style="display: none;">/writeOff</div>
+    <div class="sticky-container">
+        <div class="content-area-title-bar entity-form-actions">
+            <h3>
+                核销列表
+            </h3>
+        </div>
+    </div>
+    <div style="padding: 20px 40px;">
+        <div class="fieldset-card field-group">
+            <div class="fieldset-card-content dashboard-actions" style="text-align: left;">
+                <th:block th:each="order : ${page.items}" >
+                    <table style="width: 100%;box-shadow: none;border: 1px solid #dddddd;" th:classappend="${!orderStat.first } ? 'mg-top20'">
+                        <thead style="background-color: #f1f1f1;">
+                        <tr style="height: 40px;">
+                            <!-- <th></th>-->
+                            <th style="width: 20%;">
+                                <div style="padding-left: 10px;">
+                                    订单号：<span th:utext="*{order.orderNumber}"></span>
+                                </div>
+                            </th>
+                            <th  style="width: 30%;">下单日期：<span th:utext="*{#dates.format(order.submitDate, 'yyyy-MM-dd HH:mm')}"></span></th>
+                            <th  style="width: 30%;">核销日期：<span th:utext="*{#dates.format(order.writeOffDate, 'yyyy-MM-dd HH:mm')}"></span></th>
+                            <th  style="width: 20%;" th:with="isPickUpInStore=${order.getFulfillmentGroups().get(0).getFulfillmentOption()!=null && order.getFulfillmentGroups().get(0).getFulfillmentOption().getName() == '门店自提' && order.status?.type == 'PAID'}">状态：<span th:if="${isPickUpInStore}" style="color: #388e3c;">待提货</span>
+                                <span th:if="${!isPickUpInStore}" th:text="${order.status?.friendlyType}" style="color: #388e3c;"></span>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="3" style="border-right: 1px solid #dddddd; ">
+                                <table style="width: 100%;box-shadow: none;padding: 10px;">
+                                    <tr th:each="orderItem : ${order.orderItems}" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                                        <td style="width: 120px;">
+                                            <a href="javascript:void(0)" style="padding: 10px;">
+                                                <img th:src="${'/admin' + orderItem.product.media['primary'].url}" style="padding-bottom: 10px;padding-top: 10px;width: 100%;">
+                                            </a>
+                                        </td>
+                                        <td class="order-item-col" style="vertical-align: top;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                                            <div style="padding-left: 10px;padding-top: 10px;">
+                                                <a href="javascript:void(0)" th:utext="${orderItem.getName()}"></a>
+                                            </div>
+                                            <span class="order-item-attr" th:each="attr: ${orderItem.getOrderItemAttributes()}">
+                                            <small th:utext="${attr.value.name}"></small>：<small th:utext="${attr.value.value}"></small>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </span>
+                                        </td>
+                                        <td class="order-item-col" style="width: 100px;vertical-align: top;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                                            <p>
+                                            <span style="padding-left: 10px;padding-top: 10px;" blc:price="*{orderItem.salePrice}"></span>
+                                            </p>
+                                        </td>
+                                        <td class="order-item-col" style="vertical-align: top;width: 100px;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                                            <p>
+                                            <span style="padding-top: 10px;" th:utext="${'x &nbsp;&nbsp;' + orderItem.getQuantity()}"></span>
+                                            </p>
+                                        </td>
+
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="order-operation" style="vertical-align: top;" >
+                                <a style="padding-top: 10px;padding-left: 20px;" th:href="${'/admin/order/pcWriteOff/orderDetail?orderId=' + order.id}">订单详情</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </th:block>
+                <blc:pagination></blc:pagination>
+            </div>
+        </div>
+    </div>
+
+</div>

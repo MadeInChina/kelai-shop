@@ -1,0 +1,135 @@
+<div id="ready_only_pay_pal_payment_method" class="read-only-paypal-payment-method-container" th:fragment="read-only">
+    <!--<div class="row">
+        <div class="col-sm-3 text-center-mobile">
+            <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"/>
+        </div>
+        <div class="col-sm-9" th:utext="#{checkout.paymentMethod.payPal.readOnly.message}"></div>
+    </div>-->
+    <div class="row">
+        <div class="col-md-12 text-center-mobile">
+            <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"/>
+        </div>
+        <div class="col-md-12">通过PayPal进行付款</div>
+    </div>
+</div>
+
+<div id="pay_pal_payment_method" class="paypal-payment-method-container" th:fragment="form">
+    <!--  <th:block th:if="${#paypal.hasConfigProperties()}">
+          <th:block th:if="${#paymentMethod.cartContainsThirdPartyPayment()}">
+              <div class="row">
+                  <div class="col-sm-3 text-center-mobile">
+                      <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"/>
+                  </div>
+                  <div class="col-sm-9" th:utext="#{checkout.paymentMethod.payPal.edit.message}"></div>
+              </div>
+          </th:block>
+
+          <th:block th:unless="${#paymentMethod.cartContainsThirdPartyPayment()}">
+              <a th:href="@{/paypal-express/redirect?complete=false}" class="js-payPalPaymentMethodAction is-hidden"></a>
+              <div class="row">
+                  <div class="col-sm-3 text-center-mobile">
+                      <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"/>
+                  </div>
+                  <div class="col-sm-9" th:utext="#{checkout.paymentMethod.payPal.message}"></div>
+              </div>
+          </th:block>
+      </th:block>
+
+      <th:block th:unless="${#paypal.hasConfigProperties()}">
+          <div class="row">
+              <div class="col-sm-3">
+                  <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" class="text-center-mobile"/>
+              </div>
+              <div class="col-sm-9">
+                  Your PayPal information has not been configured.
+                  To accept transactions via PayPal, you'll need to complete the <a href="https://www.broadleafcommerce.com/docs/paypal/current/paypal-configuration-properties"  class="js-payPalConfigLink">configuration setup</a>.
+              </div>
+          </div>
+      </th:block>-->
+    <th:block th:if="${#paymentMethod.cartContainsThirdPartyPayment()}">
+        <div class="row">
+
+            <div class="col-sm-3 text-center-mobile">
+                <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"/>
+            </div>
+            <div class="col-sm-9" th:utext="#{checkout.paymentMethod.payPal.edit.message}"></div>
+
+        </div>
+    </th:block>
+
+    <th:block th:unless="${#paymentMethod.cartContainsThirdPartyPayment()}">
+        <a th:href="@{/paypal-checkout/create-payment}" class="js-payPalPaymentMethodAction is-hidden"></a>
+        <div id="paypal-button">
+        </div>
+        <div class="row">
+            <div class="col-md-9" style="width: 80%;float: left;">
+                <div class="row">
+                    <div class="col-md-12 text-center-mobile">
+                        <!--<img src="/img/btn_xpressCheckout.gif"/>-->
+
+                    </div>
+                    <div class="col-md-12">使用PayPal进行付款</div>
+                </div>
+            </div>
+            <div class="col-md-3" style="width: 20%;float: left;">
+                <div class="pretty p-icon p-smooth">
+                    <input type="radio" name="check-payment" class="check-payment" id="checkPayPal" value="PayPal"/>
+                    <div class="state p-success">
+                        <i class="icon fa fa-check"></i>
+                        <label></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="https://www.paypalobjects.com/api/checkout.js"></script>
+        <script type="text/javascript" th:inline="javascript">
+            paypal.Button.render({
+                env : [[${@environment.getProperty('gateway.paypal.smart.button.env')}]],
+
+                // Specify the style of the button
+                style: {
+                    layout: 'vertical',  // horizontal | vertical
+                    size:   'medium',    // medium | large | responsive
+                    shape:  'rect',      // pill | rect
+                    color:  'gold'       // gold | blue | silver | white | black
+                },
+
+                // Specify allowed and disallowed funding sources
+                //
+                // Options:
+                // - paypal.FUNDING.CARD
+                // - paypal.FUNDING.CREDIT
+                // - paypal.FUNDING.ELV
+                funding: {
+                    allowed: [
+                        paypal.FUNDING.CARD,
+                        paypal.FUNDING.CREDIT
+                    ],
+                    disallowed: []
+                },
+
+                payment : function(data, actions) {
+                    return BLC.post({
+                        url : [[${@environment.getProperty('gateway.paypal.smart.button.payment.url')}]],
+                        data : {
+                            performCheckout : true,
+                            orderId : $('#orderId').val(),
+                            csrfToken : params.csrfToken
+                        }
+                    }).then(function(res) {
+                        return res.id;
+                    });
+                },
+                onAuthorize : function(data, actions) {
+                    BLC.get({
+                        url : [[${@environment.getProperty('gateway.paypal.smart.button.authorize.url')}]],
+                        data : {
+                            paymentId : data.paymentID,
+                            payerId : data.payerID
+                        }
+                    });
+                }
+            }, '#paypal-button');
+        </script>
+    </th:block>
+</div>

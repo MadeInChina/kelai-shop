@@ -1,0 +1,19 @@
+<div id="rightHandBannerAds" class="js-rightHandBannerAds is-hidden">
+    <!--<blc:content-zone name="Right Hand Side Banner Ad Zone" deepLinks="deepLinks" />-->
+    <div data-czid="Right Hand Side Banner Ad Zone" class="content-zone-container">
+        <blc:content contentType="Right Hand Side Banner Ad"></blc:content>
+        <a th:each="contentItem : ${contentList}" th:href="${contentItem['targetUrl']}">
+            <div class="card card-plain">
+                <div class=" card-image">
+                    <img th:src="${contentItem['imageUrl']}">
+                    <div class="colored-shadow" style="background-image: url(/img/rhs-ad.jpg); opacity: 1;"></div>
+                    <div class="ripple-container">
+                        <div class="ripple ripple-on ripple-out" style="left: 181.5px; top: 65.5781px; background-color: rgba(0, 0, 0, 0.87); transform: scale(32.8125);">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

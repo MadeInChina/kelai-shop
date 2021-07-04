@@ -1,0 +1,27 @@
+<script th:inline="javascript">
+    $('#write-off').bind('click',function (){
+        var code = [[${#httpServletRequest.getParameter("writeOffCode")}]];
+        var csrfToken = $('input[name="csrfToken"]').val();
+        var stateVersionToken = $('input[name="stateVersionToken"]').val();
+
+        if (confirm('确定要核销该订单吗？')){
+            $.ajax({
+                url :'/admin/order/pcWriteOff/process?writeOffCode=' + code + '&csrfToken=' + csrfToken + '&stateVersionToken=' + stateVersionToken,
+                type : 'POST',
+                success : function (res){
+                    if (res.status === 'SUCCESS'){
+                        toastr.success('核销成功');
+                        setTimeout(function (){
+                            window.location.href = '/admin/order/pcWriteOff/orderList';
+                        },3000);
+                    }else {
+                        toastr.error(res.message);
+                    }
+                },
+                error : function (){
+                    toastr.error('核销失败');
+                }
+            })
+        }
+    });
+</script>

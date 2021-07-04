@@ -1,0 +1,9 @@
+<label th:for="*{fields['__${field.name}__'].value}" th:classappend="${field.required ? 'required' : ''}" >
+    <span th:utext="#{${field.friendlyName}}"></span>
+    <span th:replace="components/fieldTooltip" ></span>
+</label>
+<select th:id="${field.name + '-select'}" th:name="${field.name + '-select'}" style="-webkit-appearance:button !important;">
+
+</select>
+<input type="hidden" th:field="*{fields['__${field.name}__'].value}">
+<span class="error" th:errors="*{fields['__${field.name}__'].value}" ></span>

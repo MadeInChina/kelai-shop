@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+                 version="2.0">
+
+    <named-query name="BC_READ_ALL_UNPROCESSED_BY_PRODUCT_ID">
+        <query>
+            SELECT notification FROM cn.com.kelaikewang.core.inventory.domain.InventoryNotification notification
+            where
+                notification.productId = :productId and
+                notification.notificationStatus = 'UNPROCESSED'
+        </query>
+    </named-query>
+    <named-query name="BC_READ_ALL_FAIL_BY_PRODUCT_ID_AND_TIMES_LESS_THAN">
+        <query>
+            SELECT notification FROM cn.com.kelaikewang.core.inventory.domain.InventoryNotification notification
+            where
+                notification.notificationStatus = 'FAIL' and
+                notification.notificationTimes &lt; :notificationTimes and
+                notification.productId = :productId
+        </query>
+    </named-query>
+    <named-query name="BC_READ_BY_PRODUCT_ID_AND_CUSTOMER_ID_AND_STATUS">
+        <query>
+            SELECT notification FROM cn.com.kelaikewang.core.inventory.domain.InventoryNotification notification
+            where
+                notification.notificationStatus = :status and
+                notification.productId = :productId and
+                notification.customerId = :customerId
+        </query>
+    </named-query>
+</entity-mappings>

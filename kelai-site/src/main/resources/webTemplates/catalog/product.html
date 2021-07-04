@@ -1,0 +1,330 @@
+<div layout:decorate="~{layout/fullPageLayout}" xmlns:blc="http://www.w3.org/1999/xhtml"
+     xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+    <head layout:fragment="custom-head">
+        <th:block th:include="seo/partials/seoMetaProperties" th:with="metaProperties=${#seo.getMetaProperties(product)}" />
+        <style type="text/css">
+            .nav-tabs{
+                background: none !important;
+            }
+            .nav-tabs > li > a{
+                color: #1a1a1a !important;
+            }
+            .nav-tabs > li > a:hover{
+                color: #E40037 !important;
+            }
+            .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+                color: #E40037 !important;
+            }
+            .nav-tabs>li.active{
+                border-bottom: #E40037 2px solid;
+            }
+            #detailsTabs{
+                border-top: #eeeeee solid 1px;
+                border-bottom: #eeeeee solid 1px;
+            }
+            .nav-tabs{
+                padding: 0;
+            }
+            .tab-content{
+                text-align: unset !important;
+            }
+            .tab-pane{
+                padding-top: 10px;
+            }
+            .nav-tabs>li.active:after,.nav-tabs>li.active:before {
+                content: "";
+                display: block;
+                position: absolute;
+                top:40px;
+                width: 0;
+                height: 0px;
+                border-width: .25rem;
+                border-style: solid;
+                color: #E40037;
+            }
+            .nav-tabs>li.active::after{
+                border-left-color: transparent;
+                border-top-color: transparent;
+                bottom:100%;
+                right:50%;
+            }
+            .nav-tabs>li.active::before{
+                border-right-color: transparent;
+                border-top-color: transparent;
+                bottom:100%;
+                left:50%;
+            }
+            .categoryProducts{
+                display: block;
+            }
+            .categoryProducts a{
+                color: #1a1a1a;
+                border: solid 1px #eeeeee;
+                margin-top: 10px;
+                margin-right: 20px;
+                font-size: 15px;
+                float: left;
+            }
+            .categoryProducts span{
+                padding: 5px;
+            }
+            .categoryProducts a.current{
+                color: #b94a48;
+                border: #b94a48 1px solid;
+            }
+            #details img{
+                max-width: 100% !important;
+                overflow-x: hidden !important;
+            }
+        </style>
+    </head>
+
+
+    <div layout:fragment="content">
+
+        <div class="product-page" th:object="${product}">
+            <div id="product_content" style="margin-left: 0;" class="main-product js-productContainer card-product row" th:data-id="*{id}">
+                <!--Product Media images-->
+                <div class="col-sm-5 product-image-wrapper">
+
+                    <div class="row product-main-image js-productMainImage" style="margin-left: 0;">
+                        <div class="tab-content">
+                            <div th:each="media, iterStat : *{media}"
+                                 th:id="'product-page'+${iterStat.count}" class="tab-pane"
+                                 th:classappend="${media.key == 'primary'}? 'active'">
+                                <div class="product-card card card-blog card-plain" style="margin-top: 0;max-height: 700px; margin-bottom:0;overflow-y: hidden;">
+                                    <img blc:src="@{${media.value.url}}" class="img-raised img-rounded js-main-product-img"
+                                         th:alt="${media.key == 'primary'}? 'Bottle Closeup' : ${media.value.altText}" style="width: 100%;"/>
+                                </div>
+                            </div>
+                          <!--  <p class="zoom-text">
+                                <i class="material-icons">zoom_in</i>
+                                <span>按住拖动缩放</span>
+                            </p>-->
+                        </div>
+                        <div class="clearfix"></div>
+
+                    </div>
+                    <div class="row horizontal-thumbnails-container">
+                        <div class="left-arrow">
+                            <a class="btn btn-xs js-thumbnailLeft hidden">
+                                <i class="material-icons">keyboard_arrow_left</i>
+                            </a>
+                        </div>
+                        <div class="right-arrow">
+                            <a class="btn btn-xs js-thumbnailRight hidden">
+                                <i class="material-icons">keyboard_arrow_right</i>
+                            </a>
+                        </div>
+                        <div class="horizontal-thumbnails js-horizontalThumbnails">
+                            <ul class="horizontal-thumbnail-list js-horizontalThumbnailsList">
+                                <li th:each="media, iterStat : *{media}" th:if="${media.key == 'primary'}"
+                                    class="active thumbnail-item">
+                                    <a th:href="'#product-page'+${iterStat.count}" role="tab" data-toggle="tab"
+                                       th:attr="data-tags=${media.value.tags}">
+                                        <img blc:src="@{${media.value.url}}" class="img-raised img-rounded"
+                                             alt="Bottle Closeup"/>
+                                    </a>
+                                </li>
+
+                                <li th:each="media, iterStat : *{media}" th:unless="${media.key == 'primary'}"
+                                    class="thumbnail-item">
+                                    <a th:href="'#product-page'+${iterStat.count}" role="tab" data-toggle="tab"
+                                       aria-expanded="false"
+                                       th:attr="data-tags=${media.value.tags}">
+
+                                        <img blc:src="@{${media.value.url}}" class="img-raised img-rounded"
+                                             th:alt="${media.value.altText}"/>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--End Of Product Media Images-->
+
+                <!--Product Details-->
+                <div class="col-sm-7">
+                    <h3 th:utext="*{name}"></h3>
+                    <div id="maker" th:utext="*{manufacturer}"></div>
+                    <!-- Item price -->
+                    <th:block th:include="catalog/partials/productPrice"/>
+                  <!--  <div class="categoryProducts">
+                        <a th:each="cp : ${categoryProducts}" th:href="${cp.url}" th:classappend="${cp.id == product.id ? 'current' :''}">
+                            <span th:utext="${cp.name}"></span>
+                        </a>
+                        <div style="clear: both;"></div>
+                    </div>-->
+                    <!-- Promo Message -->
+                    <th:block
+                            th:with="promoMessages=${#promotion_messages.getProductPromotionMessages(product, 'PRODUCT_DETAIL')}">
+                        <div class="promotion-message" th:unless="${#lists.isEmpty(promoMessages)}">
+                            <span th:text="${promoMessages[0].message}"></span>
+                        </div>
+                    </th:block>
+                    <!-- Insert product options -->
+                    <div class="js-productOptions productOptions" th:replace="catalog/partials/productOptions"></div>
+                    <!-- Form for adding product to cart -->
+                    <!-- Section for buttons (buy now, out of stock, in cart, inventory notifications) -->
+                    <div class="row product-operations-container">
+                        <th:block th:include="catalog/partials/productOperations"/>
+                    </div>
+                    <div class="row" th:if="${#props.get('servicePromise') != null && #props.get('servicePromise') != ''}">
+                        <div class="col-sm-10">
+                        <dl class="tm-clear">
+                            <dt class="service-promise-title">服务承诺</dt>
+                            <dd class="service-promise-dd">
+                                <ul class="service-promise">
+                                    <li th:each="item : ${#props.get('servicePromise').split(',')}">
+                                        <span th:text="${item}">正品保证</span>
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <dl class="tm-clear">
+                                <dt class="payment-method-title">支付方式</dt>
+                                <dd class="payment-method-dd" style="margin-left: 80px;">
+                                    <ul class="payment-method">
+                                        <li>
+                                            <img style="width: 114px;" src="/img/payment/alipay-logo.png" alt="支付宝" title="支付宝">
+                                        </li>
+                                        <li>
+                                            <img style="width: 129px;" src="/img/payment/wxpay.png" alt="微信支付" title="微信支付">
+                                        </li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <!-- Social media buttons -->
+                    <th:block th:include="catalog/partials/socialMediaButtons"/>
+                    <!-- Product description -->
+                <!--    <div id="accordion" class="panel-group" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-border panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">
+                                    <h4 class="panel-title">
+                                        <span th:utext="#{product.description}">Description</span>
+                                        <i class="material-icons">keyboard_arrow_down</i>
+                                    </h4>
+                                </a>
+                            </div>
+                            <div id="collapseOne" role="tabpanel" class="panel-collapse collapse in"
+                                 aria-labelledby="headingOne">
+                                <div class="panel-body" th:with="input=*{longDescription}">
+                                    <p th:utext="${#cms.fixUrl(input)}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+            <div class="row" style="padding-bottom: 20px;">
+               <!-- <div id="accordion" class="panel-group" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-border panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseOne"
+                               aria-expanded="true" aria-controls="collapseOne">
+                                <h4 class="panel-title">
+                                    <span>商品详情</span>
+                                    <i class="material-icons">keyboard_arrow_down</i>
+                                </h4>
+                            </a>
+                        </div>
+                        <div id="collapseOne" role="tabpanel" class="panel-collapse collapse in"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body" th:with="input=*{longDescription}">
+                                <p th:utext="${#cms.fixUrl(input)}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="col-md-3">
+                    <!-- Related products -->
+                    <div class="related-products"
+                         th:with="relatedProducts=${#related_products.findByProduct(product.id)}">
+                        <h3 class="text-center" th:text="${#props.get('recommendedItems')}"></h3>
+                        <div class="related-products-item"  th:each="product : ${relatedProducts}" th:object="${product}"
+                             th:include="catalog/partials/productListItem"
+                             th:if="${product.isActive()}">
+                        </div>
+                        <div class="no-related-products" th:if="${relatedProducts.size() == 0 }">
+                            <span>无相关商品</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <ul id="detailsTabs" class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#details" id="details-tab" role="tab" data-toggle="tab" aria-controls="details" aria-expanded="true">商品详情</a></li>
+                        <li role="presentation"><a href="#reviews" role="tab" id="reviews-tab" data-toggle="tab" aria-controls="reviews">评价</a></li>
+                        <li role="presentation"><a href="#service" role="tab" id="service-tab" data-toggle="tab" aria-controls="service">服务保障</a></li>
+                        <li role="presentation"><a href="#qa" role="tab" id="qa-tab" data-toggle="tab" aria-controls="qa">常见问题</a></li>
+
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div th:with="input=*{longDescription}" role="tabpanel" class="tab-pane fade in active" id="details" aria-labelledby="details-tab">
+                            <p th:utext="${#cms.fixUrl(input)}"></p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="reviews" aria-labelledby="reviews-tab">
+
+                            <div class="row">
+                                <div th:include="catalog/partials/productReviews"></div>
+                            </div>
+
+                            <!--  <hr/>
+                              &lt;!&ndash; Related products &ndash;&gt;
+                              <div class="related-products"
+                                   th:with="relatedProducts=${#related_products.findByProduct(product.id)}"
+                                   th:unless="${#arrays.isEmpty(relatedProducts)}">
+                                  <h3 class="text-center" th:text="#{category.featuredProducts}"></h3>
+                                  <div class="row">
+                                      <div class="col-sm-6 col-md-3" th:each="product : ${relatedProducts}" th:object="${product}"
+                                           th:include="catalog/partials/productListItem"
+                                           th:if="${product.isActive()}">
+                                      </div>
+                                  </div>
+                              </div>-->
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="service" aria-labelledby="service-tab">
+                            <!--<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>-->
+                            <blc:content contentType="自定义全局服务保障" contentName="服务保障"></blc:content>
+                            <div th:utext="${contentList.get(0)['htmlContent']}" th:if="${contentList!= null && contentList.size() > 0 && product.getProductAttributes().get('serviceAssurance')== null || product.getProductAttributes().get('serviceAssurance') == ''}">
+
+                            </div>
+                            <div th:utext="${product.getProductAttributes().get('serviceAssurance')}" th:unless="${product.getProductAttributes().get('serviceAssurance')== null || product.getProductAttributes().get('serviceAssurance') == ''}">
+
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="qa" aria-labelledby="qa-tab">
+                            <!--<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>-->
+                            <blc:content contentType="自定义全局常见问题" contentName="常见问题"></blc:content>
+                            <div th:utext="${contentList.get(0)['htmlContent']}" th:if="${contentList!= null && contentList.size() > 0 && product.getProductAttributes().get('qa')== null || product.getProductAttributes().get('qa') == ''}">
+
+                            </div>
+                            <div th:utext="${product.getProductAttributes().get('qa')}" th:unless="${product.getProductAttributes().get('qa')== null || product.getProductAttributes().get('qa') == ''}">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+     <!--   <hr/>
+
+        <div class="row">
+            <div th:include="catalog/partials/productReviews"></div>
+        </div>
+    -->
+        <!--<hr/>-->
+    </div>
+</div>

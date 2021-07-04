@@ -1,0 +1,19 @@
+<div class="cart-actions" th:if="${cart.itemCount > 0 and isConfirmationContext == null and isCheckoutContext == null}">
+    <div>
+        <!--th:href="@{/checkout}"-->
+        <a href="javascript:void(0)" class="btn btn-primary" id="cart-checkout">
+            <span>结账</span> <i class="material-icons">keyboard_arrow_right</i>
+        </a>
+    </div>
+    <!--<div class="cart-action-divider">or</div>
+    <div class="paypal-payment-method-container">
+        <a th:href="@{/paypal-express/redirect?complete=false}">
+            <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="center"/>
+        </a>
+    </div>-->
+</div>
+<div class="cart-actions js-hiddenPerformCheckoutActions is-hidden" th:if="${isCheckoutContext != null and isConfirmationContext == null}">
+    <a href="#" class="btn btn-primary pull-right js-performCheckout">
+        <span>查看订单</span> <i class="material-icons">keyboard_arrow_right</i>
+    </a>
+</div>

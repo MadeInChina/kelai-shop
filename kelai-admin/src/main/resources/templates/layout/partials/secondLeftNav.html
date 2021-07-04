@@ -1,0 +1,18 @@
+<div id="secondary-nav">
+    <blc_admin:admin_module resultVar="adminMenu" ></blc_admin:admin_module>
+
+    <div class="secondary-nav" th:id="${module.moduleKey}" th:each="module : ${adminMenu.adminModules}" th:inline="text"
+         th:classappend="${currentAdminModule != null and currentAdminModule.id == module.id}? 'active'">
+
+        <h2 th:text="#{__${module.moduleKey}__}"></h2>
+
+        <ul class="nav-links">
+            <li th:each="section : ${module.sections}"
+                th:classappend="${(currentAdminSection != null) and (currentAdminSection.id == section.id) ? 'active' : ''}">
+                <a blc_admin:admin_section_href="${section}">
+                    <th:block th:utext="${section.name}"></th:block>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

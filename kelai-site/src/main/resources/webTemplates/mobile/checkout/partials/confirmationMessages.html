@@ -1,0 +1,7 @@
+<h2><span>谢谢您的支持！</span></h2>
+<h3><span>订单号 #</span> - <span th:utext="${order.orderNumber}"></span></h3>
+<p class="confirmation-note">
+    <span th:if="${order.emailAddress != null && order.emailAddress !=''}" th:inline="text">订单确认邮件已发送至[[${order.emailAddress}]]</span>
+</p>
+
+<th:block th:replace="~{mobile/checkout/partials/demoDisclaimer}"></th:block>

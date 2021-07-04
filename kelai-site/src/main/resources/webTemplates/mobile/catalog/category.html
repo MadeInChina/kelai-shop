@@ -1,0 +1,96 @@
+<th:block layout:decorate="~{mobile/layout/categoryLayout}">
+
+    <head layout:fragment="custom-head">
+        <th:block th:include="mobile/seo/partials/seoMetaProperties" th:with="metaProperties=${#seo.getMetaProperties(category)}" />
+        <style type="text/css">
+            .left-column{
+                position: fixed !important;
+                display: none;
+                top: 40px;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                z-index: 9999999;
+                box-shadow: 0 12px 34px -12px rgba(0, 0, 0, 0.4), 0 4px 20px 0 rgba(0, 0, 0, 0.3), 0 8px 10px -5px rgba(0, 0, 0, 0.4);
+                margin: 0;
+                padding: 0;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+        </style>
+    </head>
+
+    <div layout:fragment="content" id="category" class="ecommerce-page" th:fragment="ajax">
+
+        <!--Product title-->
+        <div class="row">
+
+            <div id="category-search-title" class="container show-bottom-border">
+
+                <h2 class="section-title" th:inline="text">
+                    <span th:utext="${category.name}"></span>
+                </h2>
+                <span class="pull-right small-text page-results-counter">
+                    ([[${result.startResult}]] - [[${result.endResult}]]
+                    <span th:utext="#{category.of}">of</span>
+                    [[${result.totalResults}]])
+                </span>
+            </div>
+        </div>
+        <!--End Product Title-->
+
+        <div id="category-search-content" class="category-search-content row">
+
+            <!--Filter Products-->
+            <div id="left_column" class="left-column col-md-3">
+                <div blc:cache="true" cacheCategory="true">
+                    <div id="options" class="ecommerce-page">
+                        <div th:include="mobile/catalog/partials/facetFilter"></div>
+                        <div class="js-rightHandBannerAdsPlaceholder"></div>
+                    </div>
+                </div>
+            </div>
+            <!--End Filter Products-->
+
+            <!--List of Products-->
+            <div class="col-md-9" id="right_column" blc:cache="true" cacheCategory="true">
+                <div th:if="${products}" id="products" class="products row">
+                    <div th:each="product : ${products}" th:object="${product}"
+                         th:include="mobile/catalog/partials/productListItem" class="col-md-4"></div>
+                </div>
+
+                <ul th:if="${skus}" id="products" class="products js-products group">
+                    <li th:each="sku : ${skus}" th:object="${sku}" th:include="mobile/catalog/partials/skuListItem"
+                        class="js-productContainer productContainer"></li>
+                </ul>
+
+                <div th:include="mobile/catalog/partials/productPagingOptions"></div>
+
+            </div>
+            <!--End of List of Products-->
+
+        </div>
+
+        <!--Featured Products-->
+        <div class="row" style="margin-left: 0;margin-right: 0;">
+            <div class="container">
+              <!--   Call RelatedProductsVariableExpression#findByCategory(categoryId, maxQuantiy). -->
+                <div class="related-products show-top-border" th:object="${category}"
+                     th:with="relatedProducts=${#related_products.findByCategory(category.id, 99)}">
+                    <h3 class="title text-center" th:text="${#props.get('recommendedItems')}"></h3>
+                    <div class="row row-centered">
+                        <div class="col-sm-6 col-md-3 col-centered" th:each="product : ${relatedProducts}" th:object="${product}"
+                             th:include="mobile/catalog/partials/relatedProduct"
+                             th:if="${product.isActive()}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Featured Products-->
+
+    </div>
+
+    <div layout:fragment="post-content" th:replace="mobile/catalog/partials/rightHandBannerAds"></div>
+
+</th:block>

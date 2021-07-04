@@ -1,0 +1,80 @@
+<script type="text/x-template" id="submit-comment-form-template">
+    <div class="tie-input">
+        <!---->
+        <textarea v-model="newComment.comment" style="padding: 10px;" rows="8" cols="80" placeholder="阳光跟贴，为中国加油"></textarea>
+        <div class="row clearfix" style="margin-left: 0;margin-right: 0;" v-if="!isLoggedIn">
+            <div class="lft" style="width: 50%;" v-on:click="showLoginModal()">
+                <div class="login">
+                    <span>请<strong>登录</strong>发贴</span>
+                </div>
+            </div>
+            <div class="rgt" style="width: 50%;">
+                <span v-on:click="showLoginModal()" class="submit no-login" style="float: right;">登录并发表</span>
+            </div>
+        </div>
+        <div class="row clearfix" style="margin-left: 0;margin-right: 0;" v-if="isLoggedIn">
+            <div class="lft" style="width: 50%;">
+                <div class="login">
+                    <!--<span>请<strong>登录</strong>发贴</span>-->
+                </div>
+            </div>
+            <div class="rgt" style="width: 50%;">
+                <span class="submit no-login" style="float: right;" v-on:click="submitComment()">马上发表</span>
+            </div>
+        </div>
+    </div>
+</script>
+<script>
+    Vue.component("submit-comment-form", {
+        template: "#submit-comment-form-template",
+        props: {
+            isLoggedIn : Boolean,
+            parentCommentId : Number,
+            floorCommentIds : Array
+        },
+        data: function() {
+            return {
+                newComment : {
+                    articleId: window.articleId,
+                    parentCommentId: this.parentCommentId,
+                    comment: '',
+                    floorCommentIds: this.floorCommentIds
+                }
+            };
+        },
+        methods: {
+            showLoginModal:function () {
+                $('#login-modal').modal('show');
+            },
+            submitComment:function () {
+                if($.trim(this.newComment.comment) === ''){
+                    toastr.error('请填写评论');
+                    return;
+                }
+                var _this = this;
+                $.ajax({
+                    url : '/article/' + window.articleId + '/comment?csrfToken=' + params.csrfToken,
+                    type : 'POST',
+                    data : JSON.stringify(_this.newComment),
+                    dataType : 'json',
+                    contentType : 'application/json',
+                    success : function (res) {
+                        console.log(res);
+                        if (res.status === 'SUCCESS'){
+                            toastr.success('发表评论成功');
+                            _this.newComment.comment = '';
+                            _this.$emit('submitsuccess');
+                        }else {
+                            toastr.error(res.message);
+                            _this.$emit('submitfail');
+                        }
+                    },
+                    error:function () {
+                        toastr.error('发表评论失败');
+                        _this.$emit('submitfail');
+                    }
+                });
+            }
+        }
+    });
+</script>

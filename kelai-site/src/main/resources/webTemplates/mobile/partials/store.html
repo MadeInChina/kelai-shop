@@ -1,0 +1,46 @@
+<!-- Modal -->
+<div class="modal fade" id="storeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">门店列表</h4>
+            </div>
+            <div class="modal-body" id="storeModalBody" style="overflow-y: auto;">
+                <div style="display: none;" id="loading">
+                    <img src="/img/loading.gif"> 加载中，请稍后...
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script id="tpl-store" type="text/html">
+    <div class="city-stores-wrapper">
+        <form style="margin-top: 0;padding-top: 0;">
+            <div class="form-group" style="margin-top: 0;padding-top: 0;">
+                <input placeholder="请输入城市名称/简拼/全拼" type="text" class="form-control" id="cityKeyword" onkeyup="filterStore()">
+                <small>请输入城市名称/简拼/全拼进行筛选</small>
+            </div>
+        </form>
+        {{each allCityStores cityStores i}}
+        <div class="city-stores" data-city="{{cityStores.city}}" data-city-quanpin="{{cityStores.quanpin}}" data-city-jianpin="{{cityStores.jianpin}}">
+            <div class="city"><h4>{{cityStores.city}}</h4></div>
+            <div class="stores">
+                {{each cityStores.stores store j}}
+                <div class="store" {{if j == cityStores.stores.length - 1}} style="border-bottom: none;" {{/if}}>
+                    <div style="margin-top: 10px;"><b>{{store.name}}</b></div>
+                    <div>所在区/县：{{store.region}}</div>
+                    <div>详细地址：{{store.detailedAddress}}</div>
+                    <div>电话：{{store.tel}}</div>
+                    {{if store.distanceText}}
+                    <div>距离：{{store.distanceText}}</div>
+                    {{/if}}
+                <div style="height: 10px;">&nbsp;</div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</script>

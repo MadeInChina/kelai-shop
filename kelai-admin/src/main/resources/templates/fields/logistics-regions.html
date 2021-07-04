@@ -1,0 +1,67 @@
+<label th:for="*{fields['__${field.name}__'].value}" th:classappend="${field.required ? 'required' : ''}" >
+    <span th:utext="#{${field.friendlyName}}"></span>
+    <span th:replace="components/fieldTooltip" ></span>
+</label>
+
+<!--<input th:unless="*{fields['__${field.name}__'].isLargeEntry}" type="text" class="twelve" th:field="*{fields['__${field.name}__'].value}" th:disabled="${field.readOnly}"/>-->
+<input type="hidden" th:field="*{fields['__${field.name}__'].value}">
+<div>
+    <div id="regions" style="float: left;width: auto;">
+
+    </div>
+    <div style="float: right;width: 50px;">
+        <a id="selectRegionsBtn" href="javascript:void(0)" onclick="showSelectRegionsModal()">编辑</a>
+    </div>
+</div>
+<span class="error" th:errors="*{fields['__${field.name}__'].value}" ></span>
+<div id="selectRegionModal" class="select-region-modal">
+    <div class="select-region-modal-header">
+        <span class="select-region-modal-title">选择区域</span>
+        <span class="select-region-modal-close" onclick="hideSelectRegionsModal()">×</span>
+    </div>
+    <div style="clear: both;"></div>
+    <div class="select-region-modal-content">
+
+    </div>
+</div>
+<script id="select-region-modal-content-tmpl" type="text/html">
+    {{each data bigRegion i}}
+    <div class="select-region-modal-row">
+        <div class="select-region-modal-row-left-cell">
+            <label>
+                <input data-type="bigRegion" data-value="{{bigRegion.bigRegionCode}}" id="reactid-{{bigRegion.bigRegionCode}}" onclick="clickBigRegion('reactid-{{bigRegion.bigRegionCode}}')" type="checkbox" />
+                <span>{{bigRegion.bigRegionName}}</span>
+            </label>
+        </div>
+        <div class="select-region-modal-row-right-cell">
+            {{each bigRegion.provinces province j}}
+            <div class="province">
+                <div>
+                    <div id="province-check-panel-{{province.provinceCode}}" style="display: inline-block;" class="province-check">
+                        <label>
+                            <input data-type="province" data-value="{{province.provinceCode}}" type="checkbox" id="reactid-{{bigRegion.bigRegionCode}}-{{province.provinceCode}}" onclick="clickProvince('reactid-{{bigRegion.bigRegionCode}}-{{province.provinceCode}}')">
+                            <span>{{province.provinceName}}</span>
+                        </label>
+                    </div>
+                    <div id="trigger-{{province.provinceCode}}" style="display: inline-block;" class="trigger" onclick="triggerCityPanel('{{province.provinceCode}}')"></div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div id="province-city-panel-{{province.provinceCode}}" class="province-city-panel">
+                    {{each province.cities city k}}
+                    <label>
+                        <input data-type="city" {{if city.selected}} checked="checked" {{/if}}  data-value="{{city.cityCode}}" id="reactid-{{bigRegion.bigRegionCode}}-{{province.provinceCode}}-{{city.cityCode}}" type="checkbox" onclick="clickCity('reactid-{{bigRegion.bigRegionCode}}-{{province.provinceCode}}-{{city.cityCode}}')">
+                        <span>{{city.cityName}}</span>
+                    </label>
+                    {{/each}}
+                    <div class="close-wrap" onclick="triggerCityPanel('{{province.provinceCode}}')">
+                        <span class="close-btn" >关闭</span>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    {{/each}}
+</script>
+<script type="text/javascript">showSelectedRegions();</script>

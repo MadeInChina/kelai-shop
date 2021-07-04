@@ -1,0 +1,22 @@
+<div class="card checkout-card js-paymentStageCard">
+    <div class="checkout-stage-title">
+        <h4>
+            <th:block>选择支付方式</th:block>
+        </h4>
+    </div>
+
+    <div class="checkout-stage js-checkoutStage">
+        <th:block th:replace="~{mobile/checkout/partials/demoDisclaimer}"/>
+
+        <div class="payment-stage-content js-paymentStageContent" >
+            <th:block th:replace="~{mobile/checkout/partials/paymentMethods :: payment-methods}" />
+
+            <div class="checkout-stage-action">
+                <a href="#" class="btn btn-primary pull-right js-submitPaymentCheckoutStage">
+                    <span>支付</span> <i class="material-icons">keyboard_arrow_right</i>
+                </a>
+            </div>
+        </div>
+        <input type="hidden" id="orderId" name="orderId" th:value="${paymentRequest.orderId}">
+    </div>
+</div>

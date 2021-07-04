@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="zh"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="zh"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="zh"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="referrer"content="always">
+        <title th:text="${#props.get('siteTitle') + '-' + #props.get('siteSubtitle')}">ZaoJiCMS</title>
+        <meta name="keywords" th:content="${#props.get('siteKeywords')}" />
+        <meta th:content="${#props.get('siteDescription')}" data-n-head="true" data-hid="description" name="description" />
+        <th:block th:include="mobile/layout/partials/head" th:with="hasMetaDesc=${true}"/>
+        <style type="text/css">
+            .main{
+                margin-top: unset !important;
+            }
+            .custom-content .row .col-md-12{
+                padding-right: 0;
+                padding-left: 0;
+            }
+            .carousel .carousel-indicators li {
+                background: #FFFFFF;
+                box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+                border-radius: 50%;
+            }
+        </style>
+        <link rel="stylesheet" type="text/css" href="/static/m/css/floor.css">
+    </head>
+
+<body th:class="${'locale-' + session.blLocale.localeCode}">
+
+    <th:block  th:replace="mobile/layout/partials/navHome" />
+    <div class="main">
+
+        <div class="container-fluid">
+            <blc:content contentType="Homepage Banner Ad"></blc:content>
+            <div data-czid="Homepage Banner Ad Zone" class="content-zone-container">
+
+                <div id="carousel-slider-generic" class="row carousel slide" data-ride="carousel">
+                    <!--Carousel Indicators-->
+                    <ol class="carousel-indicators">
+                        <li th:each="contentItem : ${contentList}" data-target="#carousel-slider-generic" class="" th:classappend="${contentItemStat.index == 0 ? 'active' : ''}" th:data-slide-to="${contentItemStat.index}">
+                        </li>
+                    </ol>
+                    <!--End of Carousel Indicators-->
+                    <!--Carousel Slides-->
+                    <div class="carousel-inner">
+                        <div class="item" th:each="contentItem : ${contentList}" th:classappend="${contentItemStat.index == 0 ? 'active' : ''}">
+                            <a th:href="${contentItem['targetUrl']}">
+                                <img th:src="${contentItem['imageUrl']}" style="width: 100%">
+                            </a>
+                        </div>
+                    </div>
+                    <!--End of Slides-->
+
+                    <!-- Carousel Controls -->
+                    <a class="left carousel-control" href="#carousel-slider-generic" data-slide="prev">
+                        <i class="material-icons">keyboard_arrow_left</i>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-slider-generic" data-slide="next">
+                        <i class="material-icons">keyboard_arrow_right</i>
+                    </a>
+                    <!--End Controls-->
+                </div>
+                <!--END of Homepage Ad Banner Carousel-->
+            </div>
+
+        </div>
+        <div class="container custom-content">
+            <div class="cat">
+
+                <a th:each="item : ${mHomeMenuItems}" th:href="${item.actionUrl}">
+                    <div class="cat-item">
+                        <div class="cat-logo">
+                            <img th:src="${item.imageUrl}">
+                        </div>
+                        <p th:utext="${item.label}">工商注册</p>
+                    </div>
+                </a>
+           <!--     <a href="/catalog/listCategory">
+                    <div class="cat-item">
+                        <div class="cat-logo">
+                            <img src="/img/menu.png">
+                        </div>
+                        <p>全部分类</p>
+                    </div>
+                </a>-->
+            </div>
+            <!-- <div class="row text-center">
+                 <div id="home_feature">
+                     <h2>HOT SAUCE AFICIONADO?</h2> Create an account to join our Heat Clinic Frequent Care Program. The place to get all the deals on burn treatment.
+                 </div>
+             </div>
+
+             <hr />-->
+
+             <div class="row">
+                 <!--<h3 class="text-center">
+                     The Heat Clinic's Top Selling Sauces
+                 </h3>-->
+                 <div class="text-center">
+                     <blc:content contentType="Homepage Middle Promo Snippet"></blc:content>
+                     <th:block th:utext="${contentList.get(0)['htmlContent']}" th:if="${contentList!= null && contentList.size() > 0}"></th:block>
+                 </div>
+
+                 <th:block th:if="${products}" id="products" class="group" th:each="product : ${products}" th:object="${product}" >
+                     <div class="col-sm-6 col-md-3"  th:if="${product.isActive()}"
+                          th:include="mobile/catalog/partials/productListItem">
+                     </div>
+                 </th:block>
+             </div>
+            <blc:content contentType="自定义M端首页" contentName="M端首页"></blc:content>
+            <th:block th:utext="${contentList.get(0)['htmlContent']}" th:if="${contentList!= null && contentList.size() > 0}">
+
+            </th:block>
+        </div>
+    </div>
+
+    <th:block layout:fragment="post-content" />
+
+    <footer th:replace="mobile/layout/partials/footer"></footer>
+</body>
+</html>

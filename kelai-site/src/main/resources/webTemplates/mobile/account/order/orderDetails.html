@@ -1,0 +1,176 @@
+<html layout:decorate="~{mobile/layout/accountLayout}">
+<th:block layout:fragment="custom-head">
+    <style type="text/css">
+        .order-info-title{
+            background-color: #f3f3f3;
+            /*width: 300px;*/
+            height: 40px;
+        }
+        .order-address{
+            vertical-align: top;
+        }
+        .order-address div{
+            padding-bottom: 10px;
+        }
+        .order-status{
+            vertical-align: top;
+        }
+        .order-status i{
+            font-size: 20px;
+            color: #9e9e9e;
+        }
+        .order-status dt{
+            display: inline-block;
+        }
+        .order-status dd{
+            display: inline-block;
+            vertical-align: super;
+            padding-left: 5px;
+            font-weight: bold;
+        }
+        .logistics-tracking{
+            padding-bottom: 20px;
+        }
+        .logistics-tracking dt{
+            display: inline-block;
+        }
+        .logistics-tracking dd{
+            display: inline-block;
+        }
+        .logistics-tracking .info-item{
+            padding-bottom: 10px;
+        }
+        .order-total{
+            text-align: right;
+            font-weight: bold;
+            padding: 10px;
+        }
+        .order-operation{
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        .order-operation a{
+            margin-left: 10px;
+            border: solid 1px #ccc;
+            border-radius: 15px;
+            padding: 5px 10px;
+        }
+    </style>
+</th:block>
+<th:block layout:fragment="content">
+    <div class="card manage-account-form-wrapper js-manageAccountFormWrapper">
+        <h3>订单详情</h3>
+        <table style="width: 100%;" class="table table-bordered">
+            <tr>
+                <td class="order-info-title">
+                    订单信息
+                </td>
+            </tr>
+            <tr>
+                <td class="order-address" style="vertical-align: top;">
+                    <div>
+                        配送方式：<span th:text="${order.getFulfillmentGroups()?.get(0)?.getFulfillmentOption()?.getName()}"></span>
+                    </div>
+                    <div style="display: inline-block;" th:if="${order.pickedUpInStore }">
+                        <a href="#" onclick="storeLocation()">查看门店</a>
+                        <a href="#" th:if="${order.status?.type == 'PAID'}" th:onclick="|showQrcode('${order.getId()}')|" style="padding-left: 20px;">提货码</a>
+                    </div>
+                    <div th:if="${order.getFulfillmentGroups().get(0).getFulfillmentOption()!=null && order.getFulfillmentGroups().get(0).getFulfillmentOption().getName() == '官方配送'}">
+                        <span>收货地址：</span>
+                        <span th:text="${order.fullName}">庞先生</span>,
+                        <span th:text="${order.mobile}">86-8888888</span>,
+                        <span th:text="${order.address}">广西壮族自治区 南宁市 兴宁区 朝阳街道 明秀东路178号江宇世纪城2期</span> ,
+                        <span th:text="${order.postalCode}">530012</span>
+                    </div>
+                    <div>
+                        <span>订单编号：</span><span th:text="${order.orderNumber}">599564709372011499</span>
+                    </div>
+                    <div>
+                        <span>下单日期：</span>
+                        <span th:text="${order.submitDate}"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td   style="vertical-align: top;">
+                    <div class="order-status">
+                        <div style="padding-bottom: 10px;">
+                            <i class="fa fa-info-circle"></i>
+                            <span th:text="${'订单状态：' + order.status?.friendlyType}"></span>
+                        </div>
+                        <div th:if="${order.status?.type == 'SUBMITTED' || order.status?.type == 'SHIPPED' || order.status?.type == 'PAID' || order.status?.type == 'RECEIVED'}">
+
+                            <div> 您可以</div>
+                            <div class="order-operation">
+                                <a th:if="${order.status?.type == 'SUBMITTED'}" target="_blank" th:href="${'/checkout/payment?orderId=' + order.id}">去支付</a>
+
+
+                                <a th:if="${order.status?.type == 'SHIPPED'}" th:id="${'js-order-confirm-receipt-' + order.id}" target="_blank" th:onclick="|Order.confirmReceipt('${order.id}')|">确认收货</a>
+
+
+                                <a th:if="${order.status?.type == 'PAID' || order.status?.type == 'RECEIVED'}" th:href="${'/account/orders/orderRefund?orderId=' + order.id }">退款</a>
+                                <a th:if="${order.status?.type == 'REFUND_PROCESSING' || order.status?.type == 'REFUND_REJECTED' || order.status?.type == 'REFUNDED'}" th:href="${'/account/orders/orderRefundDetails?orderId=' + order.id}">退款</a>
+
+                                <a th:if="${order.confirmReceiptTime != null && (order.submittedRate == null || order.submittedRate == false)}"  th:href="${'/account/orders/orderRate/' + order.id}">评价</a>
+                                <a th:if="${order.confirmReceiptTime != null && (order.submittedRate != null && order.submittedRate == true)}" th:href="${'/account/orders/updateOrderRate/' + order.id}">评价</a>
+                            </div>
+
+                        </div>
+
+                        <div class="logistics-tracking" th:if="${order.logisticsTrackingNumber != null && order.logisticsTrackingNumber != ''}">
+
+                            <i class="fa fa-truck"></i>
+                            <span>物流信息</span>
+
+                            <div style="padding-bottom: 10px;padding-top: 10px;">
+                                运单号：<span th:text="${order.expressCompany.name}" style="padding-right: 10px;"></span><span th:text="${order.logisticsTrackingNumber}"></span>
+                            </div>
+                            <th:block th:if="${logisticTrackingInfo.Traces != null && logisticTrackingInfo.Traces.size() > 0}">
+                                <div class="info-item" style="padding-bottom: 10px;" th:each="info : ${logisticTrackingInfo.Traces}">
+                                    <span th:text="${info.AcceptTime}" style="padding-right: 10px;"></span>
+                                    <span th:text="${info.AcceptStation}" style="padding-right: 10px;"></span>
+                                    <span th:text="${info.Remark}"></span>
+                                </div>
+                            </th:block>
+                            <th:block th:if="${logisticTrackingInfo.Traces == null || logisticTrackingInfo.Traces.size() == 0}">
+                                <div>暂无物流信息</div>
+                            </th:block>
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+        <table style="width: 100%;" class="table">
+            <tr th:each="orderItem : ${order.orderItems}" >
+                <td style="width: 90px;">
+                    <a th:href="${orderItem.getSku().getProduct().getUrl()}" target="_blank">
+                        <img th:src="${orderItem.product.media['primary'].url}" style="padding-bottom: 10px;padding-top: 10px;width: 90px;">
+                    </a>
+                </td>
+                <td class="order-item-col" style="vertical-align: top;width: 225px;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                    <div style="padding-left: 10px;">
+                        <a target="_blank" th:href="${orderItem.getSku().getProduct().getUrl()}" th:utext="${orderItem.getName()}"></a>
+                    </div>
+                    <span class="order-item-attr" th:each="attr: ${orderItem.getOrderItemAttributes()}">
+                        <small th:utext="${attr.value.name}"></small>：<small th:utext="${attr.value.value}"></small>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                </td>
+                <td class="order-item-col" style="vertical-align: top;" th:classappend="${!orderItemStat.last} ? 'order-item-bottom-border'">
+                    <div style="padding-left: 10px;" blc:price="*{orderItem.salePrice}"></div>
+                    <div style="padding-left: 10px;" th:utext="${'x' + orderItem.getQuantity()}">
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <hr style="padding-top: 0;padding-bottom: 0;margin: 0;">
+        <div>
+            <div class="order-total">
+                合计：<span th:text="${order.total}"></span>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

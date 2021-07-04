@@ -1,0 +1,19 @@
+<div class="mh-head Sticky">
+				<span class="mh-btns-left">
+					<a href="#menu" class="mburger mburger--spin" style="color: #ffffff;">
+						<b></b>
+						<b></b>
+						<b></b>
+					</a>
+				</span>
+    <span class="mh-text zaojicms-logo">
+
+	</span>
+    <span class="mh-btns-right">
+		<a href="/login" style="color: #ffffff;" th:if="${customer.anonymous}">登录</a>
+		<a href="/account/index" style="color: #ffffff;" th:if="${!customer.anonymous}"><i class="material-icons">perm_identity</i> </a>
+		<!--<button class="-mob-share-open" style="background: none;border: none;">
+            <i class="fa fa-share-alt"></i>
+        </button>-->
+	</span>
+</div>

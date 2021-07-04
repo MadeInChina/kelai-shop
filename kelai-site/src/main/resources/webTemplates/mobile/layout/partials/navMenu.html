@@ -1,0 +1,44 @@
+
+<blc:menu resultVar="menuItems" menuName="Header Nav"></blc:menu>
+<blc:menu resultVar="categoryMenuItems" menuName="Category Nav"></blc:menu>
+<nav id="menu">
+    <ul id="panel-menu">
+        <li>
+            <a href="/">首页</a>
+        </li>
+        <li  th:each="menuItem : ${categoryMenuItems}">
+            <span th:utext="${menuItem.label}">About us</span>
+            <ul>
+                <li th:each="submenuItem : ${menuItem.submenu}"><span th:utext="${submenuItem.label}">The team</span>
+                    <ul>
+                        <li th:each="subsubmenuItem : ${submenuItem.submenu}">
+                            <a th:utext="${subsubmenuItem.label}" th:href="${subsubmenuItem.url}">Management</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li th:each="menuItem : ${menuItems}">
+            <a th:if="${menuItem.url != '/'}" th:href="${menuItem.url}" th:utext="${menuItem.label}" class="mm-listitem__text">Contact</a>
+        </li>
+        <li>
+            <a href="/cart"><i class="material-icons">shopping_cart</i> <span class="cart-count-badge" th:if="${cart.itemCount > 0}" th:utext="${cart.itemCount}"></span></a>
+        </li>
+        <th:block th:if="${customer.anonymous}">
+            <li>
+                <a class="mm-listitem__text" th:href="@{/login}" ><i class="material-icons">exit_to_app</i> 登录</a>
+            </li>
+            <li>
+                <a class="mm-listitem__text" th:href="@{/register}" ><i class="material-icons">perm_identity</i> 注册</a>
+            </li>
+        </th:block>
+
+        <th:block th:if="${!customer.anonymous}">
+            <th:block th:replace="@{mobile/layout/partials/registeredCustomerActions}" />
+        </th:block>
+    </ul>
+    <ul id="panel-language">
+        <li th:replace="mobile/layout/partials/navLocaleSelector"></li>
+    </ul>
+</nav>
+

@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mo="http://schema.broadleafcommerce.org/mo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://schema.broadleafcommerce.org/mo
+        http://schema.broadleafcommerce.org/mo/mo-3.0.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security-3.2.xsd
+        ">
+
+    <mo:override id="blMetadataOverrides">
+
+        <!-- Apply Admin entity metadata overrides here -->
+        <mo:overrideItem ceilingEntity="org.broadleafcommerce.profile.core.domain.Customer">
+           <!-- <mo:tab tabName="ProductImpl_Shipping_Tab">
+                <mo:property property="order" value="9999999" />
+            </mo:tab>
+            <mo:group tabName="ProductImpl_Shipping_Tab" groupName="SkuImpl_Dimensions_Group">
+                <mo:property property="order" value="0"/>
+            </mo:group>-->
+            <mo:field name="username">
+                <mo:property name="prominent" value="true" />
+                <mo:property name="gridOrder" value="1"/>
+            </mo:field>
+        </mo:overrideItem>
+        <mo:overrideItem ceilingEntity="org.broadleafcommerce.core.order.domain.FulfillmentGroupImpl">
+            <mo:field name="address">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="personalMessage">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="retailFulfillmentPrice">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="saleFulfillmentPrice">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="totalTax">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="totalItemTax">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="totalFeeTax">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="totalFulfillmentGroupTax">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+        </mo:overrideItem>
+        <mo:overrideItem ceilingEntity="org.broadleafcommerce.core.order.domain.FulfillmentGroup">
+            <mo:field name="totalTax">
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="totalItemTax">
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="totalFeeTax">
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="totalFulfillmentGroupTax">
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+        </mo:overrideItem>
+        <mo:overrideItem ceilingEntity="org.broadleafcommerce.core.catalog.domain.Category">
+            <mo:field name="defaultParentCategory">
+                <mo:property name="prominent" value="true"/>
+            </mo:field>
+        </mo:overrideItem>
+        <mo:overrideItem ceilingEntity="org.broadleafcommerce.core.store.domain.Store">
+            <mo:field name="address">
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+                <mo:property name="excluded" value="true"/>
+            </mo:field>
+        </mo:overrideItem>
+        <mo:overrideItem ceilingEntity="org.broadleafcommerce.core.offer.domain.OfferCode">
+            <mo:field name="id">
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+        </mo:overrideItem>
+        <mo:overrideItem ceilingEntity="org.broadleafcommerce.common.config.domain.SystemProperty">
+            <mo:field name="friendlyName">
+                <mo:property name="prominent" value="true"/>
+                <mo:property name="gridOrder" value="1"/>
+            </mo:field>
+        </mo:overrideItem>
+        <mo:overrideItem ceilingEntity="org.broadleafcommerce.core.catalog.domain.ProductBundleImpl">
+            <mo:tab tabName="General">
+                <mo:property property="order" value="1"/>
+            </mo:tab>
+            <mo:group groupName="General" tabName="General">
+                <mo:property property="order" value="1"/>
+            </mo:group>
+        </mo:overrideItem>
+        <mo:overrideItem ceilingEntity="cn.com.kelaikewang.core.payment.domain.ZaoJiCMSOrderPaymentImpl">
+            <mo:field name="billingAddress">
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+                <mo:property name="excluded" value="true"/>
+            </mo:field>
+        </mo:overrideItem>
+        <mo:overrideItem ceilingEntity="org.broadleafcommerce.core.order.domain.OrderItemImpl">
+            <mo:field name="personalMessage">
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+                <mo:property name="excluded" value="true"/>
+            </mo:field>
+        </mo:overrideItem>
+        <mo:overrideItem ceilingEntity="org.broadleafcommerce.core.rating.domain.ReviewDetail">
+            <mo:field name="reviewText">
+                <mo:property name="prominent" value="true"/>
+                <mo:property name="largeEntry" value="false"/>
+                <mo:property name="gridOrder" value="1"/>
+                <mo:property name="visibility" value="VISIBLE_ALL"/>
+            </mo:field>
+        </mo:overrideItem>
+        <mo:overrideItem ceilingEntity="org.broadleafcommerce.profile.core.domain.Customer">
+            <mo:field name="customerPayments">
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+                <mo:property name="excluded" value="true"/>
+            </mo:field>
+            <mo:field name="isTaxExempt">
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+                <mo:property name="excluded" value="true"/>
+            </mo:field>
+        </mo:overrideItem>
+        <mo:overrideItem ceilingEntity="org.broadleafcommerce.profile.core.domain.CustomerAddressImpl">
+            <mo:field name="address.zipFour">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="address.isoCountryAlpha2">
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+                <mo:property name="excluded" value="true"/>
+            </mo:field>
+            <mo:field name="address.addressLine1">
+                <mo:property name="order" value="145"/>
+            </mo:field>
+            <mo:field name="address.addressLine2">
+                <mo:property name="order" value="146"/>
+            </mo:field>
+            <mo:field name="address.addressLine3">
+                <mo:property name="order" value="147"/>
+            </mo:field>
+            <mo:field name="address.isoCountrySubdivision">
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+                <mo:property name="excluded" value="true"/>
+            </mo:field>
+            <mo:field name="address.stateProvinceRegion">
+                <mo:property name="order" value="70"/>
+            </mo:field>
+            <mo:field name="address.city">
+                <mo:property name="order" value="71"/>
+            </mo:field>
+            <mo:field name="address.postalCode">
+                <mo:property name="order" value="159"/>
+            </mo:field>
+
+        </mo:overrideItem>
+        <mo:overrideItem ceilingEntity="org.broadleafcommerce.core.rating.domain.ReviewDetail">
+            <mo:field name="helpfulCount">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="reviewStatus">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="ratingSummary.ratingTypeStr">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="notHelpfulCount">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="reviewFeedback">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="ratingSummary.ratings">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="ratingSummary.reviews">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+            <mo:field name="ratingDetail">
+                <mo:property name="excluded" value="true"/>
+                <mo:property name="visibility" value="HIDDEN_ALL"/>
+            </mo:field>
+        </mo:overrideItem>
+        <mo:overrideItem ceilingEntity="org.broadleafcommerce.core.catalog.domain.Product">
+            <mo:field name="defaultSku.longDescription">
+                <mo:property name="order" value="4000"/>
+            </mo:field>
+            <mo:field name="defaultCategory">
+                <mo:property name="order" value="3000"/>
+            </mo:field>
+        </mo:overrideItem>
+    </mo:override>
+    <bean id="blAdminPageController" class="cn.com.kelaikewang.admin.controller.cms.ZaoJiCMSAdminPageController" />
+    <bean id="blAdminBundleProductController" class="cn.com.kelaikewang.admin.controller.catalog.ZaoJiCMSAdminProductBundleController" />
+    <bean id="blAdminStructuredContentController" class="cn.com.kelaikewang.admin.controller.cms.ZaoJiCMSAdminStructuredContentController"/>
+    <bean id="blAdminProductController" class="cn.com.kelaikewang.admin.controller.catalog.ZaoJiCMSAdminProductController"/>
+    <bean id="blAdminCategoryController" class="cn.com.kelaikewang.admin.controller.catalog.ZaoJiCMSAdminCategoryController"/>
+    <bean id="blAdminBasicOperationsController" class="cn.com.kelaikewang.admin.controller.entity.ZaoJiCMSAdminBasicOperationsController"/>
+    <bean id="blAdminBaseProductController" class="cn.com.kelaikewang.admin.controller.catalog.ZaoJiCMSBaseProductController"/>
+    <bean id="blAdminAssetController" class="cn.com.kelaikewang.admin.controller.cms.ZaoJiCMSAdminAssetController"/>
+    <bean id="blAdminCatalogActionsController" class="cn.com.kelaikewang.admin.controller.catalog.ZaoJiCMSAdminCatalogActionsController"/>
+    <bean id="blOrderItemService" class="cn.com.kelaikewang.core.order.service.ZaoJiCMSOrderItemServiceImpl"/>
+    <bean id="blOrderItemDao" class="cn.com.kelaikewang.core.order.dao.ZaoJiCMSOrderItemDaoImpl"/>
+    <bean id="blSystemPropertyCustomPersistenceHandler" class="cn.com.kelaikewang.admin.handler.ZaoJiCMSSystemPropertyCustomPersistenceHandler"/>
+
+    <bean id="blOrderService" class="cn.com.kelaikewang.core.order.service.ZaoJiCMSOrderServiceImpl" />
+    <bean id="blAdminOrderController" class="cn.com.kelaikewang.admin.controller.order.ZaoJiCMSAdminOrderController" />
+
+    <bean id="blPostSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
+        <sec:filter-chain-map request-matcher="ant">
+            <sec:filter-chain pattern="/**" filters="blAdminTypedEntityRequestFilter"/>
+        </sec:filter-chain-map>
+    </bean>
+
+    <bean id="blCustomAdminJsFileList" class="org.springframework.beans.factory.config.ListFactoryBean" >
+        <property name="sourceList">
+            <list>
+                <!--<value>admin/lib/plugins/query-builder.zh_CN.js</value>
+                <value>admin/common.js</value>
+                <value>admin/template-web.js</value>
+                <value>admin/convert-to-pinyin.js</value>
+                <value>admin/components/generatedUrl.js</value>
+                <value>admin/administrativeRegion.js</value>
+                <value>admin/logisticsSelectRegion.js</value>
+                <value>admin/plugins/ztree/jquery.ztree.all.min.js</value>
+                <value>admin/plugins/ztree/jquery.ztree.exhide.min.js</value>
+                <value>admin/plugins/ztree/fuzzysearch.js</value>
+                <value>admin/categoryTreeList.js</value>
+                <value>admin/initAdministrativeRegionSelect.js</value>
+                <value>admin/product.js</value>-->
+            </list>
+        </property>
+    </bean>
+    <bean class="org.broadleafcommerce.common.extensibility.context.merge.LateStageMergeBeanPostProcessor">
+        <property name="collectionRef" value="blCustomAdminJsFileList" />
+        <property name="targetRef" value="blJsFileList" />
+    </bean>
+    <bean id="customAdminCssFileList" class="org.springframework.beans.factory.config.ListFactoryBean" >
+        <property name="sourceList">
+            <list>
+                <!--<value>admin/logisticsSelectRegion.css</value>
+                <value>admin/nextshop-admin.css</value>
+                <value>admin/zTreeStyle/zTreeStyle.css</value>
+                <value>admin/fontawesome/css/all.min.css</value>-->
+            </list>
+        </property>
+    </bean>
+    <bean class="org.broadleafcommerce.common.extensibility.context.merge.LateStageMergeBeanPostProcessor">
+        <property name="collectionRef" value="customAdminCssFileList" />
+        <property name="targetRef" value="blCssFileList" />
+    </bean>
+
+    <!--国际化-->
+  <!--  <bean id="blMessageSourceBaseNames-nextshop-admin" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <property name="sourceList">
+            <list>
+                <value>classpath:/messages/OpenAdminMessages_zh_CN</value>
+            </list>
+        </property>
+    </bean>
+    <bean class="org.broadleafcommerce.common.extensibility.context.merge.LateStageMergeBeanPostProcessor">
+        <property name="collectionRef" value="blMessageSourceBaseNames-nextshop-admin" />
+        <property name="targetRef" value="blMessageSourceBaseNames" />
+    </bean>-->
+    <bean id="blMessageSourceBaseNames-openadmin" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <property name="sourceList">
+            <list>
+                <value>classpath:/messages/GeneratedMessagesEntityCommon</value>
+                <value>classpath:/messages/GeneratedMessagesEntityFramework</value>
+                <value>classpath:/messages/GeneratedMessagesEntityOpenAdmin</value>
+                <value>classpath:/messages/GeneratedMessagesEntityProfile</value>
+                <value>classpath:/messages/OpenAdminMessages</value>
+                <value>classpath:/messages/OpenAdminJavascriptMessages</value>
+            </list>
+        </property>
+    </bean>
+    <bean class="org.broadleafcommerce.common.extensibility.context.merge.LateStageMergeBeanPostProcessor">
+        <property name="collectionRef" value="blMessageSourceBaseNames-openadmin" />
+        <property name="targetRef" value="blMessageSourceBaseNames" />
+    </bean>
+    <bean id="blMessageSourceBaseNames-core-admin" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <property name="sourceList">
+            <list>
+                <value>classpath:/messages/CustomerCareMessages</value>
+                <value>classpath:/messages/MerchandisingMessages</value>
+                <value>classpath:/messages/PromotionMessages</value>
+                <value>classpath:/messages/RuleMessages</value>
+                <value>classpath:/messages/AbstractModuleMessages</value>
+                <value>classpath:/messages/UtilityMessages</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.broadleafcommerce.common.extensibility.context.merge.LateStageMergeBeanPostProcessor">
+        <property name="collectionRef" value="blMessageSourceBaseNames-core-admin" />
+        <property name="targetRef" value="blMessageSourceBaseNames" />
+    </bean>
+    <bean id="blMessageSourceBaseNames-cms" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <property name="sourceList">
+            <list>
+                <value>classpath:/messages/cms/ContentManagementMessages_zh_CN</value>
+                <value>classpath:/messages/cms/GeneratedMessagesEntityCMS_zh_CN</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.broadleafcommerce.common.extensibility.context.merge.LateStageMergeBeanPostProcessor">
+        <property name="collectionRef" value="blMessageSourceBaseNames-cms" />
+        <property name="targetRef" value="blMessageSourceBaseNames" />
+    </bean>
+
+    <!--国际化-->
+    <bean id="blMessageSourceBaseNames-zaojicms" class="org.springframework.beans.factory.config.ListFactoryBean">
+        <property name="sourceList">
+            <list>
+                <value>classpath:/messages/zaojicms-logistics</value>
+                <value>classpath:/messages/zaojicms-order</value>
+                <value>classpath:/messages/zaojicms-product</value>
+                <value>classpath:/messages/zaojicms-marketing</value>
+                <value>classpath:/messages/zaojicms-store</value>
+                <value>classpath:/messages/zaojicms-article</value>
+                <value>classpath:/messages/zaojicms-article-category</value>
+                <value>classpath:/messages/zaojicms-article-comment</value>
+                <value>classpath:/messages/zaojicms-express-company</value>
+                <value>classpath:/messages/zaojicms-after-sales</value>
+            </list>
+        </property>
+    </bean>
+    <bean class="org.broadleafcommerce.common.extensibility.context.merge.LateStageMergeBeanPostProcessor">
+        <property name="collectionRef" value="blMessageSourceBaseNames-zaojicms" />
+        <property name="targetRef" value="blMessageSourceBaseNames" />
+    </bean>
+
+
+</beans>

@@ -1,0 +1,103 @@
+.dashboard-actions{
+
+}
+.dashboard-actions ul{
+    margin-top: 15px;
+}
+.dashboard-actions ul li{
+    list-style: none;
+}
+.dashboard-actions i{
+    font-size: 20px;
+    color: #0072c6;
+}
+.dashboard-actions li{
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: inline-block;
+}
+.dashboard-actions a{
+    line-height: 30px;
+}
+.dashboard-actions a span{
+    padding-left: 5px;
+}
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -7.5px;
+    margin-left: -7.5px;
+}
+.col-md-3 {
+    -ms-flex: 0 0 25%;
+    flex: 0 0 13%;
+    width: 13%;
+    padding-right: 1%;
+    margin-top: 10px;
+}
+.info-box {
+    /* box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+     border-radius: .25rem;*/
+    background: #fff;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 1rem;
+    min-height: 80px;
+    padding: .5rem;
+    position: relative;
+}
+.info-box .info-box-icon {
+    border-radius: .25rem;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 1.875rem;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    width: 70px;
+}
+.bg-info, .bg-info>i {
+    color: #fff!important;
+}
+.bg-success, .bg-success>i {
+    color: #fff!important;
+}
+.bg-warning, .bg-warning>i {
+    color: #1f2d3d!important;
+}
+.bg-danger, .bg-danger>i {
+    color: #fff!important;
+}
+.bg-info {
+    background-color: #17a2b8!important;
+}
+.bg-danger {
+    background-color: #dc3545!important;
+}
+.bg-success {
+    background-color: #28a745!important;
+}
+.bg-warning {
+    background-color: #ffc107!important;
+}
+.info-box .info-box-content {
+    -ms-flex: 1;
+    flex: 1;
+    padding: 5px 10px;
+}
+.elevation-1 {
+    box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)!important;
+}
+.info-box .info-box-number {
+    display: block;
+    font-weight: 700;
+}
+.info-box-icon i{
+    color: #ffffff;
+    font-size: 30px;
+}

@@ -1,0 +1,554 @@
+<html layout:decorate="~{layout/cmsLayout}">
+<th:block layout:fragment="custom-head">
+    <title th:text="${article.title}">ZaoJiCMS</title>
+    <meta name="keywords" th:content="${article.metaKeywords}" />
+    <meta th:content="${article.metaDescription}" data-n-head="true" data-hid="description" name="description" />
+    <link th:href="${#sf.url('/pc/css/comment.css')}" rel="stylesheet">
+
+</th:block>
+<th:block  layout:fragment="content">
+    <div class="preloader bg-soft flex-column justify-content-center align-items-center">
+        <img class="loader-element" src="/static/libs/rocket/assets/img/brand/dark.svg" height="50" alt="Rocket logo" />
+    </div>
+    <article>
+        <!-- Hero -->
+        <section class="section-header pb-7 pb-lg-10 bg-primary text-white">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-10 text-center">
+                        <h1 class="display-3 mb-4 px-lg-5" th:text="${article.title}">90% of content gets no traffic from Google. How to improve your organic search traffic</h1>
+                        <div class="post-meta">
+                            <span class="font-weight-bold mr-3" th:text="${article.author}">James Curran</span>
+                            <span class="post-date mr-3" th:text="${article.created}">January 31, 2020</span>
+                            <span class="font-weight-bold" th:text="${'阅读量：' + article.viewCount}">7 min read</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pattern bottom"></div>
+        </section>
+        <div class="section section-sm bg-white pt-5 text-black">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-8" th:utext="${article.htmlContent}">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <div class="section section-md bg-white text-black pt-0 line-bottom-light">
+
+        <div class="container" id="comment-container" style="width: 760px;">
+            <login-modal v-on:loginsuccess="loginSuccess" v-on:loginfail="loginFail">
+
+            </login-modal>
+            <!-- Modal -->
+            <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="reportModalLabel">举报</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-check">
+                                <input v-model="reportComment.type" class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="FRAUD" >
+                                <label class="form-check-label" for="exampleRadios1">
+                                    营销诈骗
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input v-model="reportComment.type" class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="EROTICISM">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    淫秽色情
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input v-model="reportComment.type" class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="REGION" >
+                                <label class="form-check-label" for="exampleRadios3">
+                                    地域攻击
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input v-model="reportComment.type" class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="OTHER" >
+                                <label class="form-check-label" for="exampleRadios4">
+                                    其他理由
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" v-on:click="report()" class="btn btn-primary">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/x-template" id="floor-template">
+                <div class="floor">
+                    <floor-item v-bind:parent-comment-id="parentCommentId" v-bind:floor-comment-ids="floorCommentIds" v-on:reloadcomment="reloadComment" v-bind:is-logged-in="isLoggedIn" v-on:reply="reply" v-if="item.nextFloor != null" :item="item.nextFloor">
+
+                    </floor-item>
+                    <div class="self">
+                        <div class="tie-author clearfix">
+                            <div class="author-info">
+                                <a href="#" class="nickname" v-text="item.nickname">有态度网友0gnv5D</a>
+                                <!--<span class="nick-from">[浙江]</span>-->
+                            </div>
+                            <div class="floor-num" v-text="item.floorNumber">
+                                1
+                            </div>
+                        </div>
+                        <div class="tie-cnt">
+                            <p v-text="item.comment">最牛逼的是判案的时候压根没通知老干妈那边，直接判了然后通知结果</p>
+                            <!---->
+                        </div>
+                        <div class="tie-operation clearfix">
+                            <!---->
+                            <div class="rgt">
+                                <ul>
+                                    <li v-on:click="voteUp(item)"><span class="support">顶<em v-text="'[' + item.voteUp + ']'">[11432]</em></span></li>
+                                    <li v-on:click="voteDown(item)"><span class="digg">踩<em v-text="'[' + item.voteDown + ']'">[24]</em></span></li>
+                                    <li v-on:click="reply(item)" class="reply-box"><span class="reply-btn">回复</span>
+                                        <!---->
+                                    </li>
+                                </ul>
+                                <!---->
+                            </div>
+                        </div>
+                        <submit-comment-form v-bind:parent-comment-id="parentCommentId" v-bind:floor-comment-ids="floorCommentIds"  v-bind:is-logged-in="isLoggedIn" v-if="item.showCommentForm" v-on:submitsuccess="reloadComment">
+
+                        </submit-comment-form>
+
+                    </div>
+                </div>
+            </script>
+            <div class="wrapper">
+                <div class="main-bg clearfix">
+                    <div id="tie-main" class="main-bdy">
+                        <!---->
+                        <div class="tie-head">
+                            <div class="clearfix">
+                                <div class="quick-post">
+                                    <span v-on:click="showQuickComment()" class="icon i-post" v-if="isLoggedIn">快速发贴</span>
+                                    <span class="icon i-post" v-if="!isLoggedIn" v-on:click="showLoginModal()">登录并发表</span>
+                                </div>
+                                <div class="to-square">
+                                </div>
+                                <div class="page-bar">
+                                    <ul class="m-page">
+                                        <li v-on:click="loadPrePage()"><span :class="pageData.pageIndex == 1 || pageData.pageIndex == 0 ? 'last' :'last z-enable'">上一页</span></li>
+                                        <li><span style="border: none;" v-text="pageData.pageIndex + '/' + pageData.pageCount">2</span></li>
+                                        <li v-on:click="loadNextPage()"><span :class="pageData.pageIndex < pageData.pageCount ? 'next z-enable' :'next'">下一页</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div v-if="quickComment">
+                                <!---->
+                                <submit-comment-form v-bind:parent-comment-id="parentCommentId" v-bind:floor-comment-ids="floorCommentIds"  v-bind:is-logged-in="isLoggedIn" v-on:submitsuccess="loadComments(pageData.pageIndex)">
+
+                                </submit-comment-form>
+                            </div>
+                        </div>
+                        <div class="tie-new">
+                            <div id="new-list-head" class="list-head">
+                                <div class="title">
+                                    <strong>最新跟贴</strong>
+                                    <span class="tie-count">(跟贴<em v-text="pageData.recordCount">4400</em>条)</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="list-bdy">
+                                    <div class="trunk" style="text-align: center;line-height: 50px;" v-if="pageData.recordCount == 0">
+                                        <span style="font-size: 14px;">目前没有跟贴，欢迎你发表观点</span>
+                                    </div>
+                                    <div v-for="comment in pageData.comments" class="trunk clearfix">
+                                        <div statistic="GTnews_authAvatar" class="portrait z-anoy">
+                                            <a href="javascript:void(0)" class="link-to-i">
+                                                <img :src="comment.profilePhoto == '' || comment.profilePhoto == null ? defaultProfilePhoto : comment.profilePhoto"/>
+                                            </a>
+                                        </div>
+                                        <div class="rgt-col">
+                                            <div class="tie-author clearfix">
+                                                <div class="author-info">
+                                                    <a href="javascript:void(0)" class="nickname" v-text="comment.nickname">莫怜月</a>
+                                                    <!--<span class="nick-from">[云南红河哈尼族彝族自治州]</span>-->
+                                                </div>
+                                                <div class="post-time">
+                                                    <span class="inform"><i class="icon"></i><a href="javascript:void(0);" v-on:click="showReportModal(comment)" class="txt">举报</a></span>
+                                                    <span v-text="comment.commentDate">6分钟前</span>
+                                                </div>
+
+                                            </div>
+                                            <div class="tie-bdy has-flr">
+                                                <!---->
+                                                <floor-item v-bind:parent-comment-id="parentCommentId" v-bind:floor-comment-ids="floorCommentIds" v-on:reloadcomment="reloadComment"  v-bind:is-logged-in="isLoggedIn" v-on:reply="reply" :item="comment.floorComment" v-if="comment.floorComment != null">
+
+                                                </floor-item>
+                                                <div class="tie-cnt">
+                                                    <p v-text="comment.comment">我想知道是哪个活雷锋甘冒诈骗罪的风险，为老干妈打广告。。</p>
+                                                    <!---->
+                                                </div>
+                                            </div>
+                                            <div class="tie-operation clearfix">
+                                                <!---->
+                                                <div class="rgt">
+                                                    <ul>
+                                                        <li v-on:click="voteUp(comment)"><span class="support">顶<em v-text="'[' + comment.voteUp + ']'">[0]</em></span></li>
+                                                        <li v-on:click="voteDown(comment)"><span class="digg">踩<em v-text="'[' + comment.voteDown + ']'">[0]</em></span></li>
+                                                        <li v-on:click="reply(comment)" class="reply-box"><span class="reply-btn">回复</span>
+                                                            <!---->
+                                                        </li>
+                                                    </ul>
+                                                    <!---->
+                                                </div>
+                                            </div>
+                                            <submit-comment-form v-bind:parent-comment-id="parentCommentId" v-bind:floor-comment-ids="floorCommentIds" v-bind:is-logged-in="isLoggedIn" v-if="comment.showCommentForm" v-on:submitsuccess="loadComments(pageData.pageIndex)">
+
+                                            </submit-comment-form>
+                                            <!---->
+                                        </div>
+                                        <div class="one-tie-reply" v-if="comment.oneTie && comment.showOneTieReply">
+                                            <submit-comment-form  v-bind:parent-comment-id="parentCommentId" v-bind:floor-comment-ids="floorCommentIds" v-bind:is-logged-in="isLoggedIn" v-on:submitsuccess="loadComments(pageData.pageIndex)">
+
+                                            </submit-comment-form>
+                                        </div>
+                                        <!---->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-foot clearfix">
+                                <div class="page-bar">
+                                    <ul class="m-page">
+                                        <li v-on:click="loadPrePage()"><span :class="pageData.pageIndex == 1 || pageData.pageIndex == 0 ? 'last' :'last z-enable'">上一页</span></li>
+                                        <li><span style="border: none;" v-text="pageData.pageIndex + '/' + pageData.pageCount">2</span></li>
+                                        <li v-on:click="loadNextPage()"><span :class=" pageData.pageIndex < pageData.pageCount ? 'next z-enable' :'next'">下一页</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tie-foot">
+                            <p class="post-tips">文明社会，从理性发贴开始。</p>
+                            <submit-comment-form v-bind:parent-comment-id="parentCommentId" v-bind:floor-comment-ids="floorCommentIds" v-bind:is-logged-in="isLoggedIn" v-on:submitsuccess="loadComments(pageData.pageIndex)">
+
+                            </submit-comment-form>
+                            <p class="declaration">网友评论仅供网友表达个人看法，并不表明本站同意其观点或证实其描述</p>
+                        </div>
+                        <div class="silent" style="display: none;"></div>
+                        <div class="popup">
+                            <!---->
+                            <!---->
+                            <!---->
+                            <div class="modal-tips icon2" style="display: none;"></div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="section section-lg pb-5 bg-soft">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-gray text-center mb-4 mb-lg-5">
+                    <h5 class="mb-3 mb-lg-4 text-black">相关商品</h5>
+                    <p class="lead text-gray mb-4">
+                    <div class="related-products-item"  th:each="product : ${relatedProducts}" th:object="${product}"
+                         th:if="${product.isActive()}">
+                        <th:block xmlns:blc="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+                            <div style="background: none;" class="card card-product card-plain no-shadow product-list-item js-productContainer"
+                                 th:data-id="*{id}" data-colored-shadow="false">
+                                <div th:if="*{featuredProduct}" class="new-badge">
+                                    New!
+                                </div>
+                                <a th:href="@{*{url}}">
+                                    <div class="js-image image card-image">
+                                        <img th:if="*{media['primary']}" blc:src="@{*{media['primary'].url} + '?browse'}" alt="Sauce Image"/>
+                                        <div class="js-outOfStock out-of-stock-overlay is-hidden"></div>
+                                    </div>
+                                </a>
+                                <div class="card-content product-card" style="padding-top: 10px;">
+                                    <h5 class="card-title product-title">
+                                        <a th:href="@{*{url}}" th:utext="*{name}"></a>
+                                    </h5>
+                                    <th:block th:with="promoMessages=${#promotion_messages.getProductPromotionMessages(product, 'BROWSE')}">
+                                        <div class="promotion-message" th:unless="${#lists.isEmpty(promoMessages)}">
+                                            <span th:text="${promoMessages[0].message}"></span>
+                                        </div>
+                                    </th:block>
+                                    <!--Wishlist / Favorite -->
+                                    <div class="text-center" th:classappend="*{'product-actions js-productActions' + id}">
+                                        <div class="product-price-container">
+                                            <div class="price"
+                                                 th:if="${#object instanceof T(org.broadleafcommerce.core.catalog.domain.ProductBundle)}">
+                                                <span blc:price="*{salePrice}" th:if="*{onSale}" th:classappend="*{onSale}? 'price-new'" ></span>
+                                                <span blc:price="*{retailPrice}" th:classappend="*{onSale}? 'price-old'" ></span>
+                                            </div>
+                                            <div class="score" th:if="${#brc.sandbox} and *{defaultSku.score} != null">
+                                                <div th:utext="*{'Score = ' + #numbers.formatDecimal(defaultSku.score, 1, 3)}"></div>
+                                            </div>
+                                            <div class="price"
+                                                 th:unless="${#object instanceof T(org.broadleafcommerce.core.catalog.domain.ProductBundle)}">
+                                                <span blc:price="*{salePrice}" th:if="*{onSale}" th:classappend="*{onSale}? ' price-new'" ></span>
+                                                <span blc:price="*{retailPrice}" th:classappend="*{onSale}? 'price-old'" ></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
+
+                    </div>
+                    <div class="no-related-products" th:if="${relatedProducts.size() == 0 }">
+                        <span>无相关商品</span>
+                    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+<th:block layout:fragment="custom-script">
+    <script th:src="${#sf.url('/libs/vue/vue.min.js')}"></script>
+    <th:block th:include="layout/partials/loginModal"/>
+    <th:block th:include="article/partials/submitCommentForm"/>
+    <script th:src="${#sf.url('/libs/jquery.cookie.js')}"></script>
+    <script th:inline="javascript">
+        window.articleId = '[[${article.id}]]';
+        var defaultProfilePhoto = [[${#sf.url('/common/img/user.png')}]];
+        Vue.component("floor-item", {
+            template: "#floor-template",
+            props: {
+                item: Object,
+                isLoggedIn : Boolean,
+                parentCommentId : Number,
+                floorCommentIds : Array
+            },
+            data: function() {
+                return {
+                };
+            },
+            computed: {
+            },
+            methods: {
+                voteUp:function (comment) {
+                    $.ajax({
+                        url : '/article/' + window.articleId + '/comment/' + comment.commentId + '/voteUp?csrfToken=' + params.csrfToken,
+                        type : 'POST',
+                        success : function (res) {
+                            comment.voteUp += 1;
+                        },
+                        error:function () {
+
+                        }
+                    });
+                },
+                voteDown:function (comment) {
+                    $.ajax({
+                        url : '/article/' + window.articleId + '/comment/' + comment.commentId + '/voteDown?csrfToken=' + params.csrfToken,
+                        type : 'POST',
+                        success : function (res) {
+                            comment.voteDown += 1;
+                        },
+                        error:function () {
+
+                        }
+                    });
+                },
+                reply:function (comment) {
+                    this.$emit('reply',comment);
+                },
+                reloadComment : function () {
+                    this.$emit('reloadcomment')
+                }
+            }
+        });
+        var vue = new Vue({
+            el : '#comment-container',
+            data :{
+                pageData :{
+                    pageIndex : 0,
+                    pageCount : 0,
+                    recordCount : 0,
+                    comments : [
+                    ]
+                },
+                reportComment : {
+                    commentId : '',
+                    type : ''
+                },
+                quickComment : false,
+                isLoggedIn : [[${isLoggedIn}]],
+                floorCommentIds : [],
+                parentCommentId : null,
+            },
+            methods :{
+                showQuickComment:function(){
+                    this.quickComment = !this.quickComment;
+                    this.parentCommentId = null;
+                    this.floorCommentIds = [];
+                },
+                initFloorCommentFormShowAttr:function(floor){
+                    Vue.set(floor,'showCommentForm',false);
+                    if (floor.nextFloor){
+                        this.initFloorCommentFormShowAttr(floor.nextFloor);
+                    }
+                },
+                reloadComment : function(){
+                    this.loadComments(this.pageData.pageIndex);
+                },
+                loadComments:function (pageIndex) {
+                    var _this = this;
+                    $.ajax({
+                        url : '/article/' + window.articleId + '/comment/page?pageIndex=' + pageIndex,
+                        type : 'GET',
+                        success : function (res) {
+                            _this.pageData = res;
+                            if(res.comments) {
+                                //初始化回帖表单显示属性
+                                for (var i = 0; i < res.comments.length; i++) {
+                                    var oneTie = res.comments[i].floorComment == null;
+                                    Vue.set(res.comments[i],'oneTie',oneTie);
+                                    Vue.set(res.comments[i], 'showCommentForm', false);
+
+                                    if (res.comments[i].floorComment){
+                                        _this.initFloorCommentFormShowAttr(res.comments[i].floorComment);
+                                    }
+                                }
+                            }
+                            //解决记录数为0的时候，当前页数显示1的问题
+                            if(res.pageCount === 0 && res.pageIndex === 1) {
+                                _this.pageData.pageIndex = 0;
+                            }
+                        },
+                        error:function () {
+                            console.log('加载文章评论失败');
+                        }
+                    })
+                },
+                loadNextPage:function(){
+                    if (this.pageData.pageIndex < this.pageData.pageCount) {
+                        this.loadComments(this.pageData.pageIndex + 1);
+                    }
+                },
+                loadPrePage:function(){
+                    if (this.pageData.pageIndex > 1) {
+                        this.loadComments(this.pageData.pageIndex - 1);
+                    }
+                },
+                loginSuccess:function (res) {
+                    console.log('登录成功');
+                    this.isLoggedIn = true;
+                    $('#login-modal').modal('hide');
+
+                },
+                loginFail : function(xmlHttpRequest,e){
+
+                },
+                showLoginModal:function () {
+                    $('#login-modal').modal('show');
+                },
+                showReportModal:function(comment){
+                    var cookieReport = $.cookie('REPORT_COMMENT_' + comment.commentId);
+                    if (cookieReport){
+                        toastr.error('你已经举报过该评论了');
+                        return;
+                    }
+                    if(!this.isLoggedIn){
+                        $('#login-modal').modal('show');
+                        return;
+                    }
+                    this.reportComment.commentId = comment.commentId;
+                    $('#reportModal').modal('show');
+                },
+                report:function(){
+                    if (this.reportComment.commentId === '' ){
+                        toastr.error('参数错误，提交失败');
+                        return;
+                    }
+                    if (this.reportComment.type === ''){
+                        toastr.error('请选择举报类型');
+                        return;
+                    }
+                    var _this = this;
+                    $.ajax({
+                        url : '/article/' + window.articleId + '/comment/' + _this.reportComment.commentId + '/report?csrfToken=' + params.csrfToken,
+                        type : 'POST',
+                        dataType : 'json',
+                        contentType : 'application/json',
+                        data : JSON.stringify(_this.reportComment),
+                        success : function (res) {
+                            if (res.status === 'SUCCESS'){
+                                $.cookie('REPORT_COMMENT_' + _this.reportComment.commentId,_this.reportComment.commentId,{ expires: 7 });
+                                toastr.success('举报成功');
+                                $('#reportModal').modal('hide');
+                            }else {
+                                toastr.error(res.message);
+                            }
+                        },
+                        error:function () {
+                            toastr.error('举报失败');
+                        }
+                    })
+                },
+                getFloor : function(comment){
+                    this.floorCommentIds.push(comment.commentId);
+                    if (comment.nextFloor){
+                        this.getFloor(comment.nextFloor);
+                    }
+                },
+                reply:function(comment){
+                    console.log(comment);
+                    this.parentCommentId = comment.commentId;
+                    comment.showCommentForm = !comment.showCommentForm;
+                    this.floorCommentIds = [];
+                    this.floorCommentIds.push(comment.commentId);
+                    if (comment.floorComment){
+                        this.getFloor(comment.floorComment);
+                    }
+                    if (comment.nextFloor){
+                        this.getFloor(comment.nextFloor);
+                    }
+
+                    this.floorCommentIds = this.floorCommentIds.reverse();
+                    console.log(this.floorCommentIds);
+
+                },
+                voteUp:function (comment) {
+                    $.ajax({
+                        url : '/article/' + window.articleId + '/comment/' + comment.commentId + '/voteUp?csrfToken=' + params.csrfToken,
+                        type : 'POST',
+                        success : function (res) {
+                            comment.voteUp += 1;
+                        },
+                        error:function () {
+
+                        }
+                    });
+                },
+                voteDown:function (comment) {
+                    $.ajax({
+                        url : '/article/' + window.articleId + '/comment/' + comment.commentId + '/voteDown?csrfToken=' + params.csrfToken,
+                        type : 'POST',
+                        success : function (res) {
+                            comment.voteDown += 1;
+                        },
+                        error:function () {
+
+                        }
+                    });
+                }
+            },
+            created:function () {
+                this.loadComments(1);
+            },
+            mounted : function () {
+
+            }
+        });
+    </script>
+</th:block>
+</html>

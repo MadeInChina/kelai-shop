@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+                 version="2.0">
+
+    <named-query name="BC_READ_ORDER_TRANSACTION_AMOUNT_BY_DATE_RANGE">
+        <query>
+            SELECT SUM(ord.subTotal) as totalAmount FROM org.broadleafcommerce.core.order.domain.Order ord
+            where ord.submitDate &gt;= :start AND ord.submitDate &lt;= :end AND (ord.status = 'PAID' OR ord.status = 'SHIPPED' OR ord.status = 'RECEIVED' OR ord.status = 'REFUND_PROCESSING'  OR ord.status = 'REFUND_REJECTED'  OR ord.status = 'REFUNDED')
+        </query>
+    </named-query>
+    <named-query name="BC_READ_TRAN_AMOUNT_OF_SUBMITTED_ORDER">
+        <query>
+            SELECT SUM(ord.subTotal) as totalAmount FROM org.broadleafcommerce.core.order.domain.Order ord
+            where  (ord.status = 'PAID' OR ord.status = 'SHIPPED' OR ord.status = 'RECEIVED' OR ord.status = 'REFUND_PROCESSING'  OR ord.status = 'REFUND_REJECTED'  OR ord.status = 'REFUNDED')
+        </query>
+    </named-query>
+    <named-query name="BC_READ_COUNT_OF_ORDER_BY_STATUS">
+        <query>
+            SELECT COUNT (ord.id) as orderCount FROM org.broadleafcommerce.core.order.domain.Order ord
+            where  ord.status = :status
+        </query>
+    </named-query>
+    <named-query name="BC_READ_ORDER_BY_WRITE_OFF_CODE">
+        <query>
+            SELECT ord  FROM cn.com.kelaikewang.core.order.domain.ZaoJiCMSOrder ord
+            where  ord.writeOffCode = :writeOffCode
+        </query>
+    </named-query>
+</entity-mappings>

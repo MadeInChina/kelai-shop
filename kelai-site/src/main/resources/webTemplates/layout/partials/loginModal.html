@@ -1,0 +1,81 @@
+<!-- Modal -->
+<script type="text/x-template" id="login-modal-template">
+    <form v-on:keyup.enter="login()">
+        <div class="modal fade" id="login-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">登录</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">手机号</label>
+                            <input type="text" v-model="username" class="form-control form-control-lg" id="formGroupExampleInput" placeholder="请输入手机号">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">密码</label>
+                            <input type="password" v-model="password" class="form-control form-control-lg" id="formGroupExampleInput2" placeholder="请输入密码">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" v-on:click="login()" class="btn btn-primary">登录</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+<script>
+    Vue.component("login-modal", {
+        template: "#login-modal-template",
+        data: function() {
+            return {
+                username : '',
+                password : ''
+            };
+        },
+        methods: {
+            login:function () {
+                var username = $.trim(this.username);
+                var password = $.trim(this.password);
+                if (username === ''){
+                    toastr.error('请输入用户名');
+                    return;
+                }
+                if (password === ''){
+                    toastr.error('请输入密码');
+                    return;
+                }
+                var _this = this;
+                $.ajax({
+                    url : '/login_post.htm',
+                    type:'POST',
+                    contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+                    data : {
+                        username : _this.username,
+                        password : _this.password,
+                        csrfToken : params.csrfToken
+                    },
+                    success : function (res) {
+                        if (res.status === 'SUCCESS'){
+                            toastr.success('登录成功');
+                            _this.$emit('loginsuccess',res);
+                        }else {
+                            toastr.error('登录失败，用户名或者密码错误');
+                            _this.$emit('loginfail',res);
+                        }
+                    },
+                    error:function (XMLHttpRequest,e) {
+                        toastr.error('登录失败');
+                        _this.$emit('loginfail',XMLHttpRequest,e);
+                    }
+                })
+            }
+        }
+    });
+</script>

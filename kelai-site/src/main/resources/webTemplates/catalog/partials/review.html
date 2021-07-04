@@ -1,0 +1,23 @@
+<div id="review">
+    <h4 class="title">分享您的意见</h4>
+    <blc:form action="#" id="new-rating-form"
+              th:attr="data-action=@{'/reviews/product/' + ${product.id}}" onsubmit="return false;">
+        <div class="rate-product">
+            <label>&nbsp;<span>评分</span></label>
+            <input type="radio" class="star" name="rating" value="1"/>
+            <input type="radio" class="star" name="rating" value="2"/>
+            <input type="radio" class="star" name="rating" value="3"/>
+            <input type="radio" class="star" name="rating" value="4"/>
+            <input type="radio" class="star" name="rating" value="5"/>
+        </div>
+        <div class="form-group label-floating" style="width: 100% !important;">
+            <label class="control-label">评论内容</label>
+            <span class="text-danger"></span>
+            <textarea name="reviewText" type="text" class="form-control" rows="4"></textarea>
+        </div>
+        <button class="js-submitReview btn btn-primary" type="submit">
+            提交
+        </button>
+        <span class="text-danger review-status-bottom" style="display: none;">请给我们的商品打个分</span>
+    </blc:form>
+</div>

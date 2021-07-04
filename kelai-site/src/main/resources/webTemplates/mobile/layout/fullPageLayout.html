@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="zh"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang="zh"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="zh"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="zh"> <!--<![endif]-->
+
+<head>
+    <th:block th:include="mobile/layout/partials/head"/>
+</head>
+
+<body th:class="${'locale-' + session.blLocale.localeCode} +' index-page'">
+<div id="notification_bar"></div>
+<div th:replace="mobile/layout/partials/nav"></div>
+<div class="main">
+    <div class="container">
+        <div th:replace="~{mobile/layout/partials/breadcrumbs :: crumbs}"></div>
+        <div layout:fragment="content"></div>
+    </div>
+</div>
+
+<th:block layout:fragment="post-content"/>
+
+<footer th:replace="mobile/layout/partials/footer"></footer>
+    <!--<script src="/js/serviceCategory.js"></script>-->
+</body>
+</html>

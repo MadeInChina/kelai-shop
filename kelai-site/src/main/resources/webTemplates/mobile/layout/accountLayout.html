@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="zh"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang="zh"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="zh"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="zh"> <!--<![endif]-->
+
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">[[${#props.get('siteTitle')}]]</title>
+    <th:block th:replace="mobile/layout/partials/head" />
+    <th:block layout:fragment="custom-head">
+    </th:block>
+</head>
+
+<body th:class="${'locale-' + session.blLocale.localeCode}">
+<!--<header th:replace="mobile/layout/partials/header"></header>-->
+
+<div id="content" class="width_setter group" role="main">
+
+    <nav th:replace="mobile/layout/partials/nav"></nav>
+
+    <div class="main account-page">
+        <div class="section">
+            <!--<div class="container">-->
+
+                <!--<ul th:replace="mobile/account/partials/accountMenu"></ul>-->
+
+                <!--<div class="col-sm-9">-->
+                    <th:block layout:fragment="content" />
+                <!--</div>-->
+
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+    <th:block th:replace="mobile/partials/store"></th:block>
+    <th:block th:replace="mobile/account/partials/qrcode"></th:block>
+<footer th:replace="mobile/layout/partials/footer"></footer>
+    <script type="text/javascript" src="//res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=0ztLsTTubZFUCTY92bo75QfE"></script>
+    <script src="/static/m/js/store.js"></script>
+<th:block layout:fragment="custom-script">
+</th:block>
+</body>
+</html>

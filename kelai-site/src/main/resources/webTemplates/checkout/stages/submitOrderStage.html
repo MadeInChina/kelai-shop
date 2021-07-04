@@ -1,0 +1,12 @@
+<div class="checkout-card"
+     th:with="isActiveStage=${#checkoutStage.isActiveStage('SUBMIT_ORDER', activeStage)}" >
+    <div class="checkout-stage js-checkoutStage">
+        <div class="payment-stage-content js-paymentStageContent  js-submitOrder">
+            <div th:if="${isActiveStage}" class="checkout-stage-action">
+                <a href="#" class="btn btn-primary pull-right js-submitOrderStage">
+                    <span>提交订单</span> <i class="material-icons">keyboard_arrow_right</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

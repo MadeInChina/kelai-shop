@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col" style="text-align: right;padding-right: 20px;">
+        <!--处理页数小于7-->
+        <ul class="pagination">
+            <!-- 上一页 -->
+            <li class="page-item" th:class="${page.pageIndex} == 1 ? 'disabled' : ''">
+                <a th:href="${page.pageIndex} <=1 ? 'javascript:void(0);' : ${@paginationUtils.getPageUrl(page.pageIndex-1)}" class="page-link" data-th-attr="pageIndex=${page.pageIndex} - 1" aria-label="Previous">
+                    <span aria-hidden="true">«</span>
+                </a>
+            </li>
+
+            <!-- 迭代生成页码 -->
+            <li class="page-cur-count" style="line-height: 36px;">
+                <label th:text="${page.getPageIndex()}"></label><label>/</label><label th:text="${page.getPageCount()}"></label>
+            </li>
+            <!-- 下一页 -->
+            <li class="page-item" th:class="${page.pageIndex} == ${page.getPageCount()} ? 'disabled' : ''">
+                <a th:href="${page.pageIndex} < ${page.getPageCount()} ? ${@paginationUtils.getPageUrl(page.pageIndex+1)} : 'javascript:void(0);'" class="page-link" data-th-attr="pageIndex=${page.pageIndex} + 1" aria-label="Next">
+                    <span aria-hidden="true">»</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
