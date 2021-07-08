@@ -12,3 +12,5 @@
 ## 特性
 - 模块化设计、配置合并、高可定制性
 
+## QQ交流群
+![image](https://images.gitee.com/uploads/images/2021/0708/111944_5de82c01_9407449.png)
