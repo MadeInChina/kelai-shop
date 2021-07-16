@@ -84,12 +84,13 @@ JDK：1.8
 数据库：mysql 5.7
 
 # 如何在本机运行商城
+1、下载solr并运行，商城使用solr搜索
 
-1、创建数据库，名称随意
+2、创建数据库，名称随意
 
-2、使用intellij idea打开项目，在kelai-core/src/main/resources/runtime-properties/common-shared.properties修改数据库链接
+3、使用intellij idea打开项目，在kelai-core/src/main/resources/runtime-properties/common-shared.properties修改数据库链接
 
-3、修改kelai-admin/src/main/resources/runtime-properties/default.properties里的配置，把update改为create
+4、修改kelai-admin/src/main/resources/runtime-properties/default.properties里的配置，把update改为create
 
 blPU.hibernate.hbm2ddl.auto=update
 blEventPU.hibernate.hbm2ddl.auto=update
