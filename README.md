@@ -79,7 +79,7 @@ Spring Boot、Spring Security、Solr、 Hibernate 、 Quartz
 
 系统：windows、linux
 
-JDK：1.8
+JDK：JDK8
 
 数据库：mysql 5.7
 
