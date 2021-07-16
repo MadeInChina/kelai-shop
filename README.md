@@ -5,11 +5,11 @@
 前台Demo：http://kelai.lianjieweilai.net/<br/>
 管理后台Demo：http://kelai.lianjieweilai.net/admin/login<br/>
 管理后台用户名：admin 密码：admin<br/>
-# 技术栈：
+# 技术栈
 
 Spring Boot、Spring Security、Solr、 Hibernate 、 Quartz
 
-# 优秀特性：
+# 优秀特性
 
 1、可扩展的模块化设计。 几乎每个方面都可以被重写、扩展或修改，以增强或更改默认行为，以最适合您的需求，包括所有的服务、数据访问对象和实体。
 
@@ -17,7 +17,7 @@ Spring Boot、Spring Security、Solr、 Hibernate 、 Quartz
 
 3、灵活的促销系统。 高度可配置的促销系统，我们提供几个可应用促销的标准级别：订单级别、订单项级别、运费级别。
 
-# 主要功能：
+# 主要功能
 
 商品管理、订单管理、广告管理、推荐商品管理、CMS管理、促销、门店管理、运费模板、CRM、用户管理、权限管理
 
@@ -57,7 +57,7 @@ Spring Boot、Spring Security、Solr、 Hibernate 、 Quartz
 ![avatar](https://oscimg.oschina.net/oscnet/up-3cf321cf411366c3152f8a9d3bd172f174b.png)
 
 
-# 客来商城在原来基础上新增了如下特性：
+# 客来商城在原来基础上新增了如下特性
 
 1、对管理后台进行了汉化
 
@@ -97,6 +97,16 @@ blSecurePU.hibernate.hbm2ddl.auto=update
 
 4、运行。第一次运行会执行数据的初始化，会比较久，请耐心等待，初始化完毕后把第三步的create改回update
 
-# 未来规划：
+# 未来规划
 
 微信小程序，手机APP，分销，功能优化，交互及界面优化，加入更多门店相关的功能
+
+#版权 
+1.允许用于个人学习研究使用
+
+2.禁止将客来商城代码和资源以任何形式、名义进行出售
+
+3.限制商用，如果商业使用请联系我们，QQ188899987
+
+# 文档地址
+http://kelai.lianjieweilai.net/doc/index.html
