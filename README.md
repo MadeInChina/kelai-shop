@@ -96,7 +96,7 @@ blPU.hibernate.hbm2ddl.auto=update
 blEventPU.hibernate.hbm2ddl.auto=update
 blSecurePU.hibernate.hbm2ddl.auto=update
 
-4、运行。第一次运行会执行数据的初始化，会比较久，请耐心等待，初始化完毕后把第三步的create改回update
+5、运行。第一次运行会执行数据的初始化，会比较久，请耐心等待，初始化完毕后把第三步的create改回update
 
 # 未来规划
 
